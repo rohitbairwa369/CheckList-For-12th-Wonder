@@ -1,0 +1,64 @@
+<section class="checklist md:container sm:p-1 textColor mr-8" >
+    <p-toast styleClass="text-xl topclass"></p-toast>
+    <div class="flex justify-content-between realwidth border-bottom-1 p-2 border-500">
+        <div>
+            <h3>ToDo List</h3>
+        </div>
+        <div class="flex align-items-center gap-3">
+            <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateSub()"></i>
+            <i class="pi pi-calendar text-3xl"></i>
+            <h5>{{currentDay}}-{{currentMonth+1}}-{{currentYear}}</h5>
+            <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateAdd()"></i>
+            
+        </div>
+    </div>
+    <div class="card">
+            <p-table [value]="todaysTask" dataKey="id" editMode="row" [reorderableColumns]="true">
+                <ng-template pTemplate="body" let-tasks  let-editing="editing" let-ri="rowIndex">
+                    <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)"  *ngIf="tasks.date==currentDay" [pEditableRow]="tasks">
+                        <div class="hover:bg-gray-200 cursor-move w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
+                            <i class="pi pi-list text-2xl" [pReorderableRowHandle]></i>
+                        </div>
+                        <td class="text-2xl border-0 siztex" >
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                 {{tasks.heading|slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                            <!-- <div class="bg-green-100 flex align-items-center cursor-pointer border-green-500 border-round-2xl border-1 text-2xl px-2 text-green-900 hover:bg-green-300 " (click)="openSubtasksbar(tasks.id)">View Details
+                            </div> -->
+                            <td class="border-0">
+                                <div class="flex align-items-center justify-content-center gap-2">
+                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(tasks)" class="p-button-rounded p-button-text"></button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(tasks)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(tasks, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                </div>
+                            </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+        <div class="border-1 border-round-xl p-3 mt-3" *ngIf="addlistvalue">
+            <div class="flex justify-content-between gap-1">
+                <input pInputText type="text" name="" id="" class="max-w-full w-full border-0 text-2xl mb-2" placeholder="Task Name" [(ngModel)]="newTaskName">
+                <i class="pi pi-times border-circle cursor-pointer p-1"  pTooltip="Close" tooltipPosition="top" (click)="addlistvalue=false"></i>
+            </div>
+           
+           <input pInputText type="text" name="" id="" class="w-full border-0 text-xl" placeholder="Description" [(ngModel)]="newTaskdescription">
+           <div class="flex justify-content-end mt-3 border-top-1 pt-3 border-gray-300">
+                <button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="addnewtask()">Save</button>
+            </div>
+        </div>
+
+
+        <div class="flex mt-5 gap-2 align-items-center onhoverbtn mb-2 px-1 "  (click)="addlist()">
+            <i class="pi pi-plus text-xl onhovericon  border-1 border-white p-1 cursor-pointer"></i>
+            <label class="text-xl cursor-pointer ">Add Task</label>
+        </div>
+</section>

@@ -1,0 +1,23 @@
+
+
+.checklistwidth{
+    max-width: 115rem;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+    .subtasktemp{
+        width: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+       
+    }
+    @media only screen and (max-width: 1200px) {
+        .subtasktemp {
+          max-width: 100vw;
+        }
+      }
+    

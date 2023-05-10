@@ -1,0 +1,67 @@
+
+.checklist{
+    min-width: 80rem;
+    width: 100%;
+    height: 100vh;
+
+}
+
+:host::ng-deep{.topclass{
+    top: 60px !important;
+  }
+
+.p-datatable .p-datatable-tbody > tr > td {
+    border: 0;
+}
+}
+
+
+
+
+@media only screen and (max-width: 1111px) {
+    .checklist {
+      min-width: 78vw;
+      height: auto;
+    }
+  }
+
+@media screen and (max-width: 960px)
+{
+::ng-deep {
+#pr_id_2 .p-datatable-tbody>tr>td {
+    display: block !important;
+    width: 100% !important;
+    .justify-content-center {
+        -webkit-box-pack: end !important;
+            -ms-flex-pack: end !important;
+                justify-content: end !important;
+    }
+}
+
+}
+}
+
+.input-size-extend{
+    width: 100%;
+}
+
+.onhoverbtn:hover{
+    color:rgb(49, 132, 41);
+    .onhovericon{
+        color:white;
+        background-color: green;
+        border:0.1rem solid green;
+        border-radius: 50%;
+    
+    }
+}
+
+.siztex{
+    max-width: 70rem;
+    width: 100%;
+}
+
+
+.topostion{
+    top:50vh;
+}

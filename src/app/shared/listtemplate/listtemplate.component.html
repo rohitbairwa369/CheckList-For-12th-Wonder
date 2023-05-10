@@ -1,0 +1,44 @@
+<div class="flex flex-column sm:h-auto md:h-screen boxshadow bg-gray-100 p-3">
+    <h3 class="p-2">Task</h3>
+    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodatahere" styleClass="custombar1">
+        <ng-container *ngFor="let task of todaysTask;">
+            <span class="text-xl text-gray-600 p-2 font-light" *ngIf="task.id==currentId">{{task.heading}}</span>
+        </ng-container>
+    </p-scrollPanel>
+    <ng-template #nodatahere class="p-2">
+    <span class="text-xl text-gray-600 p-2 font-light">No Task to show. Please click on any task!</span>
+    </ng-template>
+    <h3 class="p-2">Description</h3>
+    <ng-template #nodeschere class="p-2">
+        <span class="text-xl text-gray-600 p-2 font-light">No Description to show. Please click on any task!</span>
+        </ng-template>
+    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodeschere" styleClass="custombar1">
+        <ng-container *ngFor="let task of todaysTask;">
+            <span class="text-xl text-gray-600 p-2 font-light" *ngIf="task.id==currentId">{{task.desc}}</span>
+        </ng-container>
+    </p-scrollPanel>
+
+<div class="card hidden" >
+    <p-table [value]="todaysTask" [reorderableColumns]="true"  [scrollable]="true" scrollHeight="150px">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-3xl">
+                    <div class="flex justify-content-between">
+                    <div>Sub Tasks</div>
+                    <!-- <div><i class="pi pi-plus text-xl onhovericon  border-1 border-white p-1 cursor-pointer"></i>
+                    </div> -->
+                </div></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <tr *ngFor="let tasks of todaysTask; let index='index' ">
+                <td class="text-2xl" *ngIf="tasks.id==currentId">   
+                                {{tasks.subtasks[0].name}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+</div>

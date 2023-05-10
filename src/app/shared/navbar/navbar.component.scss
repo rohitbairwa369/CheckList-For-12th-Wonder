@@ -1,0 +1,47 @@
+
+.navbar{
+  background-color:var(--navbar);
+  margin: 0;
+  padding: 0;
+  
+  &_notify{
+  height:1.5rem;
+  width:1.5rem;
+  background-color:red;
+  top:-0.7rem;
+  right:-2.6rem;
+  color:white;
+  border:0.1rem solid white;
+}
+&_icons-size{
+  width:2.5rem;
+  height:2.5rem;
+}
+&_color-icon-white{
+  fill:white;
+}
+
+}
+
+
+.active{
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.hoverbtn:hover{
+-webkit-box-shadow: rgba(139, 139, 139, 0.02) 0px 1px 3px 0px, rgba(0, 0, 0, 0.15) 0px 0px 0px 1px;
+        box-shadow: rgba(139, 139, 139, 0.02) 0px 1px 3px 0px, rgba(0, 0, 0, 0.15) 0px 0px 0px 1px;
+cursor: pointer;
+}
+
+.searchresult{
+max-width:300px;
+width: 100%;
+top:5rem;
+left:14rem;
+-webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+z-index: 2;
+}
