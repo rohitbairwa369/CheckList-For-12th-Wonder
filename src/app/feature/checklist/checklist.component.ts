@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
-
+import { ChecklistDataService } from 'src/app/service/checklist-data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checklist',
@@ -27,7 +27,7 @@ export class ChecklistComponent implements OnInit {
   sortAscending: boolean = true;
   formatedDate = this.currentDay + '/'+ this.currentMonth +'/'+ this.currentYear
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private taskdataService : ChecklistDataService) {
     this.date = new Date();
   }
 
@@ -81,6 +81,19 @@ onRowEditCancel(task: any, index: number) {
       const retrievedhistory = localStorage.getItem('edithistory');
       this.historydata = JSON.parse(retrievedhistory);
     }
+
+    this.taskdataService.getTaskData().pipe(map(responsedata=>{
+      const taskArray =[];
+      for(const key in responsedata){
+        if(responsedata.hasOwnProperty(key)){
+          taskArray.push({...responsedata[key], id: key})
+        }
+      }
+      return taskArray;
+    })).subscribe((data)=>{
+      console.log("API Data",data);
+    })
+
   }
   
   deleteTask(id:any){
