@@ -8,7 +8,7 @@ import { Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
 export class HomeComponent implements OnInit {
   constructor() { }
 
-  taskdata:any[]=[];
+ 
   ngOnInit(): void {
   }
 
@@ -32,9 +32,5 @@ export class HomeComponent implements OnInit {
   }
 
 
-  currentSeentask(task:any[]){
-    this.taskdata=task;
-    console.log(task);
-    console.log("hello",this.taskdata);
-  }
+
 }

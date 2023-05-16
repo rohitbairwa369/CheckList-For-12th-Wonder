@@ -7,11 +7,13 @@ import { FeatureModule } from './feature/feature.module';
 import { SharedModule } from './shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PrimengModule } from './primeng/primeng.module';
+import { LoginComponent } from './auth/login/login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

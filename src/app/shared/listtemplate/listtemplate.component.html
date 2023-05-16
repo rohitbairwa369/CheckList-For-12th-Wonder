@@ -1,8 +1,8 @@
 <div class="flex flex-column sm:h-auto md:h-screen boxshadow bg-gray-100 p-3">
     <h3 class="p-2">Task</h3>
-    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodatahere" styleClass="custombar1">
+    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodatahere" styleClass="custombar1 maxheight">
         <ng-container *ngFor="let task of todaysTask;">
-            <span class="text-xl text-gray-600 p-2 font-light" *ngIf="task.id==currentId">{{task.heading}}</span>
+            <span class="text-xl text-gray-600 p-2 font-light " *ngIf="task.id==currentId">{{task.heading}}</span>
         </ng-container>
     </p-scrollPanel>
     <ng-template #nodatahere class="p-2">
@@ -12,33 +12,31 @@
     <ng-template #nodeschere class="p-2">
         <span class="text-xl text-gray-600 p-2 font-light">No Description to show. Please click on any task!</span>
         </ng-template>
-    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodeschere" styleClass="custombar1">
+    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodeschere" styleClass="custombar1 maxheight">
         <ng-container *ngFor="let task of todaysTask;">
-            <span class="text-xl text-gray-600 p-2 font-light" *ngIf="task.id==currentId">{{task.desc}}</span>
+            <span class="text-xl text-gray-600 p-2 font-light " *ngIf="task.id==currentId">{{task.desc}}</span>
         </ng-container>
     </p-scrollPanel>
 
-<div class="card hidden" >
-    <p-table [value]="todaysTask" [reorderableColumns]="true"  [scrollable]="true" scrollHeight="150px">
-        <ng-template pTemplate="header">
-            <tr>
-                <th class="text-3xl">
-                    <div class="flex justify-content-between">
-                    <div>Sub Tasks</div>
-                    <!-- <div><i class="pi pi-plus text-xl onhovericon  border-1 border-white p-1 cursor-pointer"></i>
-                    </div> -->
-                </div></th>
-            </tr>
+<div class="flex flex-column">
+    <h3 class="p-2 mb-3">Edit History</h3>
+    <ng-template #nodedithere class="p-2">
+        <span class="text-xl text-gray-600 p-2 font-light">No Edit history to show. Please click on any task!</span>
         </ng-template>
-        <ng-template pTemplate="body">
-            <tr *ngFor="let tasks of todaysTask; let index='index' ">
-                <td class="text-2xl" *ngIf="tasks.id==currentId">   
-                                {{tasks.subtasks[0].name}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodedithere" styleClass="custombar1">
+        <ng-container *ngFor="let history of historydata;">
+            <div class="flex justify-content-between border-bottom-1 border-gray-600 p-2" *ngIf="history.id==currentId">
+                <label for="previous" class="text-2xl text-gray-800">Previous Value</label>
+                <span class="text-xl text-gray-600 p-2 font-light">{{history.previous}}</span>
+                </div>
+            
+            <div class="flex justify-content-between border-bottom-1 border-gray-600 p-2" *ngIf="history.id==currentId">
+                <label for="previous" class="text-2xl text-gray-800">Changed To</label>
+                <span class="text-xl text-gray-600 p-2 font-light" >{{history.current}}</span>
+                <span class="text-xl text-gray-600 p-2 font-light" >{{history.time}}</span>             
+            </div>
+        </ng-container>
+    </p-scrollPanel>
 </div>
-
 
 </div>

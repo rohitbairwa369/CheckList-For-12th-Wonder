@@ -4,7 +4,7 @@
       <div
         class="flex align-items-center  hoverbtn border-circle w-3rem h-3rem align-items-center justify-content-center" (click)="toggleSidebar.emit()">
         <i class="pi pi-bars text-4xl "></i></div>
-<h3>Todo'<span class="text-gray-500">s</span></h3>
+            <h3>Todo'<span class="text-gray-500">s</span></h3>
       <span class="p-input-icon-left p-ml-auto text-gray-800">
         <i class="pi pi-search text-2xl"></i>
         <input pInputText type="text" [(ngModel)]="searchkey"  placeholder="Search keyword" class=" text-overflow-ellipsis max-w-10rem sm:min-w-2rem md:max-w-25rem h-3rem text-xl mr-2" (click)="searching=true" (blur)="searching=false" />
@@ -15,9 +15,9 @@
       <div class="flex align-items-center cursor-pointer">
         <div class="border-circle navbar_notify relative text-xs flex justify-content-center align-items-center hoverbtn">2
         </div>
-        <i class="pi pi-bell text-4xl" pTooltip="Notifications" tooltipPosition="left"></i>
+              <i class="pi pi-bell text-4xl" pTooltip="Notifications" tooltipPosition="left"></i>
       </div>
-      <div pTooltip="Profile" tooltipPosition="bottom"><img src="../../../assets/images/user.jpg" alt=""
+      <div pTooltip="Profile" tooltipPosition="bottom" (click)="showlogout()"><img src="../../../assets/images/user.jpg" alt=""
           class="border-circle w-3rem h-3rem border-fade-shadow ml-3 cursor-pointer" ></div>
     </div>
   </div>
@@ -25,19 +25,21 @@
 
 
 <div class="flex flex-column align-items-start p-3 h-auto absolute bg-white searchresult border-round-xl" *ngIf="searching && searchresult.length>0; else noSearchResult">
-<div class="text-xl text-gray-800 p-1 text-overflow-ellipsis  border-gray-400 cursor-pointer hover:bg-gray-300" *ngFor="let result of searchresult">
+<div class="text-xl text-gray-800 p-1 text-overflow-ellipsis border-round-xl w-full  border-gray-400 cursor-pointer hover:bg-gray-200" *ngFor="let result of searchresult | slice:0:5">
   {{ result.heading | slice:0:44}}
 </div>
 </div>
 
 <ng-template #noSearchResult>
   <div class="flex flex-column align-items-start p-3 h-auto absolute bg-white searchresult border-round-xl" *ngIf="searching">
-    <div class="text-xl text-red-800 p-1 text-overflow-ellipsis  border-gray-400 cursor-pointer hover:bg-gray-300" >
+    <div class="text-xl text-red-800 p-1 text-overflow-ellipsis border-round-xl w-full  border-gray-400 cursor-pointer hover:bg-gray-200" >
     Search Not Found!
     </div>
     </div>
 </ng-template>
 
-
+<div class="flex justify-content-center hover:text-red-400 cursor-pointer p-2 md:w-10rem sm:w-5rem absolute border-round-xl border-1 border-gray-300 right-0 mr-4 bg-white z-2" *ngIf="showlog">
+<span class="no-underline text-2xl" (click)="logoutSession()"> <i class="pi pi-sign-out"></i> Logout</span>
+</div>
 
 

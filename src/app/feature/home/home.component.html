@@ -1,10 +1,10 @@
 <div class="grid m-0">
-    <div class="col-12  p-0 z-3 fixed"><app-navbar (toggleSidebar)="toggleSidebar()" [updateData]="taskdata"></app-navbar></div>
+    <div class="col-12  p-0 z-3 fixed"><app-navbar (toggleSidebar)="toggleSidebar()" [currentId]="currentId"></app-navbar></div>
 </div>
 <div class="flex flex-wrap">
     <app-sidebar  [isOpen]="isSidebarOpen" class="p-0 m-0 z-2 fixed mt-8" style="height:100%"></app-sidebar>
     <div class="checklistwidth mt-8 flex md:justify-content-center sm:justify-content-center container">
         <div class="md:w-30rem sm:min-w-0"></div>
-        <app-checklist (openSubtasks)="currentSeenid($event)" (sendtaskupdate)="currentSeentask($event)"></app-checklist></div>
-    <div class=" subtasktemp  sm:container md:p-0 mt-8 "><app-listtemplate [currentId]="currentId" [taskdata]="taskdata"></app-listtemplate></div>
+        <app-checklist (openSubtasks)="currentSeenid($event)"></app-checklist></div>
+    <div class=" subtasktemp  sm:container md:p-0 mt-8 "><app-listtemplate [currentId]="currentId" ></app-listtemplate></div>
 </div>

@@ -18,6 +18,9 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import {PickListModule} from 'primeng/picklist';
 import {TooltipModule} from 'primeng/tooltip';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {PasswordModule} from 'primeng/password';
+import {CheckboxModule} from 'primeng/checkbox';
+
 
 @NgModule({
   declarations: [],
@@ -40,7 +43,9 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
     ProgressBarModule,
     PickListModule,
     TooltipModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    PasswordModule,
+    CheckboxModule
   ],
   exports:[
     ButtonModule,
@@ -60,7 +65,9 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
     ProgressBarModule,
     PickListModule,
     TooltipModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    PasswordModule,
+    CheckboxModule
   ]
 })
 export class PrimengModule { }

@@ -1,8 +1,8 @@
 <section class="checklist md:container sm:p-1 textColor mr-8" >
     <p-toast styleClass="text-xl topclass"></p-toast>
     <div class="flex justify-content-between realwidth border-bottom-1 p-2 border-500">
-        <div>
-            <h3>ToDo List</h3>
+        <div class="flex align-items-center gap-5">
+            <h3>ToDo List</h3><i class="pi pi-sort-alt p-3 border-round-xl cursor-pointer hover:bg-gray-300" (click)="sortTaskData()"></i>
         </div>
         <div class="flex align-items-center gap-3">
             <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateSub()"></i>
@@ -13,13 +13,13 @@
         </div>
     </div>
     <div class="card">
-            <p-table [value]="todaysTask" dataKey="id" editMode="row" [reorderableColumns]="true">
+            <p-table [value]="todaysTask" dataKey="id"  editMode="row" [reorderableColumns]="true" [rowHover]="true">
                 <ng-template pTemplate="body" let-tasks  let-editing="editing" let-ri="rowIndex">
                     <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)"  *ngIf="tasks.date==currentDay" [pEditableRow]="tasks">
-                        <div class="hover:bg-gray-200 cursor-move w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
-                            <i class="pi pi-list text-2xl" [pReorderableRowHandle]></i>
+                        <div class=" w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
+                            <i class="pi pi-trash text-2xl" (click)="deleteTask(tasks.id)"></i>
                         </div>
-                        <td class="text-2xl border-0 siztex" >
+                        <td class="text-2xl border-0 siztex cursor-move" [pReorderableRowHandle]>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading">

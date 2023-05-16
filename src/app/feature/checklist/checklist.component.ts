@@ -1,10 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
-interface City{
-  name:string;
-  code:string;
-}
+
 
 @Component({
   selector: 'app-checklist',
@@ -16,15 +13,43 @@ export class ChecklistComponent implements OnInit {
   @Output() openSubtasks = new EventEmitter<any>();
   @Output() sendtaskupdate = new EventEmitter<any>();
 
-  onRowEditInit(tasks: any) {
+
+  comparedate:string;
+  addlistvalue: boolean = false;
+  todaysTask: any[] = []
+  currentDay = new Date().getUTCDate();
+  currentMonth = new Date().getUTCMonth();
+  currentYear = new Date().getUTCFullYear();
+  curenetDayText = new Date().getUTCDay()
+  newTaskName: string;
+  newTaskdescription: number;
+  selectedValues:boolean=false;
+  sortAscending: boolean = true;
+
+
+  constructor(private messageService: MessageService) {
+  }
+
+onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }
 
+historydata:any[]=[];
+
 onRowEditSave(tasks: any) {
     if (tasks.heading.length > 0) {
-      console.log("Loook",this.todaysTask[tasks.id]);
-      // this.todaysTask[tasks.id].heading.heading = this.todaysTask[tasks.id];
-      // localStorage.setItem("taskdata",JSON.stringify(this.todaysTask[tasks.id]));
+      console.log("Loook",tasks.heading);
+      
+      const history ={
+        id: tasks.id,
+        previous: this.todaysTask[tasks.id].heading,
+        current : tasks.heading,
+        time : new Date().toLocaleString(),
+      };
+      this.historydata.push(history);
+      localStorage.setItem("edithistory",JSON.stringify(this.historydata));
+      this.todaysTask[tasks.id].heading = tasks.heading;
+      localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
         this.messageService.add({severity:'success', summary: 'Success', detail:'Task is updated'});
     }
     else {
@@ -36,248 +61,113 @@ onRowEditCancel(task: any, index: number) {
     this.todaysTask[index] = this.todaysTask[task.id];
     delete this.todaysTask[task.id];
 }
-  today:string="Today";
 
-  openSubtasksbar(id:number){
+
+  //this function will emit id so that list-template and navbar can listen to it and update their records
+  openSubtasksbar(id:string){
     this.openSubtasks.emit(id);
   }
 
-  comparedate:string;
-  
-
-  inputstate: boolean = false;
-  closeInput() {
-    console.log(this.inputstate)
-    this.inputstate = !this.inputstate;
-  }
-
-  cities: City[];
-
-  selectedCities: City[];
-
+ 
+//Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
   ngOnInit(): void {
-    this.cities = [
-      { name: 'Mr.Rohit', code: 'NY' },
-      { name: 'Mr.Chandan', code: 'RM' },
-    ];
     const retrievedObject = localStorage.getItem('taskdata');
+    if(retrievedObject != null){
     console.log(JSON.parse(retrievedObject));
-    this.todaysTask.push(JSON.parse(retrievedObject));
+    this.todaysTask =JSON.parse(retrievedObject);
+    }else{
+      localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
+      const retrievedhistory = localStorage.getItem('edithistory');
+      this.historydata = JSON.parse(retrievedhistory);
+    }
   }
-  ngAfterViewInit() {
-
-  }
-
   
-  addlistvalue: boolean = false;
+  deleteTask(id:any){
+    const index = this.todaysTask.findIndex(task => task.id === id);
+    if (index !== -1) {
+      this.todaysTask.splice(index, 1);
+    }
+    localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
+    this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully'});
+  }
 
-  addlist(): any {
+  addlist():any {
     this.addlistvalue = true;
   }
-  constructor(private messageService: MessageService) {
-
-  }
-
   showSuccess() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'List Added'});
     this.addlistvalue = false;
-
-
   }
-
   showError() {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Blank Input' });
-
   }
 
-  todaysTask: any[] = [
-    {
-      id: "f230fh0g3",
-      heading: "I have to make a checklist",
-      desc: "ddjvhdvkjdvkj",
-      date: '4',
-      subtasks: [
-        {
-          id: "mbvjkgip5",
-          name: "I have to make a navbar component",
-          completed: true,
-        },
-        {
-          id: "vbb124btr",
-          name: "I have to make a sidebar component",
-          completed: false,
-        },
-      ],
-    },
-    {
-      id: "nvklal433",
-      heading: "I have to take reflections from Aditiya and Gaurav",
-      desc: "ddjvhdvkjdvkj",
-      date: '5',
-      subtasks: [
-        {
-          id: "zz21cz3c1",
-          name: "I have to domcument their reflection",
-          completed: true,
-        },
-        {
-          id: "244wgerg2",
-          name: "I have to fill contribution form",
-          completed: true,
-        },
-        {
-          id: "h456wer53",
-          name: "I have to make sure aditya and gaurav are participating in workshops",
-          completed: false,
-        },
-      ],
-    },
-    {
-      id: "jd38ksl49",
-      heading: "Prepare for meeting with team",
-      desc: "Need to go through project plan and milestones",
-      date: '6',
-      subtasks: [
-        {
-          id: "kdg82jsh1",
-          name: "Review project plan",
-          completed: true,
-        },
-        {
-          id: "hdk39jwl2",
-          name: "Prepare presentation slides",
-          completed: false,
-        },
-        {
-          id: "sjd39lsm4",
-          name: "Send meeting agenda to team members",
-          completed: false,
-        },
-      ],
-    },
-    {
-      id: "ks82jf73l",
-      heading: "Finish coding the login page",
-      desc: "Need to add form validation and error handling",
-      date: '4',
-      subtasks: [
-        {
-          id: "md83ksn1",
-          name: "Add form validation",
-          completed: false,
-        },
-        {
-          id: "ks93ndj2",
-          name: "Add error handling",
-          completed: false,
-        },
-      ],
-    },
-    {
-      id: "jd93ksl28",
-      heading: "Research new web development frameworks",
-      desc: "Need to find options for front-end and back-end development",
-      date: '8',
-      subtasks: [
-        {
-          id: "md73ksn1",
-          name: "Research front-end frameworks",
-          completed: false,
-        },
-        {
-          id: "ks53ndj2",
-          name: "Research back-end frameworks",
-          completed: false,
-        },
-        {
-          id: "js83ksn4",
-          name: "Compare and evaluate options",
-          completed: false,
-        },
-      ],
-    }
-  ];
+  //sorting task data alphabetically
+  sortTaskData(){
+    this.sortAscending = !this.sortAscending;
+    this.todaysTask.sort((a, b) => {
+    const comparison = a.heading.localeCompare(b.heading);
+    return this.sortAscending ? comparison : -comparison;
+  });
+  }
 
-
-
-
-  currentDay = new Date().getUTCDate();
-  currentMonth = new Date().getUTCMonth();
-  currentYear = new Date().getUTCFullYear();
-  curenetDayText = new Date().getUTCDay()
-
-  newTaskName: string;
-  newTaskdescription: number;
-
+ //adding task and updating value stored in local storage
   addnewtask() {
     if (this.newTaskName.length > 0) {
+      const GeneratedId:string = this.generateId();
       const newTask = {
-        id: this.generateId(),
+        id:GeneratedId,
         heading: this.newTaskName,
         desc: this.newTaskdescription,
         date:this.currentDay,
-        subtasks: [
-          {
-            id: this.generateId(),
-            name: "Add your First Task",
-            completed: false,
-          }
-        ]
+        completed: this.selectedValues
       };
       this.todaysTask.push(newTask);
-      this.sendtaskupdate.emit(newTask);
-      localStorage.setItem("taskdata",JSON.stringify(newTask));
+      localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
       this.newTaskName = '';
       this.newTaskdescription = null;
-      this.showSuccess()
+      this.showSuccess() //show success message
+      this.openSubtasksbar(GeneratedId); //emiting current id
     } else {
       this.showError()
     }
-
   }
-currentdate:number = new Date().getDay();
+
+
+
+  //manage date 
+  currentdate:number = new Date().getDay();
   changeDateAdd(){
     this.currentdate=this.currentDay
     if(this.currentDay<31){
       this.currentDay++;
-      if(this.currentDay-this.currentdate==1)
-      {
-        this.today="Tommorow"
-      }else{
-        this.today="Todos"
-      }
     }
     if(this.currentDay==31 && this.currentMonth<12){
       this.currentMonth++;
       this.currentDay=1;
-
     }
   }
+
   changeDateSub(){
     if(this.currentDay>1)
     {
       this.currentDay--;
-      if(this.currentDay.toString()==this.comparedate)
-      {
-        this.today="Today"
-      }
     }
     if(this.currentDay==1 && this.currentMonth<12){
       this.currentMonth--;
       this.currentDay=31;
-  
     }
   }
 
 
+
+  //this function will generate random id
   generateId() {
     let text = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
     for (var i = 0; i < 5; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-
     return text;
   }
 }

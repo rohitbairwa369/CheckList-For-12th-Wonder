@@ -3,10 +3,9 @@
     min-width: 80rem;
     width: 100%;
     height: 100vh;
-
 }
 
-:host::ng-deep{.topclass{
+::ng-deep{.topclass{
     top: 60px !important;
   }
 
@@ -27,7 +26,7 @@
 
 @media screen and (max-width: 960px)
 {
-::ng-deep {
+::ng-deep{
 #pr_id_2 .p-datatable-tbody>tr>td {
     display: block !important;
     width: 100% !important;

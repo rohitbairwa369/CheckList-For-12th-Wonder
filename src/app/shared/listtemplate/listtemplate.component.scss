@@ -1,6 +1,7 @@
 
 .boxshadow{
-    min-width: 38.4rem;
+    max-width: 38.4rem;
+    width: 100%;
     -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     word-wrap: break-word;
@@ -24,11 +25,6 @@ font-weight: bolder;
     
 }
 
-.scrollheaddesk{
-    max-height: 29rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
 
 ::ng-deep{ .p-scrollpanel {
     p {
@@ -36,10 +32,12 @@ font-weight: bolder;
         line-height: 1.5;
         margin: 0;
     }
-
+    &.maxheight{
+        max-height: 20rem;
+        height: auto;
+    }
     &.custombar1 {
         font-family: 'roboto';
-        max-height: 300px;
         .p-scrollpanel-wrapper {
             border-right: 9px solid var(--layer-1);
         }
