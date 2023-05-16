@@ -7,7 +7,7 @@
         <div class="flex align-items-center gap-3">
             <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateSub()"></i>
             <i class="pi pi-calendar text-3xl"></i>
-            <h5>{{currentDay}}-{{currentMonth+1}}-{{currentYear}}</h5>
+            <p-calendar [(ngModel)]="date" dateFormat="dd/mm/yy" styleClass="text-2xl" panelStyleClass="panel-left custom-calendar"></p-calendar>
             <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateAdd()"></i>
             
         </div>

@@ -13,21 +13,22 @@ export class ChecklistComponent implements OnInit {
   @Output() openSubtasks = new EventEmitter<any>();
   @Output() sendtaskupdate = new EventEmitter<any>();
 
-
+  date:any;
   comparedate:string;
   addlistvalue: boolean = false;
   todaysTask: any[] = []
   currentDay = new Date().getUTCDate();
-  currentMonth = new Date().getUTCMonth();
+  currentMonth = new Date().getUTCMonth() +1;
   currentYear = new Date().getUTCFullYear();
   curenetDayText = new Date().getUTCDay()
   newTaskName: string;
   newTaskdescription: number;
   selectedValues:boolean=false;
   sortAscending: boolean = true;
-
+  formatedDate = this.currentDay + '/'+ this.currentMonth +'/'+ this.currentYear
 
   constructor(private messageService: MessageService) {
+    this.date = new Date();
   }
 
 onRowEditInit(tasks: any) {
@@ -119,7 +120,7 @@ onRowEditCancel(task: any, index: number) {
         id:GeneratedId,
         heading: this.newTaskName,
         desc: this.newTaskdescription,
-        date:this.currentDay,
+        date:this.formatedDate,
         completed: this.selectedValues
       };
       this.todaysTask.push(newTask);

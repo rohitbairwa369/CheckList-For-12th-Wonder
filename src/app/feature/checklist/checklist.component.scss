@@ -64,3 +64,19 @@
 .topostion{
     top:50vh;
 }
+
+::ng-deep{
+
+    .p-calendar .p-inputtext {
+        flex: 1 1 auto;
+        width: 10rem !important;
+        border: none;
+        font-size: 16px ;
+        font-weight: 500;
+        color: black;
+    }
+
+    .panel-left{
+        left: -11rem !important;
+    }
+}
