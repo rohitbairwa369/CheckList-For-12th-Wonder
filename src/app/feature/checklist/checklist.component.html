@@ -7,7 +7,7 @@
         <div class="flex align-items-center gap-3">
             <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateSub()"></i>
             <i class="pi pi-calendar text-3xl"></i>
-            <p-calendar [(ngModel)]="date" dateFormat="dd/mm/yy" styleClass="text-2xl" panelStyleClass="panel-left custom-calendar"></p-calendar>
+            <p-calendar [(ngModel)]="formatedDate" dateFormat="dd/mm/yy" styleClass="text-2xl" panelStyleClass="panel-left custom-calendar"></p-calendar>
             <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400" (click)="changeDateAdd()"></i>
             
         </div>
@@ -15,7 +15,7 @@
     <div class="card">
             <p-table [value]="todaysTask" dataKey="id"  editMode="row" [reorderableColumns]="true" [rowHover]="true">
                 <ng-template pTemplate="body" let-tasks  let-editing="editing" let-ri="rowIndex">
-                    <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)"  *ngIf="tasks.date==currentDay" [pEditableRow]="tasks">
+                    <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)"  [pEditableRow]="tasks">
                         <div class=" w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
                             <i class="pi pi-trash text-2xl" (click)="deleteTask(tasks.id)"></i>
                         </div>

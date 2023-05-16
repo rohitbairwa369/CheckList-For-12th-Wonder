@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output ,OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checklist',
@@ -13,7 +12,6 @@ export class ChecklistComponent implements OnInit {
   @Output() openSubtasks = new EventEmitter<any>();
   @Output() sendtaskupdate = new EventEmitter<any>();
 
-  date:any;
   comparedate:string;
   addlistvalue: boolean = false;
   todaysTask: any[] = []
@@ -25,15 +23,21 @@ export class ChecklistComponent implements OnInit {
   newTaskdescription: number;
   selectedValues:boolean=false;
   sortAscending: boolean = true;
-  formatedDate = this.currentDay + '/'+ this.currentMonth +'/'+ this.currentYear
+  formatedDate :any = this.currentDay + '/'+ this.currentMonth +'/'+ this.currentYear;
+
 
   constructor(private messageService: MessageService, private taskdataService : ChecklistDataService) {
-    this.date = new Date();
+
+    this.comparedate = this.formatedDate.toString();
+    console.log(this.comparedate);
   }
 
 onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }
+
+
+
 
 historydata:any[]=[];
 
@@ -72,26 +76,10 @@ onRowEditCancel(task: any, index: number) {
  
 //Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
   ngOnInit(): void {
-    const retrievedObject = localStorage.getItem('taskdata');
-    if(retrievedObject != null){
-    console.log(JSON.parse(retrievedObject));
-    this.todaysTask =JSON.parse(retrievedObject);
-    }else{
-      localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
-      const retrievedhistory = localStorage.getItem('edithistory');
-      this.historydata = JSON.parse(retrievedhistory);
-    }
-
-    this.taskdataService.getTaskData().pipe(map(responsedata=>{
-      const taskArray =[];
-      for(const key in responsedata){
-        if(responsedata.hasOwnProperty(key)){
-          taskArray.push({...responsedata[key], id: key})
-        }
-      }
-      return taskArray;
-    })).subscribe((data)=>{
+    this.taskdataService.getTaskData().subscribe((data)=>{
       console.log("API Data",data);
+      this.todaysTask = data;
+      console.log(this.todaysTask);
     })
 
   }
@@ -130,13 +118,15 @@ onRowEditCancel(task: any, index: number) {
     if (this.newTaskName.length > 0) {
       const GeneratedId:string = this.generateId();
       const newTask = {
-        id:GeneratedId,
         heading: this.newTaskName,
         desc: this.newTaskdescription,
         date:this.formatedDate,
         completed: this.selectedValues
       };
       this.todaysTask.push(newTask);
+      this.taskdataService.postTask(newTask).subscribe((res)=>{
+        console.log(res);
+      })
       localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
       this.newTaskName = '';
       this.newTaskdescription = null;

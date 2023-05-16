@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 
 @Injectable({
@@ -13,7 +14,19 @@ export class ChecklistDataService {
   constructor(private http: HttpClient) { }
 
   getTaskData() {
-    return this.http.get(this.TaskUrl);
+    return this.http.get(this.TaskUrl).pipe(map(responsedata=>{
+      const taskArray =[];
+      for(const key in responsedata){
+        if(responsedata.hasOwnProperty(key)){
+          taskArray.push({...responsedata[key], id: key})
+        }
+      }
+      return taskArray;
+    }));
+  }
+
+  postTask(data: any){
+   return this.http.post(this.TaskUrl,data)
   }
   //update data to task
   updateTaskData(updateddata: any) {
