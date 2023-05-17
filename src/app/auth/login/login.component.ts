@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthGuard } from './auth.guard';
+import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 
 @Component({
   selector: 'app-login',
@@ -13,33 +14,27 @@ import { AuthGuard } from './auth.guard';
 export class LoginComponent implements OnInit {
 
   Heading:string="Login"
-  constructor(private router: Router, private messageService :MessageService, private auth:AuthGuard) { }
+  users:any[]=[];
+  constructor(private router: Router, private messageService :MessageService, private auth:AuthGuard, private taskdataService:ChecklistDataService) { }
   ngOnInit(): void {
-    const retrievedUserData = localStorage.getItem('users');
-    if(retrievedUserData != null){
-      this.users =JSON.parse(retrievedUserData);
-    }else{
-      localStorage.setItem('users',JSON.stringify(this.users));
-    }
+    this.taskdataService.getUserData().subscribe((res)=>{
+      this.users = res;
+      console.log(this.users);
+    })
   }
 
-  users:any[]=[{
-    email:'rohittbairwaa11@gmail.com',
-    password: '1234567'
-  }
-]
 
 onSubmit(form:NgForm)
 {
   const email = form.value.email;
   const password = form.value.password;
   const repassword = form.value.repassword;
-
   console.log(form.value);
-  const retrievedUserData = localStorage.getItem('users');
-  this.users =JSON.parse(retrievedUserData);
+
+
   const user = this.users.find(u => u.email == email && u.password == password);
   if (user) {
+    localStorage.setItem("UserId",user.id);
     this.auth.haveloggedin=true;
     localStorage.setItem('loginStatus','true');
     this.router.navigate(['/home']);
@@ -61,12 +56,17 @@ toggleLoginSignup(){
 onCreateAccount(form:NgForm){
   const email = form.value.email;
   const password = form.value.password;
-
+  const name = form.value.username;
+  
   const user = {
+    name : name,
     email: email,
     password: password
   };
- this.users.push(user);
+  this.users.push(user);
+  this.taskdataService.registerUser(user).subscribe((res)=>{
+  console.log("Data Pushed" , res);
+})
  localStorage.setItem('users',JSON.stringify(this.users));
  this.messageService.add({ severity: 'success', summary: 'User Register', detail: 'Added' });
  this.toggleLoginSignup();

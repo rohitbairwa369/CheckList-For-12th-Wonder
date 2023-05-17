@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output ,OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checklist',
@@ -12,7 +13,7 @@ export class ChecklistComponent implements OnInit {
   @Output() openSubtasks = new EventEmitter<any>();
   @Output() sendtaskupdate = new EventEmitter<any>();
 
-  comparedate:string;
+
   addlistvalue: boolean = false;
   todaysTask: any[] = []
   currentDay = new Date().getUTCDate();
@@ -23,20 +24,16 @@ export class ChecklistComponent implements OnInit {
   newTaskdescription: number;
   selectedValues:boolean=false;
   sortAscending: boolean = true;
-  formatedDate :any = this.currentDay + '/'+ this.currentMonth +'/'+ this.currentYear;
+  formatedDate :any;
+  defaultDate:Date;
+  CurrentUserLoginId:any;
 
 
-  constructor(private messageService: MessageService, private taskdataService : ChecklistDataService) {
-
-    this.comparedate = this.formatedDate.toString();
-    console.log(this.comparedate);
-  }
+constructor(private messageService: MessageService, private taskdataService : ChecklistDataService){}
 
 onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }
-
-
 
 
 historydata:any[]=[];
@@ -76,12 +73,13 @@ onRowEditCancel(task: any, index: number) {
  
 //Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
   ngOnInit(): void {
+    this.defaultDate = new Date(2023, 4, 17);
+    this.formatedDate =this.defaultDate; 
+    this.CurrentUserLoginId =localStorage.getItem("UserId");
     this.taskdataService.getTaskData().subscribe((data)=>{
-      console.log("API Data",data);
-      this.todaysTask = data;
+      this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
       console.log(this.todaysTask);
     })
-
   }
   
   deleteTask(id:any){
@@ -90,6 +88,9 @@ onRowEditCancel(task: any, index: number) {
       this.todaysTask.splice(index, 1);
     }
     localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
+    this.taskdataService.deleteTask(id).subscribe((res)=>{
+      console.log("Deleted Item" ,res)
+    })
     this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully'});
   }
 
@@ -116,8 +117,8 @@ onRowEditCancel(task: any, index: number) {
  //adding task and updating value stored in local storage
   addnewtask() {
     if (this.newTaskName.length > 0) {
-      const GeneratedId:string = this.generateId();
       const newTask = {
+        userId : this.CurrentUserLoginId,
         heading: this.newTaskName,
         desc: this.newTaskdescription,
         date:this.formatedDate,
@@ -131,48 +132,11 @@ onRowEditCancel(task: any, index: number) {
       this.newTaskName = '';
       this.newTaskdescription = null;
       this.showSuccess() //show success message
-      this.openSubtasksbar(GeneratedId); //emiting current id
     } else {
       this.showError()
     }
   }
 
 
-
-  //manage date 
-  currentdate:number = new Date().getDay();
-  changeDateAdd(){
-    this.currentdate=this.currentDay
-    if(this.currentDay<31){
-      this.currentDay++;
-    }
-    if(this.currentDay==31 && this.currentMonth<12){
-      this.currentMonth++;
-      this.currentDay=1;
-    }
-  }
-
-  changeDateSub(){
-    if(this.currentDay>1)
-    {
-      this.currentDay--;
-    }
-    if(this.currentDay==1 && this.currentMonth<12){
-      this.currentMonth--;
-      this.currentDay=31;
-    }
-  }
-
-
-
-  //this function will generate random id
-  generateId() {
-    let text = "";
-    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < 5; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  }
 }
 
