@@ -58,5 +58,8 @@ export class ChecklistDataService {
    return this.http.post(this.UserUrl,userdata);
   }
 
+  getSpecificUserData(id:any){
+    return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}.json`);
+  }
 
 }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthGuard implements CanActivate {
 
-  haveloggedin:boolean =Boolean(localStorage.getItem('loginStatus'));
+  haveloggedin:boolean =Boolean(localStorage.getItem('UserId'));
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
