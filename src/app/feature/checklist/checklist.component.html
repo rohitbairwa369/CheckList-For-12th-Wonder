@@ -5,17 +5,17 @@
             <h3>ToDo List</h3><i class="pi pi-sort-alt p-3 border-round-xl cursor-pointer hover:bg-gray-300" (click)="sortTaskData()"></i>
         </div>
         <div class="flex align-items-center gap-3">
-            <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" ></i>
+            <!-- <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" ></i> -->
             <i class="pi pi-calendar text-3xl"></i>
             <p-calendar [(ngModel)]="formatedDate" [defaultDate]="defaultDate"  dateFormat="dd/m/yy" styleClass="text-2xl" panelStyleClass="panel-left custom-calendar"></p-calendar>
-            <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i>
+            <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
             
         </div>
     </div>
     <div class="card">
             <p-table [value]="todaysTask" dataKey="id"  editMode="row" [reorderableColumns]="true" [rowHover]="true">
                 <ng-template pTemplate="body" let-tasks  let-editing="editing" let-ri="rowIndex">
-                    <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)"   [pEditableRow]="tasks">
+                    <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)" *ngIf="tasks.date==formatedDate.toLocaleString().split(',').splice(0,1)[0]"  [pEditableRow]="tasks">
                         <div class=" w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
                             <p-confirmPopup></p-confirmPopup>
                             <i class="pi pi-trash text-2xl" (click)="confirm($event,tasks.id)"></i>
@@ -23,10 +23,10 @@
                         <td class="text-2xl border-0 siztex cursor-move" [pReorderableRowHandle]>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading">
+                                    <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading" maxlength="150">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                 {{tasks.heading|slice:0:80}} <span *ngIf="tasks.heading.length>77">...</span>
+                                 {{tasks.heading|slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -47,11 +47,11 @@
 
         <div class="border-1 border-round-xl p-3 mt-3" *ngIf="addlistvalue">
             <div class="flex justify-content-between gap-1">
-                <input pInputText type="text" name="" id="" class="max-w-full w-full border-0 text-2xl mb-2" placeholder="Task Name" [(ngModel)]="newTaskName">
+                <input pInputText type="text" name="" id="" class="max-w-full w-full border-0 text-2xl mb-2" placeholder="Task Name" [(ngModel)]="newTaskName" maxlength="150">
                 <i class="pi pi-times border-circle cursor-pointer p-1"  pTooltip="Close" tooltipPosition="top" (click)="addlistvalue=false"></i>
             </div>
            
-           <input pInputText type="text" name="" id="" class="w-full border-0 text-xl" placeholder="Description" [(ngModel)]="newTaskdescription">
+           <input pInputText type="text" name="" id="" class="w-full border-0 text-xl" placeholder="Description" [(ngModel)]="newTaskdescription" maxlength="200">
            <div class="flex justify-content-end mt-3 border-top-1 pt-3 border-gray-300">
                 <button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="addnewtask()">Save</button>
             </div>

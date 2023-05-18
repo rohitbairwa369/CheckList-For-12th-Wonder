@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output ,OnDestroy } from '@angular/cor
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
-import { ChildActivationEnd } from '@angular/router';
+
 
 @Component({
   selector: 'app-checklist',
@@ -25,9 +25,10 @@ export class ChecklistComponent implements OnInit {
   newTaskdescription: number;
   selectedValues:boolean=false;
   sortAscending: boolean = true;
-  formatedDate :any;
   defaultDate:Date;
   CurrentUserLoginId:any;
+  formatedDate = new Date();
+
 
 
 constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){}
@@ -84,7 +85,7 @@ onRowEditCancel(task: any, index: number) {
 //Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
   ngOnInit(): void {
     this.defaultDate = new Date(2023, 4, 17);
-    this.formatedDate =this.defaultDate; 
+
     this.CurrentUserLoginId =localStorage.getItem("UserId");
     this.taskdataService.getTaskData().subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
@@ -92,7 +93,7 @@ onRowEditCancel(task: any, index: number) {
     })
   }
   
-
+//delete
   confirm(event: Event,id:any) {
     this.confirmationService.confirm({
         target: event.target,
@@ -117,9 +118,6 @@ onRowEditCancel(task: any, index: number) {
 }
 
 
-  deleteTask(id:any){
-   
-  }
 
   addlist():any {
     this.addlistvalue = true;
@@ -149,7 +147,7 @@ onRowEditCancel(task: any, index: number) {
         userId : this.CurrentUserLoginId,
         heading: this.newTaskName,
         desc: this.newTaskdescription,
-        date:this.formatedDate,
+        date:this.formatedDate.toLocaleString().split(',').splice(0,1)[0],
         completed: this.selectedValues
       };
       this.todaysTask.push(newTask);
