@@ -20,6 +20,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {PasswordModule} from 'primeng/password';
 import {CheckboxModule} from 'primeng/checkbox';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {CheckboxModule} from 'primeng/checkbox';
     TooltipModule,
     ScrollPanelModule,
     PasswordModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmPopupModule
   ],
   exports:[
     ButtonModule,
@@ -67,7 +69,8 @@ import {CheckboxModule} from 'primeng/checkbox';
     TooltipModule,
     ScrollPanelModule,
     PasswordModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmPopupModule
   ]
 })
 export class PrimengModule { }

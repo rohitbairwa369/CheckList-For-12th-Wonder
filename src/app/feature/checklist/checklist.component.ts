@@ -1,13 +1,14 @@
 import { Component, EventEmitter, OnInit, Output ,OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
-import { take } from 'rxjs/operators';
+import {ConfirmationService} from 'primeng/api';
+import { ChildActivationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService,ConfirmationService]
 })
 export class ChecklistComponent implements OnInit {
   @Output() openSubtasks = new EventEmitter<any>();
@@ -29,7 +30,7 @@ export class ChecklistComponent implements OnInit {
   CurrentUserLoginId:any;
 
 
-constructor(private messageService: MessageService, private taskdataService : ChecklistDataService){}
+constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){}
 
 onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
@@ -41,7 +42,16 @@ historydata:any[]=[];
 onRowEditSave(tasks: any) {
     if (tasks.heading.length > 0) {
       console.log("Loook",tasks.heading);
-      
+      const updateddata ={
+        userId : this.CurrentUserLoginId,
+        heading: tasks.heading,
+        desc: tasks.desc,
+        date: tasks.formatedDate,
+        completed: tasks.selectedValues
+      }
+      this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
+        console.log("Heading Updated to",tasks.heading);
+      });
       const history ={
         id: tasks.id,
         previous: this.todaysTask[tasks.id].heading,
@@ -82,16 +92,33 @@ onRowEditCancel(task: any, index: number) {
     })
   }
   
+
+  confirm(event: Event,id:any) {
+    this.confirmationService.confirm({
+        target: event.target,
+        message: 'Are you sure that you want to proceed?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          const index = this.todaysTask.findIndex(task => task.id === id);
+          if (index !== -1) {
+            this.todaysTask.splice(index, 1);
+          }
+          localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
+          this.taskdataService.deleteTask(id).subscribe((res)=>{
+            console.log("Deleted Item" ,res)
+          })
+          this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully'});
+        },
+        reject: () => {
+            //reject action
+            console.log("Closed")
+        }
+    });
+}
+
+
   deleteTask(id:any){
-    const index = this.todaysTask.findIndex(task => task.id === id);
-    if (index !== -1) {
-      this.todaysTask.splice(index, 1);
-    }
-    localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
-    this.taskdataService.deleteTask(id).subscribe((res)=>{
-      console.log("Deleted Item" ,res)
-    })
-    this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully'});
+   
   }
 
   addlist():any {
@@ -116,6 +143,7 @@ onRowEditCancel(task: any, index: number) {
 
  //adding task and updating value stored in local storage
   addnewtask() {
+    this.CurrentUserLoginId =localStorage.getItem("UserId");
     if (this.newTaskName.length > 0) {
       const newTask = {
         userId : this.CurrentUserLoginId,

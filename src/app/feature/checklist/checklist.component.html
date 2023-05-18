@@ -17,7 +17,8 @@
                 <ng-template pTemplate="body" let-tasks  let-editing="editing" let-ri="rowIndex">
                     <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" (click)="openSubtasksbar(tasks.id)"   [pEditableRow]="tasks">
                         <div class=" w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
-                            <i class="pi pi-trash text-2xl" (click)="deleteTask(tasks.id)"></i>
+                            <p-confirmPopup></p-confirmPopup>
+                            <i class="pi pi-trash text-2xl" (click)="confirm($event,tasks.id)"></i>
                         </div>
                         <td class="text-2xl border-0 siztex cursor-move" [pReorderableRowHandle]>
                             <p-cellEditor>

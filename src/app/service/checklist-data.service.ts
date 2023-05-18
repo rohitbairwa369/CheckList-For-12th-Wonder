@@ -30,8 +30,8 @@ export class ChecklistDataService {
    return this.http.post(this.TaskUrl,data)
   }
   //update data to task
-  updateTaskData(updateddata: any) {
-    return this.http.put(`https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata/${updateddata.id}.json`, updateddata);
+  updateTaskDataHeading(id:any,updateddata: any) {
+    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata/${id}.json`,updateddata);
   }
 
   //function to delete data
