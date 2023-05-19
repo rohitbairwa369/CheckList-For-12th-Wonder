@@ -28,7 +28,10 @@ export class ChecklistComponent implements OnInit {
   defaultDate:Date;
   CurrentUserLoginId:any;
   formatedDate = new Date();
-
+  displayModal: boolean;
+  modalClickedId:any;
+  loading:boolean=true;
+  completed:boolean;
 
 
 constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){}
@@ -37,6 +40,27 @@ onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }
 
+markItComplete(tasks:any){
+  this.completed= !tasks.completed;
+  const itemToUpdate = this.todaysTask.find(item => item.id === tasks.id);
+  if (itemToUpdate) {
+  if(itemToUpdate.completed!=this.completed){
+    itemToUpdate.completed = this.completed;
+    const updateddata ={
+      userId : this.CurrentUserLoginId,
+      heading: tasks.heading,
+      desc: tasks.desc,
+      date: tasks.formatedDate,
+      completed: this.completed
+    }
+    this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
+      console.log("Status Updated to",res);
+    });
+  }
+
+  }
+ 
+}
 
 historydata:any[]=[];
 
@@ -90,6 +114,9 @@ onRowEditCancel(task: any, index: number) {
     this.taskdataService.getTaskData().subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
       console.log(this.todaysTask);
+      setTimeout(() => {
+        this.loading=false
+      }, 700);
     })
   }
   
@@ -129,6 +156,12 @@ onRowEditCancel(task: any, index: number) {
   showError() {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Blank Input' });
   }
+
+//show modal
+  showModalDialog(id:any) {
+    this.displayModal = true;
+    this.modalClickedId =id;
+}
 
   //sorting task data alphabetically
   sortTaskData(){

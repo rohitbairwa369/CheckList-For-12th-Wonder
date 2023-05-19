@@ -5,6 +5,9 @@
     <app-sidebar  [isOpen]="isSidebarOpen" class="p-0 m-0 z-2 fixed mt-8" style="height:100%"></app-sidebar>
     <div class="checklistwidth mt-8 flex md:justify-content-center sm:justify-content-center container">
         <div class="md:w-30rem sm:min-w-0"></div>
-        <app-checklist (openSubtasks)="currentSeenid($event)"></app-checklist></div>
+        <!-- <app-checklist (openSubtasks)="currentSeenid($event)"></app-checklist> -->
+
+        <router-outlet></router-outlet>
+    </div>
     <div class=" subtasktemp  sm:container md:p-0 mt-8 "><app-listtemplate [currentId]="currentId" ></app-listtemplate></div>
 </div>

@@ -4,17 +4,20 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { ChecklistComponent } from './checklist/checklist.component';
 import { PrimengModule } from '../primeng/primeng.module';
-
+import { featureRoutingModule } from './feature-routing.module';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    ChecklistComponent
+    ChecklistComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    PrimengModule
+    PrimengModule,
+    featureRoutingModule
   ],
   exports:[
     HomeComponent,
