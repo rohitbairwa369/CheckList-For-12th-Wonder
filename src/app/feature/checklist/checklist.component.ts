@@ -32,6 +32,7 @@ export class ChecklistComponent implements OnInit {
   modalClickedId:any;
   loading:boolean=true;
   completed:boolean;
+  priority:any;
 
 
 constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){}

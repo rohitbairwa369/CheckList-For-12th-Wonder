@@ -21,7 +21,7 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {PasswordModule} from 'primeng/password';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
-
+import {RatingModule} from 'primeng/rating';
 
 @NgModule({
   declarations: [],
@@ -47,7 +47,8 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
     ScrollPanelModule,
     PasswordModule,
     CheckboxModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    RatingModule
   ],
   exports:[
     ButtonModule,
@@ -70,7 +71,8 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
     ScrollPanelModule,
     PasswordModule,
     CheckboxModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    RatingModule
   ]
 })
 export class PrimengModule { }

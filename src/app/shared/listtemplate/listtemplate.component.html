@@ -1,5 +1,5 @@
 <div class="flex flex-column sm:h-auto md:h-screen boxshadow bg-gray-100 p-3">
-    <h3 class="p-2">Task</h3>
+    <h3 class="p-2">High Priority Task </h3>
     <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodatahere" styleClass="custombar1 maxheight">
         <ng-container *ngFor="let task of todaysTask;">
             <span class="text-xl text-gray-600 p-2 font-light " *ngIf="task.id==currentId">{{task.heading}}</span>
