@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit ,OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit ,OnDestroy, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
@@ -36,6 +36,8 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   priorityLevel:any[] =[];
   scheduleDateTime =new Date();
   updatedDesc:any;
+  @ViewChild('calendar') calendar;
+
 
 constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
@@ -52,7 +54,11 @@ this.priorityLevel=[
     level:3
   }
 ]
+}
 
+//this will help us to toggle calendar
+toggleCalendar() {
+  this.calendar.toggle();
 }
 
 onRowEditInit(tasks: any) {
@@ -71,7 +77,9 @@ markItComplete(tasks:any){
       heading: tasks.heading,
       desc: tasks.desc,
       date: tasks.formatedDate,
-      completed: this.completed
+      completed: this.completed,
+      completeTime:this.formatedDate,
+      timeDate : tasks.timeDate,
     }
     this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
       console.log("Status Updated to",res);
@@ -115,7 +123,8 @@ onRowEditSave(tasks: any) {
       this.todaysTask[tasks.id].heading = tasks.heading;
       localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
         this.messageService.add({severity:'success', summary: 'Success', detail:'Task is updated'});
-    }
+        this.taskdataService.dataSubject.next(this.todaysTask);
+      }
     else {
         this.messageService.add({severity:'error', summary: 'Error', detail:'Black Input'});
     }
@@ -136,10 +145,14 @@ onRowEditCancel(task: any, index: number) {
     this.dataSubscription = this.taskdataService.getTaskData().subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
       this.loading=true;
-      console.log(this.todaysTask);
       setTimeout(() => {
         this.loading=false
       }, 700);
+      this.taskdataService.dataSubject.next(this.todaysTask)
+    })
+    this.taskdataService.UpdateComponents.subscribe((res)=>{
+      const parts = res.split('/');
+      this.formatedDate = new Date(Number(parts[2]), Number(parts[0]) - 1, Number(parts[1]));
     })
   }
 
@@ -183,7 +196,7 @@ onRowEditCancel(task: any, index: number) {
   showError() {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Blank Input' });
   }
-
+ 
 //show modal
   showModalDialog(id:any) {
     this.displayModal = true;
@@ -209,6 +222,7 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
         heading: this.newTaskName,
         desc: this.newTaskdescription,
         date:this.formatedDate.toLocaleString().split(',').splice(0,1)[0],
+        timeDate : this.formatedDate,
         time: formattedTime,
         completed: this.selectedValues,
         priority: this.priority.level,
@@ -218,12 +232,10 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
       this.taskdataService.postTask(newTask).subscribe((res)=>{
         console.log(res);
       })
-      
-      localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
+      this.taskdataService.dataSubject.next(this.todaysTask)
       this.newTaskName = '';
       this.newTaskdescription = null;
       this.showSuccess() //show success message
-      this.taskdataService.UpdateComponents.next(true);
     } else {
       this.showError()
     }

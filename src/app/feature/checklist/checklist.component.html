@@ -8,24 +8,47 @@
         </div>
         <div class="flex align-items-center gap-3">
             <!-- <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" ></i> -->
-            <i class="pi pi-calendar text-3xl"></i>
-            <p-calendar [(ngModel)]="formatedDate" [defaultDate]="defaultDate" pTooltip="Select Date"
-                tooltipPosition="top" dateFormat="dd/m/yy" styleClass="text-2xl"
+            <i class="pi pi-calendar text-3xl cursor-pointer"  pTooltip="Select Date" tooltipPosition="top" (click)="toggleCalendar()"></i>
+            <p-calendar [(ngModel)]="formatedDate" #calendar [defaultDate]="defaultDate"
+                 dateFormat="dd/m/yy" styleClass="text-2xl"
                 panelStyleClass="panel-left custom-calendar"></p-calendar>
             <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
 
         </div>
     </div>
     <p-dialog header="View Task Details" [(visible)]="displayModal" [modal]="true"
-        [style]="{width: '50vw','height':'90vh'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        [style]="{width: '50vw','height':'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
-                <div class="flex flex-column gap-2">
-                    <label class="text-3xl font-bold">Task</label>
-                    <input type="text" value="{{tasks.heading}}" class="w-full text-2xl" pInputText>
-                    <label class="text-3xl font-bold">Description</label>
-                    <textarea pInputTextarea [(ngModel)]="updatedDesc" [rows]="10" [innerText]="tasks.desc"></textarea>
-                    <label class="text-3xl font-bold">Due Date</label>
+                <div class="flex justify-content-between p-3 align-items-center">
+                   <div class="text-4xl font-bold">Task</div>
+                   <div><i class="pi pi-pencil text-xl border-1 border-circle p-2 hover:bg-gray-900 hover:text-white"></i></div>
+                </div>
+                <div class="flex flex-column gap-3 text-2xl p-3">
+                    <div>
+                        {{tasks.heading}}
+                    </div>
+                    <div class="text-4xl font-bold">Description</div>
+                    <div>
+                        {{tasks.desc}}
+                    </div>
+                    <div class="flex justify-content-between">
+                        <label class="text-4xl font-bold">Date & Time</label>
+                        <div>{{tasks.date}} {{tasks.time}}</div>
+                    </div>
+                    <hr class="border-bottom-1 border-gray-200 w-full">
+                    <div class="flex justify-content-between">
+                        <label class="text-4xl font-bold">Due Date</label>
+                        <div>{{tasks.schedule.toLocaleString()}}</div>
+                    </div>
+                    <div class="flex justify-content-between">
+                        <label class="text-4xl font-bold">Priority Level</label>
+                        <div>{{tasks.priority}}</div>
+                    </div>
+                    <div class="flex justify-content-between">
+                        <label class="text-4xl font-bold">Complete Status</label>
+                        <div>{{tasks.completed}}</div>
+                    </div>
                 </div>
             </ng-container>
         </div>
@@ -74,7 +97,7 @@
                                 class="p-button-rounded p-button-text p-button-danger"></button>
                         </div>
                     </td>
-                    <i class="pi pi-trash text-2xl text-gray-300 hover:text-red-600"  pTooltip="Delete" tooltipPosition="right"  (click)="confirm($event,tasks.id)"></i>
+                    <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600"  pTooltip="Delete" tooltipPosition="right"  (click)="confirm($event,tasks.id)"></i>
                 </tr>
             </ng-template>
         </p-table>

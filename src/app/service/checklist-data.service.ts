@@ -13,7 +13,8 @@ export class ChecklistDataService {
 
 
 
-  UpdateComponents =new Rx.Subject<boolean>();
+  UpdateComponents =new Rx.Subject<any>();
+  dataSubject= new Rx.Subject<any>();
   constructor(private http: HttpClient) { }
 
   getTaskData() {
@@ -26,6 +27,11 @@ export class ChecklistDataService {
       }
       return taskArray;
     }));
+  }
+
+  //making subjects 
+  getDataObservable() {
+    return this.dataSubject.asObservable();
   }
 
   postTask(data: any){

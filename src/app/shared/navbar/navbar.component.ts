@@ -24,11 +24,9 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.CurrentUserLoginId =localStorage.getItem("UserId");
     this.dataSubscription = this.taskdata.getTaskData().subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
-      console.log(this.todaysTask);
     })
     this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res)=>{
       this.userData = res;
-      console.log("From Navbar", this.userData);
     });
   }
 
@@ -38,7 +36,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
 
   get searchresult() {
     this.searching = true;
-    return this.todaysTask.filter(product => product.heading?.toLowerCase().includes(this.searchkey.toLowerCase()));
+    return this.todaysTask.filter(product => product.heading.toLowerCase().includes(this.searchkey.toLowerCase()));
   }
 
   //declaring array to store retrived output
@@ -56,6 +54,15 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.router.navigate(['/login']);
   }
 
+  blurHideSearch(){
+    
+  }
+
+showDateTodo(date:any){
+  this.taskdata.UpdateComponents.next(date);
+  this.searching=false;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['currentId'] && !changes['currentId'].firstChange) {
       const retrievedObject = localStorage.getItem('taskdata');
@@ -64,6 +71,11 @@ export class NavbarComponent implements OnInit, OnDestroy{
     
   }
 
+  hideSearching(){
+    setTimeout(() => {
+      this.searching=false;
+    }, 2000);
+  }
 
   
 }
