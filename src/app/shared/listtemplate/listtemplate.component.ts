@@ -1,19 +1,31 @@
-import { Component, OnInit,Input, SimpleChanges} from '@angular/core';
+import { Component, OnInit,Input, SimpleChanges, OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 
 @Component({
   selector: 'app-listtemplate',
   templateUrl: './listtemplate.component.html',
   styleUrls: ['./listtemplate.component.scss']
 })
-export class ListtemplateComponent implements OnInit {
+export class ListtemplateComponent implements OnInit ,OnDestroy{
   @Input() currentId:number;
+  
+  todaysTask: any[] = [];
+  CurrentUserLoginId: string;
+  dataSubscription:Subscription;
+  constructor(private taskdataService:ChecklistDataService) { }
 
-todaysTask: any[] = [];
-  constructor() { }
+
+  ngOnDestroy(){
+    this.dataSubscription.unsubscribe();
+  }
+
   ngOnInit(): void {
-    const retrievedObject = localStorage.getItem('taskdata');
-    console.log(JSON.parse(retrievedObject));
-    this.todaysTask = JSON.parse(retrievedObject);
+    this.CurrentUserLoginId =localStorage.getItem("UserId");
+    this.dataSubscription = this.taskdataService.getTaskData().subscribe((data)=>{
+      this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
+      console.log(this.todaysTask);
+    })
   }
 
 historydata:any[]=[];

@@ -1,10 +1,11 @@
-<div class="flex flex-column sm:h-auto md:h-screen boxshadow bg-gray-100 p-3">
+<!-- <div class="flex flex-column sm:h-auto md:h-screen boxshadow bg-gray-100 p-3">
     <h3 class="p-2">High Priority Task </h3>
-    <p-scrollPanel [style]="{width: '100%'}" *ngIf="currentId; else nodatahere" styleClass="custombar1 maxheight">
         <ng-container *ngFor="let task of todaysTask;">
-            <span class="text-xl text-gray-600 p-2 font-light " *ngIf="task.id==currentId">{{task.heading}}</span>
+        <div class=" highPriority flex flex-column align-items-center p-3 m-1 gap-2 box-shadow-to-all"  *ngIf="task.priority==3 && task.completed!=true">
+            <label class="text-xl text-gray-700 p-2 font-light text-left">{{task.heading}}</label>
+            <span class="text-xl  align-self-end">Due Date : 22/05/2023 13:30</span>
+        </div>
         </ng-container>
-    </p-scrollPanel>
     <ng-template #nodatahere class="p-2">
     <span class="text-xl text-gray-600 p-2 font-light">No Task to show. Please click on any task!</span>
     </ng-template>
@@ -39,4 +40,4 @@
     </p-scrollPanel>
 </div>
 
-</div>
+</div> -->

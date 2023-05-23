@@ -26,7 +26,8 @@
 
 @media screen and (max-width: 960px)
 {
-::ng-deep{
+
+:ng-deep{
 #pr_id_2 .p-datatable-tbody>tr>td {
     display: block !important;
     width: 100% !important;
@@ -68,7 +69,7 @@
 
     .p-calendar .p-inputtext {
         flex: 1 1 auto;
-        width: 10rem !important;
+        width: 11.5rem !important;
         border: none;
         font-size: 16px ;
         font-weight: 500;
@@ -89,9 +90,10 @@
     }
 
     .p-rating .p-rating-icon.pi-star-fill {
-        color: green !important;
+        color: var(--navbar) !important;
     }
     .p-rating .p-rating-icon {
         font-size: 1.342rem !important;
     }
+
 }

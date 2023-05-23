@@ -11,7 +11,9 @@ export class ChecklistDataService {
   TaskUrl = "https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata.json";
   UserUrl = "https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json";
 
-  UserIdSubject =new Rx.BehaviorSubject([]);
+
+
+  UpdateComponents =new Rx.Subject<boolean>();
   constructor(private http: HttpClient) { }
 
   getTaskData() {

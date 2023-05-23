@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output ,OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit ,OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,10 +11,9 @@ import {ConfirmationService} from 'primeng/api';
   styleUrls: ['./checklist.component.scss'],
   providers: [MessageService,ConfirmationService]
 })
-export class ChecklistComponent implements OnInit {
-  @Output() openSubtasks = new EventEmitter<any>();
-  @Output() sendtaskupdate = new EventEmitter<any>();
+export class ChecklistComponent implements OnInit ,OnDestroy{
 
+  dataSubscription : Subscription;
 
   addlistvalue: boolean = false;
   todaysTask: any[] = []
@@ -30,18 +30,37 @@ export class ChecklistComponent implements OnInit {
   formatedDate = new Date();
   displayModal: boolean;
   modalClickedId:any;
-  loading:boolean=true;
+  loading:boolean;
   completed:boolean;
   priority:any;
+  priorityLevel:any[] =[];
+  scheduleDateTime =new Date();
+  updatedDesc:any;
 
+constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
+this.priorityLevel=[
+  {
+    name:'Low Priority',
+    level:1
+  },
+  {
+    name:'Medium Priority',
+    level:2
+  },
+  {
+    name:'High Priority',
+    level:3
+  }
+]
 
-constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){}
+}
 
 onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }
 
 markItComplete(tasks:any){
+  if(tasks.id!=undefined){
   this.completed= !tasks.completed;
   const itemToUpdate = this.todaysTask.find(item => item.id === tasks.id);
   if (itemToUpdate) {
@@ -60,6 +79,10 @@ markItComplete(tasks:any){
   }
 
   }
+}
+else{
+  this.messageService.add({ severity: 'error', summary: 'Action Prohibited', detail: 'You cannot mark it done too quickly' });
+}
  
 }
 
@@ -73,7 +96,10 @@ onRowEditSave(tasks: any) {
         heading: tasks.heading,
         desc: tasks.desc,
         date: tasks.formatedDate,
-        completed: tasks.selectedValues
+        completed: tasks.completed,
+        time: tasks.time,
+        priority: tasks.priority,
+        schedule: tasks.schedule
       }
       this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
         console.log("Heading Updated to",tasks.heading);
@@ -101,24 +127,24 @@ onRowEditCancel(task: any, index: number) {
 }
 
 
-  //this function will emit id so that list-template and navbar can listen to it and update their records
-  openSubtasksbar(id:string){
-    this.openSubtasks.emit(id);
-  }
-
  
 //Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
   ngOnInit(): void {
     this.defaultDate = new Date(2023, 4, 17);
 
     this.CurrentUserLoginId =localStorage.getItem("UserId");
-    this.taskdataService.getTaskData().subscribe((data)=>{
+    this.dataSubscription = this.taskdataService.getTaskData().subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
+      this.loading=true;
       console.log(this.todaysTask);
       setTimeout(() => {
         this.loading=false
       }, 700);
     })
+  }
+
+  ngOnDestroy(){
+      this.dataSubscription?.unsubscribe();
   }
   
 //delete
@@ -175,6 +201,7 @@ onRowEditCancel(task: any, index: number) {
 
  //adding task and updating value stored in local storage
   addnewtask() {
+const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     this.CurrentUserLoginId =localStorage.getItem("UserId");
     if (this.newTaskName.length > 0) {
       const newTask = {
@@ -182,16 +209,21 @@ onRowEditCancel(task: any, index: number) {
         heading: this.newTaskName,
         desc: this.newTaskdescription,
         date:this.formatedDate.toLocaleString().split(',').splice(0,1)[0],
-        completed: this.selectedValues
+        time: formattedTime,
+        completed: this.selectedValues,
+        priority: this.priority.level,
+        schedule: this.scheduleDateTime
       };
       this.todaysTask.push(newTask);
       this.taskdataService.postTask(newTask).subscribe((res)=>{
         console.log(res);
       })
+      
       localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
       this.newTaskName = '';
       this.newTaskdescription = null;
       this.showSuccess() //show success message
+      this.taskdataService.UpdateComponents.next(true);
     } else {
       this.showError()
     }

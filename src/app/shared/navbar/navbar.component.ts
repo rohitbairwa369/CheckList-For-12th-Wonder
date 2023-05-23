@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output, Input, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 
 @Component({
@@ -7,21 +8,25 @@ import { ChecklistDataService } from 'src/app/service/checklist-data.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit, OnDestroy{
   @Output() toggleSidebar = new EventEmitter<boolean>();
-  @Input() currentId: number;
+
   subtask: any;
+  CurrentUserLoginId: string;
+  dataSubscription: Subscription;
 
   constructor(private router : Router,private taskdata:ChecklistDataService) { }
+  ngOnDestroy(): void {
+   this.dataSubscription.unsubscribe();
+  }
   searching: boolean = false;
   ngOnInit(): void {
-    const id = localStorage.getItem("UserId");
-    const retrievedObject = localStorage.getItem('taskdata');
-    if (retrievedObject != null) {
-      console.log(JSON.parse(retrievedObject));
-      this.todaysTask = JSON.parse(retrievedObject);
-    }
-    this.taskdata.getSpecificUserData(id).subscribe((res)=>{
+    this.CurrentUserLoginId =localStorage.getItem("UserId");
+    this.dataSubscription = this.taskdata.getTaskData().subscribe((data)=>{
+      this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
+      console.log(this.todaysTask);
+    })
+    this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res)=>{
       this.userData = res;
       console.log("From Navbar", this.userData);
     });
@@ -33,7 +38,7 @@ export class NavbarComponent implements OnInit{
 
   get searchresult() {
     this.searching = true;
-    return this.todaysTask.filter(product => product.heading.toLowerCase().includes(this.searchkey.toLowerCase()));
+    return this.todaysTask.filter(product => product.heading?.toLowerCase().includes(this.searchkey.toLowerCase()));
   }
 
   //declaring array to store retrived output

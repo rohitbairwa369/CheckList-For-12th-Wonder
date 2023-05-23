@@ -24,11 +24,14 @@ body::-webkit-scrollbar {
 :root {
     font-size: 62.5%;
     font-family: 'roboto';
-    --navbar: #062925;
+    --navbar: #d33f00;
+    // --navbar: #d33f00;
+    // --navbar: #062925;
     --back-ground: #ffffff;
     --other-section: #ececec;
     --btn-card: #7C9070;
     --hover-clr:#ffd493;
+    --high-priority:rgba(255, 255, 255, 0.5);
 
   }
   
@@ -43,6 +46,10 @@ body::-webkit-scrollbar {
   a{
     color: #5D5FEF;
     text-decoration: #5D5FEF underline;
+  }
+
+  .box-shadow-to-all{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
   }
 
 

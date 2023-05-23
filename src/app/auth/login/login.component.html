@@ -1,4 +1,6 @@
+<div class="w-screen h-screen backgroundMain flex flex-column justify-content-center">
 <p-toast styleClass="text-xl topclass"></p-toast>
+<div class="flex justify-content-center  align-items-center flex-wrap-reverse">
 <div class="center p-5">
 <div class="flex align-content-center justify-content-center mb-4 gap-3">
    <h2>{{Heading}}</h2>
@@ -8,12 +10,12 @@
 <ng-template [ngIf]="showLoginForm">
 <form #authForms="ngForm" (ngSubmit)="onSubmit(authForms)">
     <div class="flex align-content-center flex-column gap-5">
-    <input type="email" name="email" pInputText placeholder="Email id" class="h-5rem w-30rem text-2xl align-self-center" ngModel required email/>
-    <input type="password" id="password" pInputText placeholder="Password" class="h-5rem w-30rem  text-2xl align-self-center" ngModel name="password" required minlength="4" />
+    <input type="email" name="email" pInputText placeholder="Email id" class="h-5rem max-w-30rem w-full text-2xl align-self-center" ngModel required email/>
+    <input type="password" id="password" pInputText placeholder="Password" class="h-5rem max-w-30rem w-full  text-2xl align-self-center" ngModel name="password" required minlength="4" />
     <div class="flex justify-content-center"><button pButton class="w-7rem text-2xl text-center text-white" [disabled]="!authForms.valid">Login</button>
     </div>
 </div>
-<div class="flex justify-content-center"><p class="text-2xl">Don't Have an Account ? <a class="cursor-pointer no-underline" (click)="toggleLoginSignup()">Create One!</a></p>
+<div class="flex justify-content-center"><p class="text-2xl">Don't Have an Account ? <a class="cursor-pointer underline text-white" (click)="toggleLoginSignup()">Create One</a></p>
 </div>
 </form>
 </ng-template>
@@ -29,8 +31,14 @@
         <div class="flex justify-content-center"><button pButton class="w-9rem text-2xl text-center text-white" [disabled]="!accountForms.valid">Sign Up</button>
 </div></div>
 </form>
-<div class="flex justify-content-center"><p class="text-2xl">Already Have an Account ? <a class="cursor-pointer no-underline" (click)="toggleLoginSignup()">Login !</a></p>
+<div class="flex justify-content-center"><p class="text-2xl">Already Have an Account ? <a class="cursor-pointer text-white underline" (click)="toggleLoginSignup()">Login</a></p>
 </div>
 </ng-template>
 
+</div>
+<div class="backgroundImage">
+    <img src="../../../assets/images/checklist-min.jpg" alt="" width="100%" height="auto">
+</div>
+
+</div>
 </div>

@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   isSidebarOpen = true;
   @HostListener('window:resize', ['$event'])
+  
   onResize(event) {
     if (event.target.innerWidth < 600) {
       this.isSidebarOpen = false;
@@ -24,11 +25,6 @@ export class HomeComponent implements OnInit {
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  currentId:number;
-  currentSeenid(id:number){
-    this.currentId=id;
   }
 
 

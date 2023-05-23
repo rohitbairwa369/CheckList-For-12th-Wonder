@@ -22,6 +22,8 @@ import {PasswordModule} from 'primeng/password';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {RatingModule} from 'primeng/rating';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 @NgModule({
   declarations: [],
@@ -48,7 +50,8 @@ import {RatingModule} from 'primeng/rating';
     PasswordModule,
     CheckboxModule,
     ConfirmPopupModule,
-    RatingModule
+    RatingModule,
+    InputTextareaModule
   ],
   exports:[
     ButtonModule,
@@ -72,7 +75,8 @@ import {RatingModule} from 'primeng/rating';
     PasswordModule,
     CheckboxModule,
     ConfirmPopupModule,
-    RatingModule
+    RatingModule,
+    InputTextareaModule
   ]
 })
 export class PrimengModule { }
