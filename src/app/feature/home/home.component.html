@@ -1,9 +1,11 @@
 <div class="grid m-0">
     <div class="col-12  p-0 z-3 fixed"><app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar></div>
 </div>
-<div class="flex flex-wrap">
-    <app-sidebar  [isOpen]="isSidebarOpen" class="p-0 m-0 z-2 fixed mt-8" style="height:100%"></app-sidebar>
-    <div class="checklistwidth mt-8 flex md:justify-content-center sm:justify-content-center container">
+<div class="flex">
+    <div class="sidebar mt-8" [ngClass]="{'show': isSidebarOpen}">
+        <app-sidebar></app-sidebar>
+        </div>
+    <div class="checklistwidth mt-8 flex justify-content-center justify-content-center container">
         <router-outlet></router-outlet>
     </div>
     <!-- <div class=" subtasktemp  sm:container md:p-0 mt-8 "><app-listtemplate [currentId]="currentId" ></app-listtemplate></div> -->

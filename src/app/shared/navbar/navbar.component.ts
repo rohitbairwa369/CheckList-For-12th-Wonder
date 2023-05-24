@@ -63,13 +63,13 @@ showDateTodo(date:any){
   this.searching=false;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['currentId'] && !changes['currentId'].firstChange) {
-      const retrievedObject = localStorage.getItem('taskdata');
-      this.todaysTask = JSON.parse(retrievedObject);
-    }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['currentId'] && !changes['currentId'].firstChange) {
+  //     const retrievedObject = localStorage.getItem('taskdata');
+  //     this.todaysTask = JSON.parse(retrievedObject);
+  //   }
     
-  }
+  // }
 
   hideSearching(){
     setTimeout(() => {

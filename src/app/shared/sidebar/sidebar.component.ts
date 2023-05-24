@@ -6,8 +6,6 @@ import { Component, EventEmitter, OnInit ,Input} from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
-  @Input() isOpen = false;
   constructor() { }
 
   ngOnInit(): void {

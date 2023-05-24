@@ -36,7 +36,7 @@
   *ngIf="searching && searchresult.length>0; else noSearchResult">
   <div class="text-xl text-gray-800 p-1 text-overflow-ellipsis border-round-xl w-full  border-gray-400 cursor-pointer hover:bg-gray-200"
     *ngFor="let result of searchresult | slice:0:5" (click)="showDateTodo(result.date)">
-{{ result.heading | slice:0:44}}
+        {{ result.heading | slice:0:44}}
   </div>
 </div>
 

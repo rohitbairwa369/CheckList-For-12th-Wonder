@@ -22,16 +22,19 @@
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
                    <div class="text-4xl font-bold">Task</div>
-                   <div><i class="pi pi-pencil text-xl border-1 border-circle p-2 hover:bg-gray-900 hover:text-white"></i></div>
+                   <div><i class="pi pi-pencil text-xl border-1 border-circle p-2 hover:bg-gray-900 hover:text-white" (click)="toggle()"></i></div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3">
                     <div>
                         {{tasks.heading}}
                     </div>
                     <div class="text-4xl font-bold">Description</div>
-                    <div>
+                    <div *ngIf="showeditor;else editor">
                         {{tasks.desc}}
                     </div>
+                    <ng-template #editor>
+                        <p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+                    </ng-template>
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Date & Time</label>
                         <div>{{tasks.date}} {{tasks.time}}</div>
@@ -68,15 +71,14 @@
                             <i class="pi pi-check-circle text-2xl cursor-pointer" (click)="markItComplete(tasks)"></i>
                         </ng-template>
                     </div>
-                    <td class="text-2xl border-0 siztex cursor-move" [pReorderableRowHandle]
-                        (dblclick)="showModalDialog(tasks.id)">
+                    <td class="text-2xl border-0 siztex cursor-move" [pReorderableRowHandle]>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading"
                                     maxlength="150">
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <div [ngClass]="{'line-through': tasks.completed}">
+                                <div [ngClass]="{'line-through': tasks.completed}" (click)="showModalDialog(tasks.id)">
                                     {{tasks.heading|slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
                                 </div>
                             </ng-template>

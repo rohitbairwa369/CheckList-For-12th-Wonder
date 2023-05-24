@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit ,OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit ,OnDestroy, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
@@ -36,8 +36,9 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   priorityLevel:any[] =[];
   scheduleDateTime =new Date();
   updatedDesc:any;
+  showeditor:boolean=true;
   @ViewChild('calendar') calendar;
-
+text:any;
 
 constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
@@ -61,6 +62,10 @@ toggleCalendar() {
   this.calendar.toggle();
 }
 
+toggle()
+{
+  this.showeditor=!this.showeditor;
+}
 onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }

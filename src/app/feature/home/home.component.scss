@@ -6,4 +6,22 @@
     overflow-y: auto;
 }
 
+.sidebar{
+    display: none;
+    width: 25rem;
+    height: 100vh;
+    border-top: none;
+    background-color:var(--other-section);
+}
+
+.show {
+    display: block;
+  }
+
+  @media screen and (max-width: 1111px) {
+    .sidebar{
+        position: fixed;
+        z-index: 1;
+    }
+  }
 

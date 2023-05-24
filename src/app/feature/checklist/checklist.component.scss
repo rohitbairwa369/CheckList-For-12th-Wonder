@@ -24,22 +24,7 @@
     }
   }
 
-@media screen and (max-width: 960px)
-{
 
-:ng-deep{
-#pr_id_2 .p-datatable-tbody>tr>td {
-    display: block !important;
-    width: 100% !important;
-    .justify-content-center {
-        -webkit-box-pack: end !important;
-            -ms-flex-pack: end !important;
-                justify-content: end !important;
-    }
-}
-
-}
-}
 
 .input-size-extend{
     width: 100%;
@@ -64,6 +49,24 @@
 .topostion{
     top:50vh;
 }
+
+::ng-deep{
+
+    #pr_id_3-table > tbody > tr > td:nth-child(3){
+          display: block;
+          width: auto !important;
+      } 
+
+      @media screen and (max-width: 960px)
+      {
+      #pr_id_15 .p-datatable-tbody > tr > td:nth-child(3) {
+        display: block;
+        width: auto !important;
+         
+      }
+    }
+  }
+
 
 ::ng-deep{
 
