@@ -17,23 +17,28 @@
         </div>
     </div>
     <p-dialog header="View Task Details" [(visible)]="displayModal" [modal]="true"
-        [style]="{width: '50vw','height':'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        [style]="{width: '50vw','height':'auto'}" [baseZIndex]="10000" [draggable]="true" class="hideScroll" [resizable]="true">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
-                <div class="flex justify-content-between p-3 align-items-center">
+                <div class="flex justify-content-start p-3 align-items-center">
                    <div class="text-4xl font-bold">Task</div>
-                   <div><i class="pi pi-pencil text-xl border-1 border-circle p-2 hover:bg-gray-900 hover:text-white" (click)="toggle()"></i></div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3">
-                    <div>
+                    <p-inplace styleClass="text-2xl">
+                        <ng-template pTemplate="display">
                         {{tasks.heading}}
-                    </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <input type="text" [(ngModel)]="ModalHeading" class="text-2xl w-full h-auto" pInputText>
+                        </ng-template>
+                    </p-inplace>
                     <div class="text-4xl font-bold">Description</div>
-                    <div *ngIf="showeditor;else editor">
-                        {{tasks.desc}}
+                    <div *ngIf="showeditor;else editor" (click)="toggle()" class="cursor-pointer hover:bg-gray-200 border-round-xl p-2 w-full" style="word-wrap: break-word; overflow: auto;">   
+                        <div style="overflow-y:hidden; padding-right: 15px;"  [innerHTML]="tasks.desc">
+                          </div>
                     </div>
                     <ng-template #editor>
-                        <p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+                        <p-editor [(ngModel)]="ModalDesc"  [style]="{'height':'320px'}"></p-editor>
                     </ng-template>
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Date & Time</label>
@@ -42,7 +47,7 @@
                     <hr class="border-bottom-1 border-gray-200 w-full">
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Due Date</label>
-                        <div>{{tasks.schedule.toLocaleString()}}</div>
+                     {{tasks.schedule.toLocaleString().split('T').splice(0,1)[0]}}
                     </div>
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Priority Level</label>
@@ -52,6 +57,11 @@
                         <label class="text-4xl font-bold">Complete Status</label>
                         <div>{{tasks.completed}}</div>
                     </div>
+                 
+                    <div class="flex justify-content-end mt-4">
+                        <div><button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="onEditModalSave(tasks)">Save</button></div>
+                    </div>
+        
                 </div>
             </ng-container>
         </div>
@@ -78,7 +88,7 @@
                                     maxlength="150">
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <div [ngClass]="{'line-through': tasks.completed}" (click)="showModalDialog(tasks.id)">
+                                <div [ngClass]="{'line-through': tasks.completed}" (click)="showModalDialog(tasks)">
                                     {{tasks.heading|slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
                                 </div>
                             </ng-template>

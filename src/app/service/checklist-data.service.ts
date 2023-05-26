@@ -8,6 +8,7 @@ import * as Rx from "rxjs";
 })
 
 export class ChecklistDataService {
+
   TaskUrl = "https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata.json";
   UserUrl = "https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json";
 

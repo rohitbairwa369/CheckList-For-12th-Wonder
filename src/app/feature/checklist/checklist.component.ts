@@ -2,7 +2,7 @@ import { Component, OnInit ,OnDestroy, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subscription ,Observable} from 'rxjs';
 
 
 @Component({
@@ -38,8 +38,8 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   updatedDesc:any;
   showeditor:boolean=true;
   @ViewChild('calendar') calendar;
-text:any;
-
+  ModalHeading:any;
+  ModalDesc:any;
 constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
   {
@@ -99,7 +99,6 @@ else{
  
 }
 
-historydata:any[]=[];
 
 onRowEditSave(tasks: any) {
     if (tasks.heading.length > 0) {
@@ -123,8 +122,6 @@ onRowEditSave(tasks: any) {
         current : tasks.heading,
         time : new Date().toLocaleString(),
       };
-      this.historydata.push(history);
-      localStorage.setItem("edithistory",JSON.stringify(this.historydata));
       this.todaysTask[tasks.id].heading = tasks.heading;
       localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
         this.messageService.add({severity:'success', summary: 'Success', detail:'Task is updated'});
@@ -140,6 +137,25 @@ onRowEditCancel(task: any, index: number) {
     delete this.todaysTask[task.id];
 }
 
+//function to take edit from modal
+onEditModalSave(tasks:any){
+  if (this.ModalHeading.length > 0) {
+    const updateddata ={
+      userId : this.CurrentUserLoginId,
+      heading: this.ModalHeading,
+      desc: this.ModalDesc,
+      date: tasks.formatedDate,
+      completed: tasks.completed,
+      time: tasks.time,
+      priority: tasks.priority,
+      schedule: tasks.schedule
+    }
+    this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task Updated'});
+    });
+    this.displayModal = false;
+    this.toggle();
+}}
 
  
 //Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
@@ -203,9 +219,11 @@ onRowEditCancel(task: any, index: number) {
   }
  
 //show modal
-  showModalDialog(id:any) {
+  showModalDialog(tasks:any) {
+    this.ModalHeading =tasks.heading;
+    this.ModalDesc=tasks.desc;
+    this.modalClickedId =tasks.id;
     this.displayModal = true;
-    this.modalClickedId =id;
 }
 
   //sorting task data alphabetically
