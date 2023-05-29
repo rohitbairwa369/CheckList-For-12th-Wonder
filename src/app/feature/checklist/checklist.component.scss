@@ -1,6 +1,6 @@
 
 .checklist{
-    min-width: 80rem;
+    min-width: 85rem;
     width: 100%;
     height: 100vh;
 }
@@ -14,6 +14,45 @@
 }
 }
 
+
+#style-2::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-2::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #D62929;
+}
+
+/*
+ *  STYLE 3
+ */
+
+ .scrollStyle{
+    ::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
+    
+    ::-webkit-scrollbar
+    {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+    
+ }
 
 
 
@@ -70,6 +109,19 @@
 
 ::ng-deep{
 
+    .p-picklist .p-picklist-buttons {
+        padding: 1.25rem;
+        display: none;
+    }
+
+    #cdk-drop-list-1{
+        display: none;
+    }
+
+ .p-picklist-list-wrapper.p-picklist-target-wrapper{
+        display: none;
+    }
+
     .p-calendar .p-inputtext {
         flex: 1 1 auto;
         width: 11.5rem !important;
@@ -80,12 +132,19 @@
     }
 
     .panel-left{
-        left: -15rem !important;
+        left: -14rem !important;
         font-size: 1.4rem;
     }
 
     .p-link{
         font-size: 1.2rem !important;
+    }
+
+    
+    .position-left{
+        top: -22rem !important;
+        left: -26rem !important;
+        font-size: 1.4rem;
     }
 
     .p-datepicker table {

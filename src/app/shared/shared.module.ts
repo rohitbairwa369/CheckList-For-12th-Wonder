@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { ListtemplateComponent } from './listtemplate/listtemplate.component';
 import { PrimengModule } from '../primeng/primeng.module';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    SidebarComponent,
-    ListtemplateComponent
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -17,8 +15,7 @@ import { PrimengModule } from '../primeng/primeng.module';
   ],
   exports:[
     NavbarComponent,
-    SidebarComponent,
-    ListtemplateComponent
+    SidebarComponent
   ]
 })
 export class SharedModule { }

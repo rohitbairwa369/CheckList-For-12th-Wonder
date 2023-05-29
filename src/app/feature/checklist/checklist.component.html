@@ -8,37 +8,38 @@
         </div>
         <div class="flex align-items-center gap-3">
             <!-- <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" ></i> -->
-            <i class="pi pi-calendar text-3xl cursor-pointer"  pTooltip="Select Date" tooltipPosition="top" (click)="toggleCalendar()"></i>
-            <p-calendar [(ngModel)]="formatedDate" #calendar [defaultDate]="defaultDate"
-                 dateFormat="dd/m/yy" styleClass="text-2xl"
-                panelStyleClass="panel-left custom-calendar"></p-calendar>
+            <i class="pi pi-calendar text-3xl cursor-pointer" pTooltip="Select Date" tooltipPosition="top"
+                (click)="toggleCalendar()"></i>
+            <p-calendar [(ngModel)]="formatedDate" #calendar [defaultDate]="defaultDate" dateFormat="dd/m/yy"
+                styleClass="text-2xl" panelStyleClass="panel-left"></p-calendar>
             <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
-
         </div>
     </div>
     <p-dialog header="View Task Details" [(visible)]="displayModal" [modal]="true"
-        [style]="{width: '50vw','height':'auto'}" [baseZIndex]="10000" [draggable]="true" class="hideScroll" [resizable]="true">
+        [style]="{width: '50vw','height':'auto'}" [baseZIndex]="10000">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-start p-3 align-items-center">
-                   <div class="text-4xl font-bold">Task</div>
+                    <div class="text-4xl font-bold">Task</div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3">
                     <p-inplace styleClass="text-2xl">
                         <ng-template pTemplate="display">
-                        {{tasks.heading}}
+                            {{tasks.heading}}
                         </ng-template>
                         <ng-template pTemplate="content">
                             <input type="text" [(ngModel)]="ModalHeading" class="text-2xl w-full h-auto" pInputText>
                         </ng-template>
                     </p-inplace>
                     <div class="text-4xl font-bold">Description</div>
-                    <div *ngIf="showeditor;else editor" (click)="toggle()" class="cursor-pointer hover:bg-gray-200 border-round-xl p-2 w-full" style="word-wrap: break-word; overflow: auto;">   
-                        <div style="overflow-y:hidden; padding-right: 15px;"  [innerHTML]="tasks.desc">
-                          </div>
+                    <div *ngIf="showeditor;else editor" (click)="toggle()"
+                        class="cursor-pointer hover:bg-gray-200 border-round-xl p-2 w-full"
+                        style="word-wrap: break-word; overflow: auto;">
+                        <div style="overflow-y:hidden; padding-right: 15px;" [innerHTML]="tasks.desc">
+                        </div>
                     </div>
                     <ng-template #editor>
-                        <p-editor [(ngModel)]="ModalDesc"  [style]="{'height':'320px'}"></p-editor>
+                        <p-editor [(ngModel)]="ModalDesc" [style]="{'height':'320px'}"></p-editor>
                     </ng-template>
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Date & Time</label>
@@ -47,31 +48,54 @@
                     <hr class="border-bottom-1 border-gray-200 w-full">
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Due Date</label>
-                     {{tasks.schedule.toLocaleString().split('T').splice(0,1)[0]}}
+                        <div>
+                            <p-inplace styleClass="text-2xl">
+                                <ng-template pTemplate="display">
+                                    {{tasks.schedule.toLocaleString().split('T').splice(0,1)[0]}}
+                                </ng-template>
+                                <ng-template pTemplate="content">
+                         <p-calendar [(ngModel)]="ModalDueDate" [showTime]="true" pTooltip="Due Date" tooltipPosition="left"
+                    [defaultDate]="defaultDate" inputId="time" panelStyleClass="position-left"
+                    styleClass="border-1 border-round-xl border-gray-400 h-3rem" dateFormat="dd/m/yy"
+                    inputStyleClass="text-xl text-gray-600"></p-calendar>
+                                </ng-template>
+                            </p-inplace>
+                        </div>
                     </div>
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Priority Level</label>
-                        <div>{{tasks.priority}}</div>
+                        <div>
+                            <p-inplace styleClass="text-2xl">
+                                <ng-template pTemplate="display">
+                                    {{tasks.priority}}
+                                </ng-template>
+                                <ng-template pTemplate="content">
+                                    <p-dropdown [options]="priorityLevel" [(ngModel)]="ModelPriority" pTooltip="Priority"
+                                        tooltipPosition="top" optionLabel="name"></p-dropdown>
+                                </ng-template>
+                            </p-inplace>
+                        </div>
                     </div>
                     <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Complete Status</label>
-                        <div>{{tasks.completed}}</div>
+                        <div> {{tasks.completed}}</div>
                     </div>
-                 
+
                     <div class="flex justify-content-end mt-4">
-                        <div><button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="onEditModalSave(tasks)">Save</button></div>
+                        <div><button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800"
+                                (click)="onEditModalSave(tasks)">Save</button></div>
                     </div>
-        
+
                 </div>
             </ng-container>
         </div>
     </p-dialog>
     <div class="card">
-        <p-table [value]="todaysTask" dataKey="id" editMode="row" [reorderableColumns]="true" [loading]="loading">
+        <p-table [value]="todaysTask" dataKey="id" editMode="row" [loading]="loading" [reorderableColumns]="true">
             <ng-template pTemplate="body" let-tasks let-editing="editing" let-ri="rowIndex">
-                <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200"
+                <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" [pReorderableRow]="ri"
                     *ngIf="tasks.date==formatedDate.toLocaleString().split(',').splice(0,1)[0];" [pEditableRow]="tasks">
-                    <div class=" w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
+                    <div class="w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
                         <p-confirmPopup></p-confirmPopup>
                         <ng-container *ngIf="!tasks.completed; else checked">
                             <i class="pi pi-circle text-2xl cursor-pointer" (click)="markItComplete(tasks)"></i>
@@ -81,14 +105,15 @@
                             <i class="pi pi-check-circle text-2xl cursor-pointer" (click)="markItComplete(tasks)"></i>
                         </ng-template>
                     </div>
-                    <td class="text-2xl border-0 siztex cursor-move" [pReorderableRowHandle]>
+                    <td class="text-2xl border-0 siztex">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading"
                                     maxlength="150">
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <div [ngClass]="{'line-through': tasks.completed}" (click)="showModalDialog(tasks)">
+                                <div [ngClass]="{'line-through': tasks.completed}" class="cursor-pointer"
+                                    (click)="showModalDialog(tasks)">
                                     {{tasks.heading|slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
                                 </div>
                             </ng-template>
@@ -109,7 +134,11 @@
                                 class="p-button-rounded p-button-text p-button-danger"></button>
                         </div>
                     </td>
-                    <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600"  pTooltip="Delete" tooltipPosition="right"  (click)="confirm($event,tasks.id)"></i>
+                    <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600" pTooltip="Delete"
+                        tooltipPosition="right" (click)="confirm($event,tasks.id)"></i>
+                    <td>
+                        <span class="pi pi-bars ml-3" [pReorderableRowHandle]></span>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
@@ -133,7 +162,7 @@
                 <p-calendar [(ngModel)]="scheduleDateTime" [showTime]="true" pTooltip="Due Date" tooltipPosition="top"
                     [defaultDate]="defaultDate" inputId="time"
                     styleClass="border-1 border-round-xl border-gray-400 h-3rem" dateFormat="dd/m/yy"
-                    inputStyleClass="text-xl text-gray-600"></p-calendar>
+                    inputStyleClass="text-xl text-gray-600" panelStyleClass="positionleft"></p-calendar>
             </div>
             <div class="flex gap-3 align-items-center p-2">
                 <button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="addnewtask()">Save</button>

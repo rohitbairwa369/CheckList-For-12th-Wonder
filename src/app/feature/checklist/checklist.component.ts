@@ -1,15 +1,23 @@
-import { Component, OnInit ,OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit ,OnDestroy, ViewChild, SimpleChanges } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
-import { Subscription ,Observable} from 'rxjs';
-
+import { Subscription, filter } from 'rxjs';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.scss'],
-  providers: [MessageService,ConfirmationService]
+  providers: [MessageService,ConfirmationService],
+  animations: [
+    trigger('reorderAnimation', [
+      state('normal', style({ transform: 'translateY(0)' })),
+      state('dragged', style({ transform: 'translateY(-10px)', zIndex: '9999' })),
+      transition('normal <=> dragged', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class ChecklistComponent implements OnInit ,OnDestroy{
 
@@ -24,7 +32,6 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   newTaskName: string;
   newTaskdescription: number;
   selectedValues:boolean=false;
-  sortAscending: boolean = true;
   defaultDate:Date;
   CurrentUserLoginId:any;
   formatedDate = new Date();
@@ -40,7 +47,12 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   @ViewChild('calendar') calendar;
   ModalHeading:any;
   ModalDesc:any;
-constructor(private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
+  ByDateTasks:any[];
+  ModalDueDate: any;
+  ModelPriority: any;
+
+  
+constructor(private router: Router,private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
   {
     name:'Low Priority',
@@ -55,7 +67,19 @@ this.priorityLevel=[
     level:3
   }
 ]
+
+this.CurrentUserLoginId =localStorage.getItem("UserId");
+this.dataSubscription = this.taskdataService.getTaskData().subscribe((data)=>{
+  this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
+  this.loading=true;
+  setTimeout(() => {
+    this.loading=false
+  }, 700);
+  this.taskdataService.dataSubject.next(this.todaysTask)
+})
+
 }
+
 
 //this will help us to toggle calendar
 toggleCalendar() {
@@ -66,6 +90,7 @@ toggle()
 {
   this.showeditor=!this.showeditor;
 }
+
 onRowEditInit(tasks: any) {
     this.todaysTask[tasks.id] = {...tasks};
 }
@@ -145,32 +170,23 @@ onEditModalSave(tasks:any){
       heading: this.ModalHeading,
       desc: this.ModalDesc,
       date: tasks.formatedDate,
-      completed: tasks.completed,
+      completed: this.completed,
       time: tasks.time,
-      priority: tasks.priority,
-      schedule: tasks.schedule
+      priority: this.ModelPriority.level,
+      schedule: this.ModalDueDate
     }
     this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task Updated'});
     });
     this.displayModal = false;
     this.toggle();
+    this.router.navigate(['/home/todo/']);
 }}
 
  
 //Retriving the the value from local storage & if local storage does not contain any key-value pair ,i am setting value in local storage
   ngOnInit(): void {
     this.defaultDate = new Date(2023, 4, 17);
-
-    this.CurrentUserLoginId =localStorage.getItem("UserId");
-    this.dataSubscription = this.taskdataService.getTaskData().subscribe((data)=>{
-      this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
-      this.loading=true;
-      setTimeout(() => {
-        this.loading=false
-      }, 700);
-      this.taskdataService.dataSubject.next(this.todaysTask)
-    })
     this.taskdataService.UpdateComponents.subscribe((res)=>{
       const parts = res.split('/');
       this.formatedDate = new Date(Number(parts[2]), Number(parts[0]) - 1, Number(parts[1]));
@@ -222,18 +238,12 @@ onEditModalSave(tasks:any){
   showModalDialog(tasks:any) {
     this.ModalHeading =tasks.heading;
     this.ModalDesc=tasks.desc;
+    this.ModalDueDate = tasks.schedule;
+    this.ModelPriority = tasks.priority;
     this.modalClickedId =tasks.id;
     this.displayModal = true;
 }
 
-  //sorting task data alphabetically
-  sortTaskData(){
-    this.sortAscending = !this.sortAscending;
-    this.todaysTask.sort((a, b) => {
-    const comparison = a.heading.localeCompare(b.heading);
-    return this.sortAscending ? comparison : -comparison;
-  });
-  }
 
  //adding task and updating value stored in local storage
   addnewtask() {
@@ -252,9 +262,7 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
         schedule: this.scheduleDateTime
       };
       this.todaysTask.push(newTask);
-      this.taskdataService.postTask(newTask).subscribe((res)=>{
-        console.log(res);
-      })
+      this.taskdataService.postTask(newTask)
       this.taskdataService.dataSubject.next(this.todaysTask)
       this.newTaskName = '';
       this.newTaskdescription = null;
@@ -263,6 +271,8 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
       this.showError()
     }
   }
+
+  
 
 
 }

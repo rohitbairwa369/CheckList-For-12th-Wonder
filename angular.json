@@ -15,6 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
+          
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/check-list",
@@ -39,7 +40,10 @@
             "scripts": [
               "node_modules/chart.js/dist/chart.js",
               "node_modules/quill/dist/quill.js"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+              "quill"
+           ]
           },
           "configurations": {
             "production": {

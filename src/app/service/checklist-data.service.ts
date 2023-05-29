@@ -36,7 +36,9 @@ export class ChecklistDataService {
   }
 
   postTask(data: any){
-   return this.http.post(this.TaskUrl,data)
+   return this.http.post(this.TaskUrl,data).subscribe((res)=>{
+    console.log(res);
+   })
   }
   //update data to task
   updateTaskDataHeading(id:any,updateddata: any) {
