@@ -15,7 +15,7 @@
             <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
         </div>
     </div>
-    <p-dialog header="View Task Details" [(visible)]="displayModal" [modal]="true"
+    <p-dialog header="Task Details" [(visible)]="displayModal" [modal]="true"
         [style]="{width: '50vw','height':'auto'}" [baseZIndex]="10000">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">

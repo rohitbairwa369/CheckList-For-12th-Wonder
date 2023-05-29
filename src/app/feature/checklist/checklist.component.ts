@@ -2,7 +2,7 @@ import { Component, OnInit ,OnDestroy, ViewChild, SimpleChanges } from '@angular
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
-import { Subscription, filter } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
 
@@ -11,13 +11,6 @@ import { Router } from '@angular/router';
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.scss'],
   providers: [MessageService,ConfirmationService],
-  animations: [
-    trigger('reorderAnimation', [
-      state('normal', style({ transform: 'translateY(0)' })),
-      state('dragged', style({ transform: 'translateY(-10px)', zIndex: '9999' })),
-      transition('normal <=> dragged', animate('300ms ease-in-out'))
-    ])
-  ]
 })
 export class ChecklistComponent implements OnInit ,OnDestroy{
 
@@ -51,7 +44,7 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   ModalDueDate: any;
   ModelPriority: any;
 
-  
+
 constructor(private router: Router,private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
   {
