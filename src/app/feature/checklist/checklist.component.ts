@@ -62,7 +62,7 @@ this.priorityLevel=[
 ]
 
 this.CurrentUserLoginId =localStorage.getItem("UserId");
-this.dataSubscription = this.taskdataService.getTaskData().subscribe((data)=>{
+this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
   this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
   this.loading=true;
   setTimeout(() => {
@@ -255,7 +255,7 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
         schedule: this.scheduleDateTime
       };
       this.todaysTask.push(newTask);
-      this.taskdataService.postTask(newTask)
+      this.taskdataService.postTask(newTask,this.CurrentUserLoginId);
       this.taskdataService.dataSubject.next(this.todaysTask)
       this.newTaskName = '';
       this.newTaskdescription = null;

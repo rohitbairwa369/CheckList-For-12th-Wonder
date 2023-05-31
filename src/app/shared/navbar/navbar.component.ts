@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   searching: boolean = false;
   ngOnInit(): void {
     this.CurrentUserLoginId =localStorage.getItem("UserId");
-    this.dataSubscription = this.taskdata.getTaskData().subscribe((data)=>{
+    this.dataSubscription = this.taskdata.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
     })
     this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res)=>{

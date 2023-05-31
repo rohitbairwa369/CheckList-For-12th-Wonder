@@ -9,8 +9,6 @@ import * as Rx from "rxjs";
 
 export class ChecklistDataService {
 
-  TaskUrl = "https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata.json";
-  UserUrl = "https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json";
 
 
 
@@ -18,8 +16,8 @@ export class ChecklistDataService {
   dataSubject= new Rx.Subject<any>();
   constructor(private http: HttpClient) { }
 
-  getTaskData() {
-    return this.http.get(this.TaskUrl).pipe(Rx.map(responsedata=>{
+  getTaskData(id:any) {
+    return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}/taskdata.json`).pipe(Rx.map(responsedata=>{
       const taskArray =[];
       for(const key in responsedata){
         if(responsedata.hasOwnProperty(key)){
@@ -35,26 +33,26 @@ export class ChecklistDataService {
     return this.dataSubject.asObservable();
   }
 
-  postTask(data: any){
-   return this.http.post(this.TaskUrl,data).subscribe((res)=>{
+  postTask(data: any,id:any){
+   return this.http.post(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}/taskdata.json`,data).subscribe((res)=>{
     console.log(res);
    })
   }
   //update data to task
   updateTaskDataHeading(id:any,updateddata: any) {
-    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata/${id}.json`,updateddata);
+    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/taskdata/${id}.json`,updateddata);
   }
 
   //function to delete data
   deleteTask(id: any) {
-    return this.http.delete(`https://checklist-4c9fc-default-rtdb.firebaseio.com/taskdata/${id}.json`);
+    return this.http.delete(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/taskdata/${id}.json`);
   }
 
   //User
 
   //function to get users data
   getUserData() {
-    return this.http.get(this.UserUrl).pipe(Rx.map(responsedata=>{
+    return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json`).pipe(Rx.map(responsedata=>{
       const UserArray =[];
       for(const key in responsedata){
         if(responsedata.hasOwnProperty(key)){
@@ -66,7 +64,7 @@ export class ChecklistDataService {
   }
 
   registerUser(userdata:any){
-   return this.http.post(this.UserUrl,userdata);
+   return this.http.post(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json`,userdata);
   }
 
   getSpecificUserData(id:any){
