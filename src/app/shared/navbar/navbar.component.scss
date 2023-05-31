@@ -23,6 +23,10 @@
 
 }
 
+.profileImageSize{
+  width: 3.6rem;
+  height: 3.6rem;
+}
 
 .active{
   -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -38,7 +42,7 @@ cursor: pointer;
 
 .searchresult{
 max-width:30rem;
-width: auto;
+width: 100%;
 top:5rem;
 left:14rem;
 -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;

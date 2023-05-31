@@ -1,0 +1,63 @@
+<div class="profile_page">
+    <p-toast styleClass="text-xl topclass"></p-toast>
+    <div class="text-3xl gap-4 flex align-items-center w-full border-bottom-1 p-2 pb-3">
+        <i class="pi pi-user text-2xl"></i>
+        <label for="profile">Profile Page</label>
+    </div>
+    <div class="p-2 mt-4">
+        <label class="text-2xl ml-2">Photo</label>
+    </div>
+    <div class="p-2 mt-2 flex gap-4">
+        <div
+            class="w-7rem h-7rem bg-blue-800 border-circle  flex justify-content-center align-items-center text-6xl text-white">
+            <ng-template #profileText><label>{{userData?.name.charAt(0).toUpperCase()}}</label></ng-template>
+            <img [src]="imageUrl" *ngIf="imageUrl; else profileText" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
+        </div>
+        <div class="flex flex-column justify-content-center text-xl text-gray-600">
+            <div class="border-round-xl bg-gray-200 p-2 hover:bg-gray-300 cursor-pointer border-1"> <input type="file" class="border-0 outline-none" #fileInput (change)="onFileSelected($event)" [(ngModel)]="UpdatedImage" id="image_input" accept="image/png, image/jpg"></div>
+        
+        </div>
+        <div class="flex flex-column justify-content-center text-xl text-red-600 hover:text-red-800">
+            <div class="border-round-xl border-1 p-2  cursor-pointer" (click)="removeImage()">Remove Photo</div>
+        </div>
+    </div>
+    <div class="p-2 mt-4">
+        <label class="text-2xl ml-2">Name</label>
+        <div class="mt-4 ml-2">
+            <ng-container *ngIf="fullname!=null;else loadingdata">
+                <input pInputText type="text" class="w-30rem text-2xl" [(ngModel)]="fullname" name="" id="">
+            </ng-container>
+        <ng-template #loadingdata>
+            <p-skeleton height="3.3rem" width="30rem" styleClass="p-mb-2"></p-skeleton>
+        </ng-template>
+        </div>
+    </div>
+
+    <div class="p-2 mt-4">
+        <label class="text-2xl ml-2">Email id</label>
+        <div class="mt-4 ml-2">
+        <ng-container *ngIf="emailId!=null;else loadingdata">
+            <input pInputText type="text" class="w-30rem text-2xl" [(ngModel)]="emailId">
+        </ng-container>
+        <ng-template #loadingdata>
+            <p-skeleton height="3.3rem" width="30rem" styleClass="p-mb-2"></p-skeleton>
+        </ng-template>
+        </div>
+    </div>
+
+    <div class="p-2 mt-4">
+        <label class="text-2xl ml-2">Change Passoword</label>
+        <div class="mt-4 ml-2">
+            <ng-container *ngIf="userPassword!=null;else loadingdata">
+            <input pInputText type="password" class="w-30rem text-2xl" [(ngModel)]="userPassword">
+        </ng-container>
+        <ng-template #loadingdata>
+            <p-skeleton height="3.3rem" width="30rem" styleClass="p-mb-2"></p-skeleton>
+        </ng-template>
+        </div>
+    </div>
+
+    <div class="p-2 mt-4">
+    <button pButton class="bg-green-800 text-2xl px-3 py-2" (click)="OnSaveDetails()">Save Changes </button>
+    </div>
+</div>

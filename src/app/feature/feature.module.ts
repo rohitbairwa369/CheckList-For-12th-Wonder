@@ -7,13 +7,15 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { featureRoutingModule } from './feature-routing.module';
 import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ChecklistComponent,
     HistoryComponent,
-    SettingsComponent
+    SettingsComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

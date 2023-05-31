@@ -39,13 +39,13 @@ export class ChecklistDataService {
    })
   }
   //update data to task
-  updateTaskDataHeading(id:any,updateddata: any) {
-    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/taskdata/${id}.json`,updateddata);
+  updateTaskDataHeading(id:any,userid:any,updateddata: any) {
+    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${userid}/taskdata/${id}.json`,updateddata);
   }
 
   //function to delete data
-  deleteTask(id: any) {
-    return this.http.delete(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/taskdata/${id}.json`);
+  deleteTask(id: any,userid:any) {
+    return this.http.delete(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${userid}/taskdata/${id}.json`);
   }
 
   //User
@@ -70,5 +70,13 @@ export class ChecklistDataService {
   getSpecificUserData(id:any){
     return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}.json`);
   }
+
+  //function to update user data
+  updateUserData(Userid:any,data:any){
+    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${Userid}.json`,data).subscribe((res)=>{
+    console.log(res);
+   })
+  }
+
 
 }

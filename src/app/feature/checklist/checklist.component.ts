@@ -34,6 +34,7 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   completed:boolean;
   priority:any;
   priorityLevel:any[] =[];
+  statusLevel:any[]=[];
   scheduleDateTime =new Date();
   updatedDesc:any;
   showeditor:boolean=true;
@@ -43,7 +44,9 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   ByDateTasks:any[];
   ModalDueDate: any;
   ModelPriority: any;
-
+  @ViewChild('statusInplace') instatusInplaceplace;
+  hidInplace:boolean=true;
+  ModelStatus:any;
 
 constructor(private router: Router,private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
@@ -61,6 +64,24 @@ this.priorityLevel=[
   }
 ]
 
+this.statusLevel=[
+  {
+    name:'Todo',
+    color:'#a8a8a8'
+  },
+  {
+    name:'In Progress',
+    color:'#fcba03'
+  },
+  {
+    name:'Completed',
+    color:'#12b53e'
+  }
+]
+
+
+
+
 this.CurrentUserLoginId =localStorage.getItem("UserId");
 this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
   this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
@@ -73,6 +94,15 @@ this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId
 
 }
 
+hideInplace(){
+    this.hidInplace=!this.hidInplace;
+    this.instatusInplaceplace.activate();
+if(!this.hidInplace)
+{
+  this.instatusInplaceplace.deactivate();
+}
+
+}
 
 //this will help us to toggle calendar
 toggleCalendar() {
@@ -103,8 +133,9 @@ markItComplete(tasks:any){
       completed: this.completed,
       completeTime:this.formatedDate,
       timeDate : tasks.timeDate,
+      status :tasks.status
     }
-    this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
+    this.taskdataService.updateTaskDataHeading(tasks.id,this.CurrentUserLoginId,updateddata).subscribe((res)=>{
       console.log("Status Updated to",res);
     });
   }
@@ -129,9 +160,10 @@ onRowEditSave(tasks: any) {
         completed: tasks.completed,
         time: tasks.time,
         priority: tasks.priority,
-        schedule: tasks.schedule
+        schedule: tasks.schedule,
+        status: tasks.status
       }
-      this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
+      this.taskdataService.updateTaskDataHeading(tasks.id,this.CurrentUserLoginId,updateddata).subscribe((res)=>{
         console.log("Heading Updated to",tasks.heading);
       });
       const history ={
@@ -165,10 +197,11 @@ onEditModalSave(tasks:any){
       date: tasks.formatedDate,
       completed: this.completed,
       time: tasks.time,
-      priority: this.ModelPriority.level,
-      schedule: this.ModalDueDate
+      priority: this.ModelPriority,
+      schedule: this.ModalDueDate,
+      status: this.ModelStatus
     }
-    this.taskdataService.updateTaskDataHeading(tasks.id,updateddata).subscribe((res)=>{
+    this.taskdataService.updateTaskDataHeading(tasks.id,this.CurrentUserLoginId,updateddata).subscribe((res)=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task Updated'});
     });
     this.displayModal = false;
@@ -202,10 +235,13 @@ onEditModalSave(tasks:any){
             this.todaysTask.splice(index, 1);
           }
           localStorage.setItem("taskdata",JSON.stringify(this.todaysTask));
-          this.taskdataService.deleteTask(id).subscribe((res)=>{
+          this.taskdataService.deleteTask(id,this.CurrentUserLoginId).subscribe((res)=>{
             console.log("Deleted Item" ,res)
+            this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully'});
+          },(error)=>{
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Delete Failed'});
           })
-          this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully'});
+         
         },
         reject: () => {
             //reject action
@@ -234,6 +270,7 @@ onEditModalSave(tasks:any){
     this.ModalDueDate = tasks.schedule;
     this.ModelPriority = tasks.priority;
     this.modalClickedId =tasks.id;
+    this.ModelStatus = tasks.status;
     this.displayModal = true;
 }
 
@@ -251,8 +288,13 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
         timeDate : this.formatedDate,
         time: formattedTime,
         completed: this.selectedValues,
-        priority: this.priority.level,
-        schedule: this.scheduleDateTime
+        priority: this.priority,
+        schedule: this.scheduleDateTime,
+        status: {
+            'name':'Todo',
+            'color':'#a8a8a8'
+          }
+        
       };
       this.todaysTask.push(newTask);
       this.taskdataService.postTask(newTask,this.CurrentUserLoginId);

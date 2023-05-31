@@ -24,7 +24,7 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {EditorModule} from 'primeng/editor';
-
+import {SkeletonModule} from 'primeng/skeleton';
 
 @NgModule({
   declarations: [],
@@ -53,7 +53,8 @@ import {EditorModule} from 'primeng/editor';
     ConfirmPopupModule,
     RatingModule,
     InputTextareaModule,
-    EditorModule
+    EditorModule,
+    SkeletonModule
   ],
   exports:[
     ButtonModule,
@@ -79,7 +80,8 @@ import {EditorModule} from 'primeng/editor';
     ConfirmPopupModule,
     RatingModule,
     InputTextareaModule,
-    EditorModule
+    EditorModule,
+    SkeletonModule
   ]
 })
 export class PrimengModule { }

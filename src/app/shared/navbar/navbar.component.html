@@ -17,15 +17,17 @@
 
     <div class="flex align-items-center  gap-2">
       <div class="flex align-items-center cursor-pointer">
-        <!-- <div
-          class="border-circle navbar_notify relative text-xs flex justify-content-center align-items-center hoverbtn">2
+        <!-- <div class="border-circle navbar_notify relative text-xs flex justify-content-center align-items-center hoverbtn">2
         </div> -->
         <i class="pi pi-bell text-4xl" pTooltip="Notifications" tooltipPosition="left"></i>
       </div>
       <div
-        class=" flex w-3rem h-3rem border-1 border-blue-800 font-light cursor-pointer text-3xl ml-3 bg-blue-800 text-white border-circle justify-content-center align-items-center"
+        class=" flex profileImageSize font-light cursor-pointer text-3xl ml-3 bg-blue-800 text-white border-circle justify-content-center align-items-center"
         (click)="showlogout()">
-        <p>{{userData?.name.charAt(0).toUpperCase()}}</p>
+        <ng-container>
+          <ng-template #profileText><p>{{userData?.name.charAt(0).toUpperCase()}}</p></ng-template>
+            <img [src]="userData.image.changingThisBreaksApplicationSecurity" *ngIf="userData.image; else profileText" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
+        </ng-container>
       </div>
     </div>
   </div>
@@ -54,7 +56,8 @@
   *ngIf="showlog">
   <div class="flex align-items-center">
     <div class=" flex w-3rem h-3rem mr-3 bg-blue-800 text-white border-circle justify-content-center align-items-center">
-      <p class="text-2xl">{{userData.name.charAt(0).toUpperCase()}}</p>
+      <ng-template #profileText><p class="text-2xl">{{userData.name.charAt(0).toUpperCase()}}</p></ng-template>
+            <img [src]="userData.image.changingThisBreaksApplicationSecurity" *ngIf="userData.image; else profileText" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
     </div>
     <div class="flex flex-column">
       <label for="name" class="text-2xl">{{userData.name}}</label>
@@ -62,7 +65,7 @@
     </div>
   </div>
   <div class="list-none mt-3  mr-2 flex flex-column align-items-start ">
-    <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl mb-1 cursor-pointer"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-user mr-3"></i> Profile</a></li>
+    <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl mb-1 cursor-pointer" routerLink="profile"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-user mr-3"></i> Profile</a></li>
     <hr class="border-bottom-1 border-gray-300 w-full mb-2">
     <!-- <li class="hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-user mr-2"></i>Theme</a></li> -->
     <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer mb-2" routerLink="settings"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-unlock mr-3"></i>Settings</a></li>
