@@ -25,13 +25,17 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.dataSubscription = this.taskdata.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
     })
-    this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res)=>{
-      this.userData = res;
-    });
+    this.getUserDataNavbar();
   }
 
   userData:any;
   searchkey: any;
+
+  getUserDataNavbar(){
+    this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res)=>{
+      this.userData = res;
+    });
+  }
 
 
   get searchresult() {

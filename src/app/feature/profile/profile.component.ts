@@ -62,7 +62,6 @@ export class ProfileComponent implements OnInit {
       this.emailId  = this.userData.email;
       this.userPassword = this.userData.password;
       this.imageUrl= this.userData.image.changingThisBreaksApplicationSecurity;
-      console.log(this.userData);
     });
   }
 

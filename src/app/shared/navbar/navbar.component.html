@@ -26,7 +26,7 @@
         (click)="showlogout()">
         <ng-container>
           <ng-template #profileText><p>{{userData?.name.charAt(0).toUpperCase()}}</p></ng-template>
-            <img [src]="userData.image.changingThisBreaksApplicationSecurity" *ngIf="userData.image; else profileText" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
+            <img [src]="userData?.image.changingThisBreaksApplicationSecurity" *ngIf="userData?.image; else profileText" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
         </ng-container>
       </div>
     </div>

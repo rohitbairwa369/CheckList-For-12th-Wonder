@@ -3,8 +3,8 @@ import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-checklist',
@@ -47,6 +47,7 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   @ViewChild('statusInplace') instatusInplaceplace;
   hidInplace:boolean=true;
   ModelStatus:any;
+  CalculatedTimeDiff:any;
 
 constructor(private router: Router,private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
@@ -79,9 +80,6 @@ this.statusLevel=[
   }
 ]
 
-
-
-
 this.CurrentUserLoginId =localStorage.getItem("UserId");
 this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
   this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
@@ -92,6 +90,25 @@ this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId
   this.taskdataService.dataSubject.next(this.todaysTask)
 })
 
+}
+
+calculateTimeLeft(task:any){
+
+const scheduleTime = new Date(task.schedule);
+const taskAddedTime = new Date();
+if(scheduleTime>taskAddedTime){
+const timeDiff = Math.abs(scheduleTime.getTime() - taskAddedTime.getTime());
+const timeDif = scheduleTime.getTime() - taskAddedTime.getTime();
+console.log(timeDif)
+const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) + (days*24));
+console.log(days)
+const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+this.CalculatedTimeDiff = [hours,minutes,seconds,99];
+}else{
+  this.CalculatedTimeDiff= [0,0,0,0];
+}
 }
 
 hideInplace(){
@@ -271,6 +288,7 @@ onEditModalSave(tasks:any){
     this.ModelPriority = tasks.priority;
     this.modalClickedId =tasks.id;
     this.ModelStatus = tasks.status;
+    this.calculateTimeLeft(tasks);
     this.displayModal = true;
 }
 
@@ -293,8 +311,7 @@ const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit'
         status: {
             'name':'Todo',
             'color':'#a8a8a8'
-          }
-        
+          }      
       };
       this.todaysTask.push(newTask);
       this.taskdataService.postTask(newTask,this.CurrentUserLoginId);

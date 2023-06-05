@@ -19,8 +19,9 @@
         [style]="{width: '50vw','height':'auto', 'min-height':'50rem'}" [baseZIndex]="10000">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
-                <div class="flex justify-content-start p-3 align-items-center">
+                <div class="flex justify-content-between p-3 align-items-center">
                     <div class="text-4xl font-bold">Task</div>
+                    <div class="text-2xl font-bold"><app-countdown [value]="CalculatedTimeDiff" [startPositive]="false"></app-countdown></div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3" >
                     <p-inplace #statusInplace styleClass="text-2xl" (click)="hideInplace()">
@@ -51,7 +52,7 @@
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
-                                    {{ModalDueDate.toLocaleString().split('T').splice(0,1)[0]}}
+                                    {{ModalDueDate?.toLocaleString().split('T').splice(0,1)[0]}}
                                 </ng-template>
                                 <ng-template pTemplate="content">
                          <p-calendar [(ngModel)]="ModalDueDate" [showTime]="true" pTooltip="Due Date" tooltipPosition="left"
@@ -67,7 +68,7 @@
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
-                                    {{ModelPriority.name}}
+                                    {{ModelPriority?.name}}
                                 </ng-template>
                                 <ng-template pTemplate="content">
                                     <p-dropdown [options]="priorityLevel" [(ngModel)]="ModelPriority" pTooltip="Priority"
@@ -80,7 +81,7 @@
                         <label class="text-4xl font-bold">Status</label>
                         <div> <p-inplace [closable]="true" styleClass="text-2xl">
                             <ng-template pTemplate="display">
-                                {{tasks.priority.name}}
+                                {{ModelStatus.name}}
                             </ng-template>
                             <ng-template pTemplate="content">
                                 <p-dropdown [options]="statusLevel" [(ngModel)]="ModelStatus" pTooltip="Status"
@@ -103,6 +104,8 @@
             <ng-template pTemplate="body" let-tasks let-editing="editing" let-ri="rowIndex">
                 <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" [pReorderableRow]="ri"
                     *ngIf="tasks.date==formatedDate.toLocaleString().split(',').splice(0,1)[0];" [pEditableRow]="tasks">
+                        <img src="../../../assets/icons/drag.svg" alt="" height="13px" width="17px" [pReorderableRowHandle] class="cursor-move ml-2">
+
                     <div class="w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
                         <p-confirmPopup></p-confirmPopup>
                         <ng-container *ngIf="!tasks.completed; else checked">
@@ -116,7 +119,7 @@
                     <td class="text-2xl border-0 siztex">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <input pInputText type="text" class="w-full text-2xl" [(ngModel)]="tasks.heading"
+                                <input pInputText type="text" class="w-full text-2xl"  autofocus [(ngModel)]="tasks.heading"
                                     maxlength="150">
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -142,12 +145,8 @@
                                 class="p-button-rounded p-button-text p-button-danger"></button>
                         </div>
                     </td >
-                    <td [pReorderableRowHandle] class="flex justify-content-center w-4rem gap-3">
-                        <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600" pTooltip="Delete"
-                        tooltipPosition="right" (click)="confirm($event,tasks.id)"></i>
-                        <!-- <span class="pi pi-bars ml-3" [pReorderableRowHandle]></span> -->
-                        <img src="../../../assets/icons/drag.svg" alt="" height="13px" width="17px" class="cursor-move ml-2">
-                    </td>
+                    <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600" pTooltip="Delete"
+                    tooltipPosition="right" (click)="confirm($event,tasks.id)"></i>
                 </tr>
             </ng-template>
         </p-table>

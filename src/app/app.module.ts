@@ -10,6 +10,7 @@ import { PrimengModule } from './primeng/primeng.module';
 import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
