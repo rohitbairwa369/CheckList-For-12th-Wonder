@@ -37,6 +37,7 @@ onSubmit(form:NgForm)
     localStorage.setItem("UserId",user.id);
     this.auth.haveloggedin=true;
     localStorage.setItem('loginStatus','true');
+    this.messageService.add({ severity: 'success', summary: 'Login Success', detail: 'Successfull' });
     this.router.navigate(['/home']);
   } else {
     this.showError();
@@ -67,8 +68,8 @@ onCreateAccount(form:NgForm){
   this.taskdataService.registerUser(user).subscribe((res)=>{
   console.log("Data Pushed" , res);
 })
+this.messageService.add({ severity: 'success', summary: 'User Register', detail: 'Added' });
  localStorage.setItem('users',JSON.stringify(this.users));
- this.messageService.add({ severity: 'success', summary: 'User Register', detail: 'Added' });
  this.toggleLoginSignup();
 }
 

@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
 
   get searchresult() {
     this.searching = true;
-    return this.todaysTask.filter(product => product.heading.toLowerCase().includes(this.searchkey.toLowerCase()));
+    return this.todaysTask.filter(product => product.heading.toLowerCase().includes(this.searchkey?.toLowerCase()));
   }
 
   //declaring array to store retrived output

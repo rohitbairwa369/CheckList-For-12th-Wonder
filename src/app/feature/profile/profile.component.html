@@ -11,10 +11,10 @@
         <div
             class="w-7rem h-7rem bg-blue-800 border-circle  flex justify-content-center align-items-center text-6xl text-white">
             <ng-template #profileText><label>{{userData?.name.charAt(0).toUpperCase()}}</label></ng-template>
-            <img [src]="imageUrl" *ngIf="imageUrl; else profileText" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
+            <img [src]="imageUrl" *ngIf="imageUrl; else profileText" class="border-circle min-w-full" height="100%" alt="Uploaded Image">
         </div>
         <div class="flex flex-column justify-content-center text-xl text-gray-600">
-            <div class="border-round-xl bg-gray-200 p-2 hover:bg-gray-300 cursor-pointer border-1"> <input type="file" class="border-0 outline-none" #fileInput (change)="onFileSelected($event)" [(ngModel)]="UpdatedImage" id="image_input" accept="image/png, image/jpg"></div>
+            <div class="border-round-xl bg-gray-200 p-2 hover:bg-gray-300 cursor-pointer border-1"> <input type="file" class="border-0 outline-none max-w-30rem w-full" #fileInput (change)="onFileSelected($event)" [(ngModel)]="UpdatedImage" id="image_input" accept="image/png, image/jpg"></div>
         
         </div>
         <div class="flex flex-column justify-content-center text-xl text-red-600 hover:text-red-800">
@@ -25,7 +25,7 @@
         <label class="text-2xl ml-2">Name</label>
         <div class="mt-4 ml-2">
             <ng-container *ngIf="fullname!=null;else loadingdata">
-                <input pInputText type="text" class="w-30rem text-2xl" [(ngModel)]="fullname" name="" id="">
+                <input pInputText type="text" class="max-w-30rem w-full text-2xl" [(ngModel)]="fullname" name="" id="">
             </ng-container>
         <ng-template #loadingdata>
             <p-skeleton height="3.3rem" width="30rem" styleClass="p-mb-2"></p-skeleton>
@@ -37,10 +37,10 @@
         <label class="text-2xl ml-2">Email id</label>
         <div class="mt-4 ml-2">
         <ng-container *ngIf="emailId!=null;else loadingdata">
-            <input pInputText type="text" class="w-30rem text-2xl" [(ngModel)]="emailId">
+            <input pInputText type="text" class="max-w-30rem w-full text-2xl" [(ngModel)]="emailId">
         </ng-container>
         <ng-template #loadingdata>
-            <p-skeleton height="3.3rem" width="30rem" styleClass="p-mb-2"></p-skeleton>
+            <p-skeleton height="3.3rem" styleClass="p-mb-2 max-w-30rem w-full"></p-skeleton>
         </ng-template>
         </div>
     </div>
@@ -49,10 +49,10 @@
         <label class="text-2xl ml-2">Change Passoword</label>
         <div class="mt-4 ml-2">
             <ng-container *ngIf="userPassword!=null;else loadingdata">
-            <input pInputText type="password" class="w-30rem text-2xl" [(ngModel)]="userPassword">
+            <input pInputText type="password" class="max-w-30rem w-full text-2xl" [(ngModel)]="userPassword">
         </ng-container>
         <ng-template #loadingdata>
-            <p-skeleton height="3.3rem" width="30rem" styleClass="p-mb-2"></p-skeleton>
+            <p-skeleton height="3.3rem" styleClass="p-mb-2 max-w-30rem w-full"></p-skeleton>
         </ng-template>
         </div>
     </div>

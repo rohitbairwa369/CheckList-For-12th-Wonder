@@ -224,7 +224,6 @@ onEditModalSave(tasks:any){
     });
     this.displayModal = false;
     this.toggle();
-    this.router.navigate(['/home/todo/']);
 }}
 
  
@@ -296,7 +295,7 @@ onEditModalSave(tasks:any){
 
  //adding task and updating value stored in local storage
   addnewtask() {
-const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    const formattedTime = this.formatedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     this.CurrentUserLoginId =localStorage.getItem("UserId");
     if (this.newTaskName.length > 0) {
       const newTask = {

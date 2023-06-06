@@ -16,7 +16,7 @@
         </div>
     </div>
     <p-dialog header="Task Details" [(visible)]="displayModal" [modal]="true"
-        [style]="{width: '50vw','height':'auto', 'min-height':'50rem'}" [baseZIndex]="10000">
+        [style]="{width: '50vw','height':'auto', 'min-height':'50rem'}" [baseZIndex]="10000" styleClass="PhoneResponsive">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
@@ -81,7 +81,7 @@
                         <label class="text-4xl font-bold">Status</label>
                         <div> <p-inplace [closable]="true" styleClass="text-2xl">
                             <ng-template pTemplate="display">
-                                {{ModelStatus.name}}
+                                {{ModelStatus?.name}}
                             </ng-template>
                             <ng-template pTemplate="content">
                                 <p-dropdown [options]="statusLevel" [(ngModel)]="ModelStatus" pTooltip="Status"
@@ -89,23 +89,23 @@
                             </ng-template>
                         </p-inplace></div>
                     </div>
-
                     <div class="flex justify-content-end mt-4">
                         <div><button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800"
                                 (click)="onEditModalSave(tasks)">Save</button></div>
                     </div>
-
                 </div>
             </ng-container>
         </div>
     </p-dialog>
-    <div class="card">
+
+    <div class="card heightResposive" id="style-2">
         <p-table [value]="todaysTask" dataKey="id" editMode="row" [loading]="loading" [reorderableColumns]="true">
             <ng-template pTemplate="body" let-tasks let-editing="editing" let-ri="rowIndex">
-                <tr [pReorderableRow]="ri" class=" flex align-items-center hover:bg-gray-200" [pReorderableRow]="ri"
+                <tr [pReorderableRow]="ri" class="flex align-items-center hover:bg-gray-200" [pReorderableRow]="ri"
                     *ngIf="tasks.date==formatedDate.toLocaleString().split(',').splice(0,1)[0];" [pEditableRow]="tasks">
+                    <div class="p-3">
                         <img src="../../../assets/icons/drag.svg" alt="" height="13px" width="17px" [pReorderableRowHandle] class="cursor-move ml-2">
-
+                    </div>
                     <div class="w-3rem h-3rem flex align-items-center justify-content-center border-round-xl mr-2">
                         <p-confirmPopup></p-confirmPopup>
                         <ng-container *ngIf="!tasks.completed; else checked">
@@ -145,8 +145,10 @@
                                 class="p-button-rounded p-button-text p-button-danger"></button>
                         </div>
                     </td >
-                    <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600" pTooltip="Delete"
-                    tooltipPosition="right" (click)="confirm($event,tasks.id)"></i>
+                    <div class="md:p-4 sm:p-1">
+                        <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600" pTooltip="Delete"
+                        tooltipPosition="right" (click)="confirm($event,tasks.id)"></i>
+                    </div>
                 </tr>
             </ng-template>
         </p-table>

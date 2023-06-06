@@ -28,7 +28,7 @@ export class CountdownComponent implements OnInit {
         this.startNegative(this.value[0], this.value[1], this.value[2], this.value[3]);
       }
     }
-    if(this.value[4]>0){
+    if(this?.value[4]>0){
      this.daysLeft= this.value[4];
     }
   }
