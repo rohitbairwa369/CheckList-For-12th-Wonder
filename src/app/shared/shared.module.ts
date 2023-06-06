@@ -4,12 +4,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { CountdownComponent } from './countdown/countdown.component';
+import { NotificationBarComponent } from './notification-bar/notification-bar.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
-    CountdownComponent
+    CountdownComponent,
+    NotificationBarComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,7 @@ import { CountdownComponent } from './countdown/countdown.component';
   exports:[
     NavbarComponent,
     SidebarComponent,
-    CountdownComponent
+    CountdownComponent,
   ]
 })
 export class SharedModule { }

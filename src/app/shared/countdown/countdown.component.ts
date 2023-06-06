@@ -14,7 +14,7 @@ export class CountdownComponent implements OnInit {
   sec: any = '0' + 0;
   min: any = '0' + 0;
   hr: any = '0' + 0;
-
+  daysLeft:any = '0' +0;
   running = false;
   startTimer: any;
   constructor() { }
@@ -23,14 +23,14 @@ export class CountdownComponent implements OnInit {
     if (this.startPositive) {
       this.start();
     } else {
-      this.startNegative(this.value[0], this.value[1], this.value[2], this.value[3]);
+      if(this.value[0]> 0 || this.value[1]>0 || this.value[2]>0 || this.value[3]>0)
+      {
+        this.startNegative(this.value[0], this.value[1], this.value[2], this.value[3]);
+      }
     }
-    // if(this.day){
-    //   const previousHr= this.hr;
-    //   this.hr=Math.floor(this.hr/24);
-    //   previousHr
-    // }
-    this.sendNotification();
+    if(this.value[4]>0){
+     this.daysLeft= this.value[4];
+    }
   }
 
   start(): void {
@@ -106,12 +106,5 @@ export class CountdownComponent implements OnInit {
 
   }
 
-
-  sendNotification() {
-      const audio = new Audio();
-      audio.src = '../../../assets/sounds/shorts.mp3';
-      audio.play();
-    }
-  
   
 }

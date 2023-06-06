@@ -21,7 +21,7 @@
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
                     <div class="text-4xl font-bold">Task</div>
-                    <div class="text-2xl font-bold"><app-countdown [value]="CalculatedTimeDiff" [startPositive]="false"></app-countdown></div>
+                    <div class="text-2xl font-bold"><app-countdown [value]="CalculatedTimeDiff" [startPositive]="false" [day]="true"></app-countdown></div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3" >
                     <p-inplace #statusInplace styleClass="text-2xl" (click)="hideInplace()">
@@ -52,7 +52,7 @@
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
-                                    {{ModalDueDate?.toLocaleString().split('T').splice(0,1)[0]}}
+                                    {{ModalDueDate | date :'short'}}
                                 </ng-template>
                                 <ng-template pTemplate="content">
                          <p-calendar [(ngModel)]="ModalDueDate" [showTime]="true" pTooltip="Due Date" tooltipPosition="left"

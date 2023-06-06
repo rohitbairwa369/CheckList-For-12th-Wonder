@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   subtask: any;
   CurrentUserLoginId: string;
   dataSubscription: Subscription;
+  notification_bar:boolean=false;
 
   constructor(private router : Router,private taskdata:ChecklistDataService) { }
   ngOnDestroy(): void {

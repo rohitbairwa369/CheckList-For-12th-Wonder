@@ -16,9 +16,9 @@
     </div>
 
     <div class="flex align-items-center  gap-2">
-      <div class="flex align-items-center cursor-pointer">
-        <!-- <div class="border-circle navbar_notify relative text-xs flex justify-content-center align-items-center hoverbtn">2
-        </div> -->
+      <div class="flex align-items-center cursor-pointer" (click)="notification_bar=!notification_bar">
+        <div class="border-circle navbar_notify relative text-xs flex justify-content-center align-items-center hoverbtn">2
+        </div>
         <i class="pi pi-bell text-4xl" pTooltip="Notifications" tooltipPosition="left"></i>
       </div>
       <div
@@ -71,4 +71,8 @@
     <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer mb-2" routerLink="settings"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-unlock mr-3"></i>Settings</a></li>
     <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer mb-2" (click)="logoutSession()"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-sign-out  mr-3"></i> Logout</a></li>
   </div>
+</div>
+
+<div class="right-0 z-2 notification-bar" *ngIf="notification_bar">
+  <app-notification-bar></app-notification-bar>
 </div>

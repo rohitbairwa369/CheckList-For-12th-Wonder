@@ -97,17 +97,18 @@ calculateTimeLeft(task:any){
 const scheduleTime = new Date(task.schedule);
 const taskAddedTime = new Date();
 if(scheduleTime>taskAddedTime){
-const timeDiff = Math.abs(scheduleTime.getTime() - taskAddedTime.getTime());
-const timeDif = scheduleTime.getTime() - taskAddedTime.getTime();
-console.log(timeDif)
-const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) + (days*24));
-console.log(days)
-const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-this.CalculatedTimeDiff = [hours,minutes,seconds,99];
+  const millisecondsDifference = scheduleTime.getTime() - taskAddedTime.getTime();
+  const secondsDifference = Math.floor(millisecondsDifference / 1000);
+
+  const days = Math.floor(secondsDifference / 86400);
+  const hours = Math.floor((secondsDifference % 86400) / 3600);
+  const minutes = Math.floor(((secondsDifference % 86400) % 3600) / 60);
+  const remainingSeconds = ((secondsDifference % 86400) % 3600) % 60;
+
+
+this.CalculatedTimeDiff = [hours,minutes,remainingSeconds,99,days];
 }else{
-  this.CalculatedTimeDiff= [0,0,0,0];
+  this.CalculatedTimeDiff = [0,0,0,0,0];
 }
 }
 
