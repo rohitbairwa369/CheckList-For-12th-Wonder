@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.taskdataService.getUserData().subscribe((res)=>{
       this.users = res;
-      console.log(this.users);
     })
   }
 
@@ -29,7 +28,6 @@ onSubmit(form:NgForm)
   const email = form.value.email;
   const password = form.value.password;
   const repassword = form.value.repassword;
-  console.log(form.value);
 
 
   const user = this.users.find(u => u.email == email && u.password == password);

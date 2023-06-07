@@ -4,7 +4,7 @@ import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import {ConfirmationService} from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-checklist',
@@ -80,6 +80,12 @@ this.statusLevel=[
   }
 ]
 
+this.getTaskDataTodo();
+
+}
+
+getTaskDataTodo(){
+  
 this.CurrentUserLoginId =localStorage.getItem("UserId");
 this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
   this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
@@ -89,7 +95,6 @@ this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId
   }, 700);
   this.taskdataService.dataSubject.next(this.todaysTask)
 })
-
 }
 
 calculateTimeLeft(task:any){
@@ -224,6 +229,9 @@ onEditModalSave(tasks:any){
     });
     this.displayModal = false;
     this.showeditor=false;
+    setTimeout(()=>{
+      this.getTaskDataTodo();
+    },1000)
 }}
 
  

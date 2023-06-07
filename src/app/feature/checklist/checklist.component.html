@@ -16,7 +16,7 @@
         </div>
     </div>
     <p-dialog [(visible)]="displayModal" [modal]="true"
-        [style]="{width: '50vw'}" [baseZIndex]="10000" styleClass="PhoneResponsive" id="style-2">
+        [style]="{width: '50vw'}" [baseZIndex]="10000" styleClass="PhoneResponsive">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
@@ -134,8 +134,8 @@
                     </td>
                     <!-- <div class="bg-green-100 flex align-items-center cursor-pointer border-green-500 border-round-2xl border-1 text-2xl px-2 text-green-900 hover:bg-green-300 " (click)="openSubtasksbar(tasks.id)">View Details
                             </div> -->
-                    <td class="border-0">
-                        <div class="flex align-items-center justify-content-center gap-2">
+                    <td class="border-0 flex justify-content-end">
+                        <!-- <div class="flex align-items-center justify-content-end "> -->
                             <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
                                 (click)="onRowEditInit(tasks)" class="p-button-rounded p-button-text"></button>
                             <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
@@ -144,7 +144,7 @@
                             <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
                                 (click)="onRowEditCancel(tasks, ri)"
                                 class="p-button-rounded p-button-text p-button-danger"></button>
-                        </div>
+                        <!-- </div> -->
                     </td >
                     <div class="md:p-4 sm:p-1">
                         <i class="pi pi-trash text-2xl text-gray-300 cursor-pointer hover:text-red-600" pTooltip="Delete"
