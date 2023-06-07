@@ -98,6 +98,9 @@ export class CountdownComponent implements OnInit {
           this.hr = this.hr < 10 ? '0' + this.hr : this.hr;
           this.min = 59;
         }
+        if(this.hr==-1){
+          this.stop();
+        }
       }, 10);
 
     } else {

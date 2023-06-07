@@ -3,7 +3,6 @@
   background-color:var(--navbar);
   margin: 0;
   padding: 0;
-  
   &_notify{
   height:1.5rem;
   width:1.5rem;
@@ -53,5 +52,5 @@ z-index: 2;
 .notification-bar{
   position: absolute;
   top:3.8rem;
-  margin-right: 1.1rem;
+  right:2.1rem;
 }

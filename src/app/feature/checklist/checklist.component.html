@@ -15,13 +15,14 @@
             <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
         </div>
     </div>
-    <p-dialog header="Task Details" [(visible)]="displayModal" [modal]="true"
-        [style]="{width: '50vw','height':'auto', 'min-height':'50rem'}" [baseZIndex]="10000" styleClass="PhoneResponsive">
+    <p-dialog [(visible)]="displayModal" [modal]="true"
+        [style]="{width: '50vw'}" [baseZIndex]="10000" styleClass="PhoneResponsive" id="style-2">
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
-                    <div class="text-4xl font-bold">Task</div>
-                    <div class="text-2xl font-bold"><app-countdown [value]="CalculatedTimeDiff" [startPositive]="false" [day]="true"></app-countdown></div>
+                    <div class="text-4xl font-bold text-gray-700">Task</div>
+                    <div class="text-2xl font-bold" [ngClass]="{ 'text-red-700': CalculatedTimeDiff[0]<2 ,'text-gray-700' : CalculatedTimeDiff[0]>2 }">
+                    <app-countdown [value]="CalculatedTimeDiff" [startPositive]="false" [day]="true"></app-countdown></div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3" >
                     <p-inplace #statusInplace styleClass="text-2xl" (click)="hideInplace()">
@@ -29,10 +30,10 @@
                             {{ModalHeading}}
                         </ng-template>
                         <ng-template pTemplate="content">
-                            <input type="text" [(ngModel)]="ModalHeading" (click)="this.hidInplace=false" class="text-2xl w-auto h-auto" pInputText>
+                            <input type="text" [(ngModel)]="ModalHeading" (click)="this.hidInplace=false" class="text-2xl max-w-full w-full h-auto" pInputText>
                         </ng-template>
                     </p-inplace>
-                    <div class="text-4xl font-bold">Description</div>
+                    <div class="text-4xl font-bold text-gray-700">Description</div>
                     <div *ngIf="showeditor;else editor" (click)="toggle()"
                         class="cursor-pointer hover:bg-gray-200 border-round-xl p-2 w-full"
                         style="word-wrap: break-word; overflow: auto;">
@@ -48,7 +49,7 @@
                     </div> -->
                     <hr class="border-bottom-1 border-gray-200 w-full">
                     <div class="flex justify-content-between">
-                        <label class="text-4xl font-bold">Due Date</label>
+                        <label class="text-4xl font-bold text-gray-700">Due Date</label>
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
@@ -64,7 +65,7 @@
                         </div>
                     </div>
                     <div class="flex justify-content-between">
-                        <label class="text-4xl font-bold">Priority</label>
+                        <label class="text-4xl font-bold text-gray-700">Priority</label>
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
@@ -78,7 +79,7 @@
                         </div>
                     </div>
                     <div class="flex justify-content-between">
-                        <label class="text-4xl font-bold">Status</label>
+                        <label class="text-4xl font-bold text-gray-700">Status</label>
                         <div> <p-inplace [closable]="true" styleClass="text-2xl">
                             <ng-template pTemplate="display">
                                 {{ModelStatus?.name}}

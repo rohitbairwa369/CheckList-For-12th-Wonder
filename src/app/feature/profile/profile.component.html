@@ -10,11 +10,12 @@
     <div class="p-2 mt-2 flex gap-4">
         <div
             class="w-7rem h-7rem bg-blue-800 border-circle  flex justify-content-center align-items-center text-6xl text-white">
-            <ng-template #profileText><label>{{userData?.name.charAt(0).toUpperCase()}}</label></ng-template>
+            <ng-template #profileText><label class="text-white text-2xl">{{userData?.name.charAt(0).toUpperCase()}}</label></ng-template>
             <img [src]="imageUrl" *ngIf="imageUrl; else profileText" class="border-circle min-w-full" height="100%" alt="Uploaded Image">
         </div>
         <div class="flex flex-column justify-content-center text-xl text-gray-600">
-            <div class="border-round-xl bg-gray-200 p-2 hover:bg-gray-300 cursor-pointer border-1"> <input type="file" class="border-0 outline-none max-w-30rem w-full" #fileInput (change)="onFileSelected($event)" [(ngModel)]="UpdatedImage" id="image_input" accept="image/png, image/jpg"></div>
+            <div class="border-round-xl bg-gray-200 p-2 hover:bg-gray-300 cursor-pointer border-1"> 
+                <input type="file" class="border-0 outline-none max-w-30rem w-full chooseFile"  #fileInput (change)="onFileSelected($event)" [(ngModel)]="UpdatedImage" id="image_input" accept="image/png, image/jpg"></div>
         
         </div>
         <div class="flex flex-column justify-content-center text-xl text-red-600 hover:text-red-800">

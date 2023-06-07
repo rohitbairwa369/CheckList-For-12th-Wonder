@@ -59,18 +59,24 @@ onCreateAccount(form:NgForm){
   const password = form.value.password;
   const name = form.value.username;
   
-  const user = {
-    name : name,
-    email: email,
-    password: password
-  };
-  this.users.push(user);
-  this.taskdataService.registerUser(user).subscribe((res)=>{
-  console.log("Data Pushed" , res);
-})
-this.messageService.add({ severity: 'success', summary: 'User Register', detail: 'Added' });
- localStorage.setItem('users',JSON.stringify(this.users));
- this.toggleLoginSignup();
+  const used = this.users.find(u => u.email == email);
+  if(!used){
+    const user = {
+      name : name,
+      email: email,
+      password: password
+    };
+    this.users.push(user);
+    this.taskdataService.registerUser(user).subscribe((res)=>{
+    console.log("Data Pushed" , res);
+  })
+  this.toggleLoginSignup();
+  this.messageService.add({ severity: 'success', summary: 'User Register', detail: 'Added' });
+   localStorage.setItem('users',JSON.stringify(this.users));
+  }
+  else{
+    this.messageService.add({severity:'error', summary: 'Sign Up Issue', detail: 'Email Already Exist'});
+  }
 }
 
 

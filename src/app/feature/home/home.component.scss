@@ -23,7 +23,7 @@
     display: block;
   }
 
-  @media screen and (max-width: 1111px) {
+  @media screen and (width<600px) {
     .sidebar{
         position: fixed;
         z-index: 1;

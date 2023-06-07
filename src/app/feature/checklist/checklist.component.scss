@@ -21,6 +21,13 @@
 
 
 ::ng-deep {
+
+
+  .p-dialog .p-dialog-header {
+  padding: 0.5rem !important;
+  }
+
+
   .topclass {
     top: 60px !important;
   }
@@ -29,6 +36,14 @@
     max-height: 45rem !important;
     height: auto !important;
     overflow-y: scroll !important;
+  }
+
+  @media only screen and (width>600px) {
+  .PhoneResponsive{
+  max-height: 100vh;
+  height: auto;
+  }
+
   }
 
   @media only screen and (width<600px) {
@@ -95,7 +110,9 @@
   top: 50vh;
 }
 
+
 ::ng-deep {
+
   #pr_id_3-table > tbody > tr > td:nth-child(3) {
     display: block;
     //   width: auto !important;
@@ -107,22 +124,6 @@
       width: auto !important;
     }
   }
-}
-
-::ng-deep {
-  //     .p-picklist .p-picklist-buttons {
-  //         padding: 1.25rem;
-  //         display: none;
-  //     }
-
-  //     #cdk-drop-list-1{
-  //         display: none;
-  //     }
-
-  //  .p-picklist-list-wrapper.p-picklist-target-wrapper{
-  //         display: none;
-  //     }
-
 
   .p-calendar .p-inputtext {
     flex: 1 1 auto;

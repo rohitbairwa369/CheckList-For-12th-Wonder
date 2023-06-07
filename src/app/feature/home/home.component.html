@@ -2,11 +2,11 @@
     <div class="col-12  p-0 z-3 fixed"><app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar></div>
 </div>
 <div class="flex">
-    <div class="sidebar mt-8 z-1" [ngClass]="{'show': isSidebarOpen}">
+    <div class="sidebar mt-8" [ngClass]="{'show': isSidebarOpen}">
         <app-sidebar></app-sidebar>
         </div>
     <div class="checklistwidth mt-8 flex justify-content-center container">
-        <div class="responsiveCheck z-0">
+        <div class="responsiveCheck">
         <router-outlet></router-outlet>
         </div>
     </div>

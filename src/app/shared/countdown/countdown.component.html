@@ -1,8 +1,13 @@
-<div *ngIf="day">
+<div *ngIf="day; else otherwise">
+    <span *ngIf="daysLeft>0">{{daysLeft}} days , </span>
+    <span>{{hr}} hours , </span>
+    <span>{{min}} min left </span>
+</div>
+
+<ng-template #otherwise>
     <span *ngIf="daysLeft>0">{{daysLeft}} days , </span>
     <span>{{hr}} hours , </span>
     <span>{{min}} Min , </span>
     <span>{{sec}} Sec , </span>
     <span>{{ms}}</span>
-</div>
-
+</ng-template>

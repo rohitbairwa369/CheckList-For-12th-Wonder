@@ -223,7 +223,7 @@ onEditModalSave(tasks:any){
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task Updated'});
     });
     this.displayModal = false;
-    this.toggle();
+    this.showeditor=false;
 }}
 
  
@@ -289,6 +289,8 @@ onEditModalSave(tasks:any){
     this.modalClickedId =tasks.id;
     this.ModelStatus = tasks.status;
     this.calculateTimeLeft(tasks);
+    this.showeditor= true;
+    this.hidInplace=false;
     this.displayModal = true;
 }
 

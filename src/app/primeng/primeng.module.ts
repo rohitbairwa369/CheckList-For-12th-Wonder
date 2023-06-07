@@ -15,13 +15,11 @@ import {SliderModule} from 'primeng/slider';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {DialogModule} from 'primeng/dialog';
 import {ProgressBarModule} from 'primeng/progressbar';
-import {PickListModule} from 'primeng/picklist';
 import {TooltipModule} from 'primeng/tooltip';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {PasswordModule} from 'primeng/password';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
-import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {EditorModule} from 'primeng/editor';
 import {SkeletonModule} from 'primeng/skeleton';
@@ -45,13 +43,11 @@ import {SkeletonModule} from 'primeng/skeleton';
     ContextMenuModule,
     DialogModule,
     ProgressBarModule,
-    PickListModule,
     TooltipModule,
     ScrollPanelModule,
     PasswordModule,
     CheckboxModule,
     ConfirmPopupModule,
-    RatingModule,
     InputTextareaModule,
     EditorModule,
     SkeletonModule
@@ -72,13 +68,11 @@ import {SkeletonModule} from 'primeng/skeleton';
     ContextMenuModule,
     DialogModule,
     ProgressBarModule,
-    PickListModule,
     TooltipModule,
     ScrollPanelModule,
     PasswordModule,
     CheckboxModule,
     ConfirmPopupModule,
-    RatingModule,
     InputTextareaModule,
     EditorModule,
     SkeletonModule
