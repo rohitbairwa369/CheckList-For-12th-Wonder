@@ -23,7 +23,7 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   currentYear = new Date().getUTCFullYear();
   curenetDayText = new Date().getUTCDay()
   newTaskName: string;
-  newTaskdescription: number;
+  newTaskdescription: string;
   selectedValues:boolean=false;
   defaultDate:Date;
   CurrentUserLoginId:any;
@@ -48,6 +48,7 @@ export class ChecklistComponent implements OnInit ,OnDestroy{
   hidInplace:boolean=true;
   ModelStatus:any;
   CalculatedTimeDiff:any;
+  themeArray:any;
 
 constructor(private router: Router,private messageService: MessageService, private taskdataService : ChecklistDataService,private confirmationService: ConfirmationService){
 this.priorityLevel=[
@@ -88,7 +89,7 @@ getTaskDataTodo(){
   
 this.CurrentUserLoginId =localStorage.getItem("UserId");
 this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
-  this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
+  this.todaysTask = data;
   this.loading=true;
   setTimeout(() => {
     this.loading=false
@@ -231,7 +232,7 @@ onEditModalSave(tasks:any){
     this.showeditor=false;
     setTimeout(()=>{
       this.getTaskDataTodo();
-    },1000)
+    },2000)
 }}
 
  
@@ -327,8 +328,9 @@ onEditModalSave(tasks:any){
       this.taskdataService.postTask(newTask,this.CurrentUserLoginId);
       this.taskdataService.dataSubject.next(this.todaysTask)
       this.newTaskName = '';
-      this.newTaskdescription = null;
+      this.newTaskdescription = '';
       this.showSuccess() //show success message
+      
     } else {
       this.showError()
     }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit ,Input} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +7,7 @@ import { Component, EventEmitter, OnInit ,Input} from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  constructor() { }
+  constructor(private taskdata: ChecklistDataService) { }
 
   ngOnInit(): void {
   }

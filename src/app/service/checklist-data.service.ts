@@ -10,10 +10,9 @@ import * as Rx from "rxjs";
 export class ChecklistDataService {
 
 
-
-
   UpdateComponents =new Rx.Subject<any>();
   dataSubject= new Rx.Subject<any>();
+  themeArray= new Rx.Subject<any>();
   constructor(private http: HttpClient) { }
 
   getTaskData(id:any) {
@@ -77,6 +76,7 @@ export class ChecklistDataService {
     console.log(res);
    })
   }
+
 
 
 }

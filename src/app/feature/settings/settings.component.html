@@ -1,1 +1,32 @@
-<p>settings works!</p>
+<div >
+    <div class="text-3xl gap-4 flex align-items-center w-full border-bottom-1 p-2 pb-3">
+        <i class="pi pi-unlock text-2xl"></i>
+        <label for="profile">Settings Page</label>
+    </div>
+    <div class="p-2 mt-4">
+        <label class="text-2xl p-2 ">Change Theme</label>
+        <div class="flex align-items-center p-2 gap-2 mt-2">
+            <p-colorPicker [(ngModel)]="navbar"></p-colorPicker>
+            <label class="text-2xl" [ngStyle]="{'color':navbar}">{{navbar}}</label>
+            <span class="text-2xl">- Navbar</span>
+        </div>
+        <div class="flex align-items-center p-2 gap-2">
+            <p-colorPicker [(ngModel)]="backColor"></p-colorPicker>
+            <label class="text-2xl" [ngStyle]="{'color':backColor}">{{backColor}}</label>
+            <span class="text-2xl">- Background</span>
+        </div>
+        <div class="flex align-items-center p-2 gap-2">
+            <p-colorPicker [(ngModel)]="ColorText"></p-colorPicker>
+            <label class="text-2xl" [ngStyle]="{'color':ColorText}">{{ColorText}}</label>
+            <span class="text-2xl">- Text </span>
+        </div>
+        <div class="flex align-items-center p-2 gap-2">
+            <p-colorPicker [(ngModel)]="sidebarColor"></p-colorPicker>
+            <label class="text-2xl" [ngStyle]="{'color':sidebarColor}">{{sidebarColor}}</label>
+            <span class="text-2xl">- Sidebar </span>
+        </div>
+        <div class="p-2 mt-4">
+            <button pButton class="bg-green-800 text-2xl px-3 py-2" (click)="savetheme()">Save Changes </button>
+            </div>
+    </div>
+</div>

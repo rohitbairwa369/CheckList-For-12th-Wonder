@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
   CurrentUserLoginId: string;
   dataSubscription: Subscription;
   notification_bar:boolean=false;
+  themeArray: any=['#d33f00'];
 
   constructor(private router : Router,private taskdata:ChecklistDataService) { }
   ngOnDestroy(): void {
@@ -27,6 +28,9 @@ export class NavbarComponent implements OnInit, OnDestroy{
       this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
     })
     this.getUserDataNavbar();
+    this.taskdata.themeArray.subscribe((res)=>{
+      this.themeArray= res;
+    })
   }
 
   userData:any;

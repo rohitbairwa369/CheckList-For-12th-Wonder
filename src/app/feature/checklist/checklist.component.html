@@ -126,7 +126,7 @@
                             <ng-template pTemplate="output">
                                 <div [ngClass]="{'line-through': tasks.completed}" class="cursor-pointer"
                                     (click)="showModalDialog(tasks)">
-                                    {{tasks.heading|slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
+                                    {{tasks.heading |slice:0:80}}<span *ngIf="tasks.heading.length>77">...</span>
                                 </div>
                             </ng-template>
                         </p-cellEditor>
