@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <ng-template #editor>
-                        <p-editor [(ngModel)]="ModalDesc" [style]="{'height':'320px'}"></p-editor>
+                        <ckeditor [editor]="Editor"  [(ngModel)]="ModalDesc"></ckeditor>
                     </ng-template>
                     <!-- <div class="flex justify-content-between">
                         <label class="text-4xl font-bold">Date & Time</label>
@@ -122,6 +122,7 @@
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" class="w-full text-2xl"  autofocus [(ngModel)]="tasks.heading"
                                     maxlength="150">
+                                <!-- <ckeditor [editor]="InlineEditing"  [data]="data"></ckeditor> -->
                             </ng-template>
                             <ng-template pTemplate="output">
                                 <div [ngClass]="{'line-through': tasks.completed}" class="cursor-pointer"

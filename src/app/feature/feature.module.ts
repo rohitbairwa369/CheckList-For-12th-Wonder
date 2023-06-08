@@ -8,7 +8,7 @@ import { featureRoutingModule } from './feature-routing.module';
 import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     SharedModule,
     PrimengModule,
-    featureRoutingModule
+    featureRoutingModule,
+    CKEditorModule
   ],
   exports:[
     HomeComponent,
