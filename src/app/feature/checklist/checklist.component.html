@@ -21,7 +21,7 @@
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
                     <div class="text-4xl font-bold text-gray-700">Task</div>
-                    <div class="text-2xl font-bold" [ngClass]="{ 'text-red-700': CalculatedTimeDiff[0]<2 ,'text-gray-700' : CalculatedTimeDiff[0]>2 }">
+                    <div class="text-2xl font-bold">
                     <app-countdown [value]="CalculatedTimeDiff" [startPositive]="false" [day]="true"></app-countdown></div>
                 </div>
                 <div class="flex flex-column gap-3 text-2xl p-3" >

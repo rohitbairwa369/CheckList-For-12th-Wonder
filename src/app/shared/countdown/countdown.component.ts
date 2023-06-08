@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./countdown.component.scss']
 })
 export class CountdownComponent implements OnInit {
-  @Input() value: any[];
+  @Input() value: any[]=null;
   @Input() startPositive: boolean;
   @Input() day: boolean = false;
 
@@ -23,13 +23,10 @@ export class CountdownComponent implements OnInit {
     if (this.startPositive) {
       this.start();
     } else {
-      if(this.value[0]> 0 || this.value[1]>0 || this.value[2]>0 || this.value[3]>0)
+      if(this.value!=null)
       {
         this.startNegative(this.value[0], this.value[1], this.value[2], this.value[3]);
       }
-    }
-    if(this?.value[4]>0){
-     this.daysLeft= this.value[4];
     }
   }
 
