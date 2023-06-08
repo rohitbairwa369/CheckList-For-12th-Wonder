@@ -31,6 +31,11 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.taskdata.themeArray.subscribe((res)=>{
       this.themeArray= res;
     })
+
+    const themeColor = localStorage.getItem('themeColor');
+    if(themeColor){
+     this.themeArray[0]=themeColor;
+    }
   }
 
   userData:any;

@@ -9,7 +9,7 @@ import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 export class SettingsComponent implements OnInit {
 
   navbar:any='#d33f00';
-  backColor:any='#f2f2f2';
+  backColor:any='#ffffff';
   ColorText:any='#1c1c1c';
   sidebarColor:any='#ececec';
 
@@ -20,5 +20,6 @@ export class SettingsComponent implements OnInit {
 
   savetheme(){
     this.taskdataService.themeArray.next([this.navbar,this.backColor,this.ColorText,this.sidebarColor]);
+    localStorage.setItem("themeColor", this.navbar);
   }
 }
