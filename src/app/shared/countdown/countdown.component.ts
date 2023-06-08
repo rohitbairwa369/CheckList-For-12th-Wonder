@@ -26,6 +26,7 @@ export class CountdownComponent implements OnInit {
       if(this.value!=null)
       {
         this.startNegative(this.value[0], this.value[1], this.value[2], this.value[3]);
+        this.daysLeft=this.value[4];
       }
     }
   }
@@ -95,9 +96,9 @@ export class CountdownComponent implements OnInit {
           this.hr = this.hr < 10 ? '0' + this.hr : this.hr;
           this.min = 59;
         }
-        if(this.hr==-1){
-          this.stop();
-        }
+        // if(this.hr==-1){
+        //   this.stop();
+        // }
       }, 10);
 
     } else {
