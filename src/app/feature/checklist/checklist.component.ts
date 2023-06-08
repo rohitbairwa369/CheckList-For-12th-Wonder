@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import BalloonEditor from '@ckeditor/ckeditor5-build-balloon';
+
 
 @Component({
   selector: 'app-checklist',
@@ -15,7 +17,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export class ChecklistComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
-  public Editor = ClassicEditor;
+  public Editor = BalloonEditor;
+ 
+
   
   addlistvalue: boolean = false;
   todaysTask: any[] = []
@@ -50,7 +54,9 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   ModelStatus: any;
   CalculatedTimeDiff: any;
   themeArray: any;
+  @ViewChild('Modelhead', { static: false }) Modelhead: ElementRef;
 
+  
   constructor(private router: Router, private messageService: MessageService, private taskdataService: ChecklistDataService, private confirmationService: ConfirmationService) {
     this.priorityLevel = [
       {
@@ -87,6 +93,11 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   }
 
 
+  getDataFromDiv() {
+    const divContent = this.Modelhead.nativeElement.innerHTML;
+    return divContent;
+  }
+
   getTaskDataTodo() {
 
     this.CurrentUserLoginId = localStorage.getItem("UserId");
@@ -116,7 +127,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
 
       this.CalculatedTimeDiff = [hours, minutes, remainingSeconds, 99, days];
     } else {
-      this.CalculatedTimeDiff = [0, 0, 0, 0, 0];
+      this.CalculatedTimeDiff = null;
     }
   }
 
@@ -213,6 +224,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
 
   //function to take edit from modal
   onEditModalSave(tasks: any) {
+    this.ModalHeading=this.getDataFromDiv() 
     if (this.ModalHeading.length > 0) {
       const updateddata = {
         userId: this.CurrentUserLoginId,
