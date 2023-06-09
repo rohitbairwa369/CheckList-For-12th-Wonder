@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
     this.taskdata.themeArray.subscribe((res)=>{
       this.themeArray= res;
     })
+    const themeColor = localStorage.getItem('sidebarColor');
+    if(themeColor){
+     this.themeArray[3]=themeColor;
+    }
   }
 
   isSidebarOpen = true;

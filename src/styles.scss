@@ -1,63 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 
 @font-face {
-    font-family: roboto;
-    src: url('./assets/fonts/Roboto-Medium.ttf');
+  font-family: roboto;
+  src: url("./assets/fonts/Roboto-Medium.ttf");
 }
 
-
-body{
-    padding: 0;
-    margin: 0;
-    font-family: 'roboto';
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    background-color:var(--back-ground);
-    
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "roboto";
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  background-color: var(--back-ground);
 }
 
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-
 :root {
-    font-size: 62.5%;
-    font-family: 'roboto';
-    --navbar: #d33f00;
-    // --navbar: #d33f00;
-    // --navbar: #062925;
-    --back-ground: #ffffff;
-    --other-section: #ececec;
-    --btn-card: #7C9070;
-    --hover-clr:#ffd493;
-    --high-priority:rgba(255, 255, 255, 0.5);
-    --loginForm:rgb(229, 62, 43);
+  font-size: 62.5%;
+  font-family: "roboto";
+  --navbar: #d33f00;
+  // --navbar: #d33f00;
+  // --navbar: #062925;
+  --back-ground: #ffffff;
+  --other-section: #ececec;
+  --btn-card: #7c9070;
+  --hover-clr: #ffd493;
+  --high-priority: rgba(255, 255, 255, 0.5);
+  --loginForm: rgb(229, 62, 43);
+}
 
-  }
-  
-  * {
-    // outline: 1px solid;
-    box-sizing: border-box;
-    // user-select: none;
-  }
-  .container {
-    padding: 2.4rem;
-  }
-  a{
-    color: #5D5FEF;
-    text-decoration: #5D5FEF underline;
-  }
+* {
+  // outline: 1px solid;
+  box-sizing: border-box;
+  // user-select: none;
+}
+.container {
+  padding: 2.4rem;
+}
+a {
+  color: #5d5fef;
+  text-decoration: #5d5fef underline;
+}
 
-  .box-shadow-to-all{
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  }
+.box-shadow-to-all {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
 
-  .hideScroll::-webkit-scrollbar {
-    display: none;
-  }
-  
-  h1,
+.hideScroll::-webkit-scrollbar {
+  display: none;
+}
+
+h1,
 h2,
 h3,
 h4,
@@ -90,17 +87,44 @@ h6 {
   font-weight: 700;
 }
 
-.iconscolor{
-  color:rgb(255, 255, 255);
+.iconscolor {
+  color: rgb(255, 255, 255);
 }
 
-.textColor{
-  color:rgb(0, 0, 0);
+.textColor {
+  color: rgb(0, 0, 0);
 }
+
+.navbarColor {
+  background-color: var(--navbar);
+}
+.sidebarColor {
+  background-color: var(--other-section);
+}
+
+.backkcolor {
+  background-color: var(--back-ground);
+}
+
+.navbarColortheme2 {
+  background-color: #062925;
+}
+.sidebarColortheme2 {
+  background-color: var(--btn-card);
+}
+
+.navbarColortheme3{
+  background-color: #5d5fef;
+}
+
+
+
+
+
 
 /* clears the 'X' from Internet Explorer */
-input[type=search]::-ms-clear,
-input[type=search]::-ms-reveal {
+input[type="search"]::-ms-clear,
+input[type="search"]::-ms-reveal {
   display: none;
   width: 0;
   height: 0;
@@ -114,9 +138,8 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-
 //for border shadow
-.border-fade-shadow{
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; 
- }
- 
+.border-fade-shadow {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
