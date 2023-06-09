@@ -99,7 +99,6 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   }
 
   getTaskDataTodo() {
-
     this.CurrentUserLoginId = localStorage.getItem("UserId");
     this.dataSubscription = this.taskdataService.getTaskData(this.CurrentUserLoginId).subscribe((data) => {
       this.todaysTask = data;
@@ -112,7 +111,6 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   }
 
   calculateTimeLeft(task: any) {
-
     const scheduleTime = new Date(task.schedule);
     const taskAddedTime = new Date();
     if (scheduleTime > taskAddedTime) {
@@ -186,7 +184,6 @@ export class ChecklistComponent implements OnInit, OnDestroy {
 
   onRowEditSave(tasks: any) {
     if (tasks.heading.length > 0) {
-      console.log("Loook", tasks.heading);
       const updateddata = {
         userId: this.CurrentUserLoginId,
         heading: tasks.heading,
@@ -196,20 +193,22 @@ export class ChecklistComponent implements OnInit, OnDestroy {
         time: tasks.time,
         priority: tasks.priority,
         schedule: tasks.schedule,
-        status: tasks.status
+        status: tasks.status,
+        history : {
+          id: tasks.id,
+          previous: this.todaysTask[tasks.id].heading,
+          current: tasks.heading,
+          time: new Date(),
+        }
       }
       this.taskdataService.updateTaskDataHeading(tasks.id, this.CurrentUserLoginId, updateddata).subscribe((res) => {
-        console.log("Heading Updated to", tasks.heading);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task is updated' });
+      },(e)=>{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Task not updated' });
       });
-      const history = {
-        id: tasks.id,
-        previous: this.todaysTask[tasks.id].heading,
-        current: tasks.heading,
-        time: new Date().toLocaleString(),
-      };
+
       this.todaysTask[tasks.id].heading = tasks.heading;
-      localStorage.setItem("taskdata", JSON.stringify(this.todaysTask));
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task is updated' });
+
       this.taskdataService.dataSubject.next(this.todaysTask);
     }
     else {
@@ -273,14 +272,12 @@ export class ChecklistComponent implements OnInit, OnDestroy {
         if (index !== -1) {
           this.todaysTask.splice(index, 1);
         }
-        localStorage.setItem("taskdata", JSON.stringify(this.todaysTask));
         this.taskdataService.deleteTask(id, this.CurrentUserLoginId).subscribe((res) => {
           console.log("Deleted Item", res)
           this.messageService.add({ severity: 'success', summary: 'Task Deleted', detail: 'Succesfully' });
         }, (error) => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Delete Failed' });
         })
-
       },
       reject: () => {
         //reject action

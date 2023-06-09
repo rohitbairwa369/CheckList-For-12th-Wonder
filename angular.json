@@ -41,7 +41,8 @@
               "node_modules/quill/dist/quill.js"
             ],
             "allowedCommonJsDependencies": [
-              "quill"
+              "quill",
+              "@ckeditor/ckeditor5-build-balloon"
            ]
           },
           "configurations": {

@@ -6,17 +6,23 @@ import { ChecklistDataService } from 'src/app/service/checklist-data.service';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
-
   date =new Date();
   todaysData:any[]=[];
   GraphData:any[]=[];
   currentIndex: any;
+  formatedDate: any;
   constructor(private taskdata:ChecklistDataService) { }
 
   ngOnInit(): void {
-    // this.taskdata.getTaskData().subscribe((res)=>{
-    //   this.todaysData=res;
-    // });
+    this.getTaskDataTodo()
+  }
+
+  getTaskDataTodo(){
+    const CurrentUserLoginId = localStorage.getItem("UserId");
+    this.taskdata.getTaskData(CurrentUserLoginId).subscribe((res)=>{
+      this.todaysData=res
+      console.log("From history Page:",this.todaysData);
+    });
   }
   
 //   getGraphData(todaysData:any[]){
