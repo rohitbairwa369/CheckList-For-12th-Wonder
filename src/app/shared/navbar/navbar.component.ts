@@ -60,7 +60,10 @@ export class NavbarComponent implements OnInit, OnDestroy{
   //to show and hide the logout option
   showlog = false;
   showlogout() {
-    return this.showlog = !this.showlog;
+   this.showlog = !this.showlog;
+    setTimeout(() => {
+      this.showlog=false;
+    }, 3000);
   }
 
   logoutSession(){
