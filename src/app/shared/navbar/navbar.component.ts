@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, SimpleChanges, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
      this.themeArray[0]=themeColor;
     }
   }
+
 
   userData:any;
   searchkey: any;
