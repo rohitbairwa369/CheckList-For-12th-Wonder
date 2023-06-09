@@ -70,7 +70,6 @@ onCreateAccount(form:NgForm){
   })
   this.toggleLoginSignup();
   this.messageService.add({ severity: 'success', summary: 'User Register', detail: 'Added' });
-   localStorage.setItem('users',JSON.stringify(this.users));
   }
   else{
     this.messageService.add({severity:'error', summary: 'Sign Up Issue', detail: 'Email Already Exist'});
