@@ -1,23 +1,23 @@
 .taskAssign{
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
-a {
+.hoverMe {
 	text-decoration: none;
 	color: #351b14;
 	font-family: sans-serif;
-	font-size: 2rem;
+	font-size: 1.2rem;
 	border: 1px solid #351435;
 	padding: 1rem 2rem;
 	position: relative;
 	transition: all 1s;
 	overflow: hidden;
     cursor: pointer;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 }
 
-a:before {
+.hoverMe:before {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -31,13 +31,18 @@ a:before {
     border-radius: 5rem;
 }
 
-a:hover:before {
+.hoverMe:hover:before {
 	transform: translateY(0);
     border-radius: 0;
 }
 
-a:hover {
+.hoverMe:hover {
 	color: white;
 }
 
+.tasksendbox{
+    width: 30rem;
+    height: 40rem;
+    background-color: #351435;
+}
 
