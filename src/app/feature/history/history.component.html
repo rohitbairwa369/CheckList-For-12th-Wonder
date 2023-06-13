@@ -6,10 +6,9 @@
     </div>
 
 <div class="flex" *ngFor="let task of todaysData">
-    <div *ngFor="let hist of task.history">
-    <div [innerHTML]="hist.current"></div>
+    <div [innerHTML]="task.history.current"></div>
     <div></div>
-    </div>
+
 
 </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
+
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',

@@ -1,0 +1,30 @@
+<div class="taskAssign">
+    <div class="flex justify-content-between realwidth border-bottom-1 p-2 border-500">
+        <div class="flex align-items-center gap-5">
+            <h3><i class="pi pi-envelope text-2xl mr-3"></i>Assign Task</h3>
+        </div>
+    </div>
+    <div class="w-full flex justify-content-center mt-3">
+        <div class='search__wrapper flex gap-3 p-2'>
+            <input pInputText class="max-h-full w-25rem text-2xl"  placeholder='Search Name...' type='text'>
+            <a type='submit'><i class="pi pi-search"></i> Search</a>
+          </div>  
+    </div> 
+    <div class="w-full flex flex-column justify-content-center">
+            <div class="flex justify-content-start gap-3 p-3 w-25rem h-5rem align-items-center text-2xl box-shadow-to-all " *ngFor="let user of users">
+                <div  *ngIf="DataCome;else loading">
+                 <div class="w-4rem h-4rem border-circle">
+                     <img [src]="user.image.changingThisBreaksApplicationSecurity" *ngIf="user.image" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
+                 </div>
+                 <div>
+                   {{user.name}}
+                 </div>
+                </div>
+                 <ng-template #loading>
+                    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+                </ng-template>
+             </div>
+    </div>  
+
+
+</div>
