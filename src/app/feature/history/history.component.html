@@ -5,14 +5,11 @@
         </div>
     </div>
 
-<div class="flex">
-    <div class="graphShow">
-        <label class="text-2xl"> <i class="pi pi-chart-line text-2xl mr-3"></i> Last 7 Days Performance</label>
-    
-        //graph here
+<div class="flex" *ngFor="let task of todaysData">
+    <div *ngFor="let hist of task.history">
+    <div [innerHTML]="hist.current"></div>
+    <div></div>
     </div>
-    <div class="graphShow">
-       
-    </div>
+
 </div>
 </div>

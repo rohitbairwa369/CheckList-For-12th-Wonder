@@ -4,6 +4,7 @@
 }
 
 
+
 #style-2::-webkit-scrollbar-track {
     // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 1rem;
@@ -24,6 +25,10 @@
 
 
 ::ng-deep {
+
+  .ck.ck-icon-button.ck-button__color-panel {
+    display: inline-block;
+  }
 
   .p-dialog{
     ::-webkit-scrollbar-track {

@@ -25,23 +25,23 @@ export class HistoryComponent implements OnInit {
     });
   }
   
-//   getGraphData(todaysData:any[]){
-//     for (const [index,obj] of todaysData.entries()) {
-//     if(obj.date==this.date.toLocaleDateString().split('T').splice(0,1)[0]){
-//       console.log(obj.date);
-//       this.currentIndex = index;
-//     }
-//     }
-//     if(this.todaysData.length>7){
-//     const ToIndex = this.currentIndex-6;
-//     for(let i = this.currentIndex ;i>=ToIndex; i--)
-//     {
-//       this.GraphData.push(this.todaysData[i])
-//      console.log(i);
-//      console.log(this.GraphData.length)
-//     }
-//   }
-//   }
+  getGraphData(todaysData:any[]){
+    for (const [index,obj] of todaysData.entries()) {
+    if(obj.date==this.date.toLocaleDateString().split('T').splice(0,1)[0]){
+      console.log(obj.date);
+      this.currentIndex = index;
+    }
+    }
+    if(this.todaysData.length>7){
+    const ToIndex = this.currentIndex-6;
+    for(let i = this.currentIndex ;i>=ToIndex; i--)
+    {
+      this.GraphData.push(this.todaysData[i])
+     console.log(i);
+     console.log(this.GraphData.length)
+    }
+  }
+  }
 
 
 }
