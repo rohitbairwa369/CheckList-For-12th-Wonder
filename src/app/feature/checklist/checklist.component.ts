@@ -55,7 +55,8 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   CalculatedTimeDiff: any;
   themeArray: any;
   @ViewChild('Modelhead', { static: false }) Modelhead: ElementRef;
-
+  hashtags: { name: string; code: string; }[];
+  SelectedHashtag:any;
   
   constructor(private router: Router, private messageService: MessageService, private taskdataService: ChecklistDataService, private confirmationService: ConfirmationService) {
     this.priorityLevel = [
@@ -87,6 +88,11 @@ export class ChecklistComponent implements OnInit, OnDestroy {
         color: '#12b53e'
       }
     ]
+
+    this.hashtags = [
+      {name: '#important', code: 'NY'},
+      {name: '#urgent', code: 'RM'},
+  ];
 
     this.getTaskDataTodo();
 
@@ -332,7 +338,8 @@ export class ChecklistComponent implements OnInit, OnDestroy {
         status: {
           'name': 'Todo',
           'color': '#a8a8a8'
-        }
+        },
+        tag:this.SelectedHashtag
       };
       this.todaysTask.push(newTask);
       this.taskdataService.postTask(newTask, this.CurrentUserLoginId);

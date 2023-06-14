@@ -15,6 +15,7 @@
             <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
         </div>
     </div>
+    
     <p-dialog [(visible)]="displayModal" [modal]="true"
         [style]="{width: '50vw'}" [baseZIndex]="10000" styleClass="PhoneResponsive">
         <div *ngFor="let tasks of todaysTask">
@@ -173,6 +174,7 @@
                     [defaultDate]="defaultDate" inputId="time"
                     styleClass="border-1 border-round-xl border-gray-400 h-3rem" dateFormat="dd/m/yy"
                     inputStyleClass="text-xl text-gray-600" panelStyleClass="positionleft"></p-calendar>
+                    <p-dropdown [options]="hashtags" [(ngModel)]="SelectedHashtag" [editable]="true" placeholder="Enter #Tag" optionLabel="name"></p-dropdown>
             </div>
             <div class="flex gap-3 align-items-center p-2">
                 <button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="addnewtask()">Save</button>
@@ -185,4 +187,5 @@
         <i class="pi pi-plus text-xl onhovericon  border-1 border-white p-1 cursor-pointer"></i>
         <label class="text-xl cursor-pointer ">Add Task</label>
     </div>
+
 </section>

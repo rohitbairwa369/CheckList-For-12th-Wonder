@@ -4,25 +4,27 @@
             <h3><i class="pi pi-envelope text-2xl mr-3"></i>Assign Task</h3>
         </div>
         <div class='flex gap-3'>
-            <input pInputText class="max-w-full w-25rem text-2xl"  placeholder='Search Name...' type='text'>
+            <input pInputText class="max-w-full w-25rem text-2xl" placeholder='Search Name...' type='text'>
             <a type='submit' class="hoverMe"><i class="pi pi-search"></i> Search</a>
-          </div>  
+        </div>
     </div>
 
 
-    <div class="w-26rem flex flex-column justify-content-center">
-        <div class='w-auto h-auto' *ngIf="DataCome; else loading">
-            <div class="flex justify-content-start gap-3 p-3 w-25rem mt-3 m-2 hoverMe h-full align-items-center text-2xl box-shadow-to-all " *ngFor="let user of users">
-                 <div class="w-4rem h-4rem border-circle bg-gray-300">
-                     <img [src]="user.image.changingThisBreaksApplicationSecurity" *ngIf="user.image" width="100%" class="border-circle" height="100%" alt="Uploaded Image">
-                 </div>
-                 <div>
-                   {{user.name}}
-                 </div>
-             </div>
+    <div class="w-full flex justify-content-center">
+        <div class='flex flex-column w-auto h-auto' *ngIf="DataCome; else loading">
+            <div class="flex justify-content-start gap-3 p-3 w-25rem mt-3 m-2 hoverMe h-full align-items-center text-2xl box-shadow-to-all "
+                *ngFor="let user of users">
+                <div class="w-4rem h-4rem border-circle bg-gray-300">
+                    <img [src]="user.image.changingThisBreaksApplicationSecurity" *ngIf="user.image" width="100%"
+                        class="border-circle" height="100%" alt="Uploaded Image">
+                </div>
+                <div>
+                    {{user.name}}
+                </div>
+            </div>
         </div>
-        <div class="w-full">
-            <ng-template #loading>
+        <ng-template #loading>
+            <div class="w-26rem flex flex-column">
                 <p-skeleton height="4rem" width="25rem" styleClass="p-mb-2 m-2 mt-3"></p-skeleton>
                 <p-skeleton height="4rem" width="25rem" styleClass="p-mb-2 m-2 mt-3"></p-skeleton>
                 <p-skeleton height="4rem" width="25rem" styleClass="p-mb-2 m-2 mt-3"></p-skeleton>
@@ -36,9 +38,20 @@
                 <p-skeleton height="4rem" width="25rem" styleClass="p-mb-2 m-2 mt-3"></p-skeleton>
                 <p-skeleton height="4rem" width="25rem" styleClass="p-mb-2 m-2 mt-3"></p-skeleton>
                 <p-skeleton height="4rem" width="25rem" styleClass="p-mb-2 m-2 mt-3"></p-skeleton>
-            </ng-template>
+            </div>
+        </ng-template>
+        <div class="tasksendbox m-3">
+            <div>
+                <div>
+                    
+                </div>
+                <label ></label>
+            </div>
         </div>
-    </div>  
+
+        <div class="SearchNname"></div>
+    </div>
+
 
 
 

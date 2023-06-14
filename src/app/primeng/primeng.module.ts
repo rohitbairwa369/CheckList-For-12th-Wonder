@@ -24,7 +24,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {EditorModule} from 'primeng/editor';
 import {SkeletonModule} from 'primeng/skeleton';
 import {ColorPickerModule} from 'primeng/colorpicker';
-
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -53,7 +53,8 @@ import {ColorPickerModule} from 'primeng/colorpicker';
     InputTextareaModule,
     EditorModule,
     SkeletonModule,
-    ColorPickerModule
+    ColorPickerModule,
+    AutoCompleteModule
   ],
   exports:[
     ButtonModule,
@@ -79,7 +80,8 @@ import {ColorPickerModule} from 'primeng/colorpicker';
     InputTextareaModule,
     EditorModule,
     SkeletonModule,
-    ColorPickerModule
+    ColorPickerModule,
+    AutoCompleteModule
   ]
 })
 export class PrimengModule { }
