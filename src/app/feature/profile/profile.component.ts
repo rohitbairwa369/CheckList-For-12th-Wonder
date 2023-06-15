@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
       taskdata:this.userData.taskdata
     }
   this.taskdata.updateUserData(this.CurrentUserLoginId,updatedUserDate);
+  this.taskdata.UserDataSubject.emit(updatedUserDate);
   this.messageService.add({severity:'success', summary: 'Success', detail:'User Details updated'});
   }
 

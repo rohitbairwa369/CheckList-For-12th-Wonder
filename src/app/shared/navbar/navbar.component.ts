@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit {
   themeArray: any = ['#d33f00'];
   //declaring array to store retrived output
   todaysTask: any[] = [];
+  userData: any;
+  searchkey: any;
 
   constructor(private router: Router, private taskdata: ChecklistDataService) { }
 
@@ -28,6 +30,9 @@ export class NavbarComponent implements OnInit {
     this.themefunction();
     this.taskdata.dataSubject.subscribe((res) => {
       this.todaysTask = res;
+    })
+    this.taskdata.UserDataSubject.subscribe((res)=>{
+      this.userData=res;
     })
   }
 
@@ -43,8 +48,6 @@ export class NavbarComponent implements OnInit {
   }
 
 
-  userData: any;
-  searchkey: any;
 
   getUserDataNavbar() {
     this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res) => {
@@ -63,8 +66,8 @@ export class NavbarComponent implements OnInit {
   showlogout() {
     this.showlog = !this.showlog;
     setTimeout(() => {
-      this.showlog=!this.showlog;
-    }, 2000);
+      this.showlog=false;
+    }, 3000);
   }
 
   logoutSession() {

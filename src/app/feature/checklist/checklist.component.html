@@ -116,7 +116,7 @@
                             <ng-template pTemplate="input">
                                 <!-- <input pInputText type="text" class="w-full text-2xl"  autofocus [(ngModel)]="tasks.heading"
                                     maxlength="150"> -->
-                                    <ckeditor [editor]="Editor"  [config]="{ toolbar: ['bold', 'italic', 'bulletedList', 'undo', 'redo']}"  [(ngModel)]="tasks.heading" minlength="150"></ckeditor>
+                                    <ckeditor [editor]="Editor"  [config]="{ toolbar: ['bold', 'italic', 'undo', 'redo']}"  [(ngModel)]="tasks.heading"></ckeditor>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 <div [ngClass]="{'line-through': tasks.completed}" class="cursor-pointer"
@@ -160,7 +160,7 @@
         </div>
 
         <input pInputText type="text" name="" id="" class="w-full border-0 text-xl" placeholder="Description"
-            [(ngModel)]="newTaskdescription" maxlength="1000">
+            [(ngModel)]="newTaskdescription">
         <div class="flex justify-content-between mt-3 border-top-1 pt-3 border-gray-300">
             <div class="flex gap-3 align-items-center p-2">
                 <p-dropdown [options]="priorityLevel" [(ngModel)]="priority" pTooltip="Priority" tooltipPosition="top"

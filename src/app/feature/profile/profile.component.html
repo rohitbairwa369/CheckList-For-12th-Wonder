@@ -10,7 +10,7 @@
     <div class="p-2 mt-2 flex gap-4">
         <div
             class="w-7rem h-7rem bg-blue-800 border-circle  flex justify-content-center align-items-center text-6xl text-white">
-            <ng-template #profileText><label class="text-white text-2xl">{{userData?.name.charAt(0).toUpperCase()}}</label></ng-template>
+            <ng-template #profileText><label class="text-white text-2xl min-w-full">{{userData?.name.charAt(0).toUpperCase()}}</label></ng-template>
             <img [src]="imageUrl" *ngIf="imageUrl; else profileText" class="border-circle min-w-full" height="100%" alt="Uploaded Image">
         </div>
         <div class="flex flex-column justify-content-center text-xl text-gray-600">

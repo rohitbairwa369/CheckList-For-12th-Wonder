@@ -21,6 +21,10 @@
     background-color: #e4e4e4;
   }
 
+  :host ::ng-deep .ck-editor__editable_inline {
+    max-height: 5.5rem !important;
+    overflow: hidden;
+}
 
 
 
