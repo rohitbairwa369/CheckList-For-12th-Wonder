@@ -13,6 +13,7 @@ export class ChecklistDataService {
   UpdateComponents =new EventEmitter<any>();
   dataSubject= new EventEmitter<any[]>();
   UserDataSubject= new EventEmitter<any>();
+  showHideLoginOption= new EventEmitter<boolean>();
   themeArray= new Rx.Subject<any>();
   constructor(private http: HttpClient) { }
 

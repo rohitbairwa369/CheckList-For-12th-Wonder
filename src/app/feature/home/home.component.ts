@@ -35,6 +35,8 @@ export class HomeComponent implements OnInit {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-
+  handleClick(){
+    this.taskdata.showHideLoginOption.emit(false);
+  }
 
 }

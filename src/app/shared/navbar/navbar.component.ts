@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   todaysTask: any[] = [];
   userData: any;
   searchkey: any;
+  countLog: any = 0;
 
   constructor(private router: Router, private taskdata: ChecklistDataService) { }
 
@@ -31,8 +32,12 @@ export class NavbarComponent implements OnInit {
     this.taskdata.dataSubject.subscribe((res) => {
       this.todaysTask = res;
     })
-    this.taskdata.UserDataSubject.subscribe((res)=>{
-      this.userData=res;
+    this.taskdata.UserDataSubject.subscribe((res) => {
+      this.userData = res;
+    })
+
+    this.taskdata.showHideLoginOption.subscribe((res)=>{
+      this.showlog=res;
     })
   }
 
@@ -47,6 +52,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  // handleClick() {
+  //   this.countLog++;
+  //   console.log('clicked outside', this.countLog);
+  // }
 
 
   getUserDataNavbar() {
@@ -65,9 +74,6 @@ export class NavbarComponent implements OnInit {
   showlog = false;
   showlogout() {
     this.showlog = !this.showlog;
-    setTimeout(() => {
-      this.showlog=false;
-    }, 3000);
   }
 
   logoutSession() {

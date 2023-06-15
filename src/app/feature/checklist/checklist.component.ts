@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import BalloonEditor from '@ckeditor/ckeditor5-build-balloon';
+import { Table } from 'primeng/table';
 
 
 @Component({
@@ -58,6 +59,8 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   hashtags: { name: string; code: string; }[];
   SelectedHashtag:any;
   
+
+
   constructor(private router: Router, private messageService: MessageService, private taskdataService: ChecklistDataService, private confirmationService: ConfirmationService) {
     this.priorityLevel = [
       {
@@ -240,7 +243,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
         time: tasks.time,
         priority: this.ModelPriority,
         schedule: this.ModalDueDate,
-        status: this.ModelStatus
+        status: this.ModelStatus,
       }
       this.taskdataService.updateTaskDataHeading(tasks.id, this.CurrentUserLoginId, updateddata).subscribe((res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Task Updated' });

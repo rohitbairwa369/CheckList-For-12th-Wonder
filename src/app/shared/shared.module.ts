@@ -5,13 +5,16 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { CountdownComponent } from './countdown/countdown.component';
 import { NotificationBarComponent } from './notification-bar/notification-bar.component';
+import { CheckIfClickOutSideDirective } from '../../app/check-if-click-out-side.directive'
+
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
     CountdownComponent,
-    NotificationBarComponent
+    NotificationBarComponent,
+    CheckIfClickOutSideDirective
   ],
   imports: [
     CommonModule,
@@ -21,6 +24,7 @@ import { NotificationBarComponent } from './notification-bar/notification-bar.co
     NavbarComponent,
     SidebarComponent,
     CountdownComponent,
+    CheckIfClickOutSideDirective
   ]
 })
 export class SharedModule { }

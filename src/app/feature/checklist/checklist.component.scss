@@ -92,6 +92,8 @@
     #pr_id_3 .p-datatable-tbody > tr > td {
       justify-content: end !important;
     }
+
+
   }
 
   div.flex
@@ -138,6 +140,15 @@
   top: 50vh;
 }
 
+input::file-selector-button {
+  font-weight: bold;
+  color: rgb(90, 90, 90);
+  padding: 0.5em;
+  border: none;
+  background-color: rgb(232, 232, 232);
+  border-radius: 1.5rem;
+}
+
 
 ::ng-deep {
 
@@ -152,6 +163,8 @@
       width: auto !important;
     }
   }
+
+
 
   .p-calendar .p-inputtext {
     flex: 1 1 auto;

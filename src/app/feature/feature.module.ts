@@ -9,6 +9,7 @@ import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { CheckIfClickOutSideDirective } from '../check-if-click-out-side.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ChecklistComponent,
     HistoryComponent,
     SettingsComponent,
-    ProfileComponent
+    ProfileComponent,
 
   ],
   imports: [
