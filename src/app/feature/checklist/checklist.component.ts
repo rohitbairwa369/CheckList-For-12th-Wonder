@@ -112,7 +112,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.loading = false
       }, 700);
-      this.taskdataService.dataSubject.next(this.todaysTask)
+      this.taskdataService.dataSubject.emit(this.todaysTask);
     })
   }
 
@@ -343,7 +343,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
       };
       this.todaysTask.push(newTask);
       this.taskdataService.postTask(newTask, this.CurrentUserLoginId);
-      this.taskdataService.dataSubject.next(this.todaysTask)
+      this.taskdataService.dataSubject.emit(this.todaysTask);
       this.newTaskName = '';
       this.newTaskdescription = '';
       this.showSuccess() //show success message

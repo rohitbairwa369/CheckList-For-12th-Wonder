@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as Rx from "rxjs";
 
@@ -10,8 +10,8 @@ import * as Rx from "rxjs";
 export class ChecklistDataService {
 
 
-  UpdateComponents =new Rx.Subject<any>();
-  dataSubject= new Rx.Subject<any>();
+  UpdateComponents =new EventEmitter<any>();
+  dataSubject= new EventEmitter<any[]>();
   themeArray= new Rx.Subject<any>();
   constructor(private http: HttpClient) { }
 

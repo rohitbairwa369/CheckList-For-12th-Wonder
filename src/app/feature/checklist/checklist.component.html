@@ -3,16 +3,13 @@
     <div class="flex justify-content-between realwidth border-bottom-1 p-2 border-500">
         <div class="flex align-items-center gap-5">
             <h3>My Tasks</h3>
-            <!-- <i class="pi pi-sort-alt p-3 border-round-xl cursor-pointer hover:bg-gray-300"
-                (click)="sortTaskData()"></i> -->
+
         </div>
         <div class="flex align-items-center gap-3">
-            <!-- <i class="pi pi-angle-left text-2xl p-2 border-circle hover:bg-gray-400" ></i> -->
             <i class="pi pi-calendar text-3xl cursor-pointer" pTooltip="Select Date" tooltipPosition="top"
                 (click)="toggleCalendar()"></i>
             <p-calendar [(ngModel)]="formatedDate" #calendar [defaultDate]="defaultDate" dateFormat="dd/m/yy"
                 styleClass="text-2xl" panelStyleClass="panel-left"></p-calendar>
-            <!-- <i class="pi pi-angle-right text-2xl p-2 border-circle hover:bg-gray-400"></i> -->
         </div>
     </div>
     
@@ -38,7 +35,6 @@
                         </div>
                     </div>
                     <ng-template #editor>
-                        <!-- <ckeditor [editor]="Editor"  [(ngModel)]="ModalDesc"></ckeditor> -->
                         <p-editor [(ngModel)]="ModalDesc" [style]="{'height':'320px'}"></p-editor>
                     </ng-template>
                     <!-- <div class="flex justify-content-between">
@@ -120,8 +116,7 @@
                             <ng-template pTemplate="input">
                                 <!-- <input pInputText type="text" class="w-full text-2xl"  autofocus [(ngModel)]="tasks.heading"
                                     maxlength="150"> -->
-                                    <ckeditor [editor]="Editor" [config]="{ toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo', 'colorPicker']}"  [(ngModel)]="tasks.heading" minlength="150"></ckeditor>
-                                <!-- <ckeditor [editor]="InlineEditing"  [data]="data"></ckeditor> -->
+                                    <ckeditor [editor]="Editor"  [config]="{ toolbar: ['bold', 'italic', 'bulletedList', 'undo', 'redo']}"  [(ngModel)]="tasks.heading" minlength="150"></ckeditor>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 <div [ngClass]="{'line-through': tasks.completed}" class="cursor-pointer"
@@ -174,10 +169,9 @@
                     [defaultDate]="defaultDate" inputId="time"
                     styleClass="border-1 border-round-xl border-gray-400 h-3rem" dateFormat="dd/m/yy"
                     inputStyleClass="text-xl text-gray-600" panelStyleClass="positionleft"></p-calendar>
-                    <p-dropdown [options]="hashtags" [(ngModel)]="SelectedHashtag" [editable]="true" placeholder="Enter #Tag" optionLabel="name"></p-dropdown>
             </div>
             <div class="flex gap-3 align-items-center p-2">
-                <button pButton class="text-2xl p-0 h-3rem px-3 bg-green-800" (click)="addnewtask()">Save</button>
+                <button pButton class="text-2xl p-0 h-3rem px-3  bg-green-800" (click)="addnewtask()">Save</button>
             </div>
         </div>
     </div>

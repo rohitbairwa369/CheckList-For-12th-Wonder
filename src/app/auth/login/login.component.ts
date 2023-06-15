@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
   users: any[] = [];
   constructor(private router: Router, private messageService: MessageService, private auth: AuthGuard, private taskdataService: ChecklistDataService) { }
   ngOnInit(): void {
-    this.getUserDataLogin();
+    this.taskdataService.getUserData().subscribe((res) => {
+      this.users = res;
+    })
   }
 
   getUserDataLogin() {
@@ -30,8 +32,6 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
-    const repassword = form.value.repassword;
-
 
     const user = this.users.find(u => u.email == email && u.password == password);
     if (user) {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, SimpleChanges, OnDestroy, HostListener } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChecklistDataService } from 'src/app/service/checklist-data.service';
@@ -8,42 +8,46 @@ import { ChecklistDataService } from 'src/app/service/checklist-data.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit, OnDestroy{
+export class NavbarComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter<boolean>();
 
   subtask: any;
   CurrentUserLoginId: string;
   dataSubscription: Subscription;
-  notification_bar:boolean=false;
-  themeArray: any=['#d33f00'];
+  notification_bar: boolean = false;
+  themeArray: any = ['#d33f00'];
+  //declaring array to store retrived output
+  todaysTask: any[] = [];
 
-  constructor(private router : Router,private taskdata:ChecklistDataService) { }
-  ngOnDestroy(): void {
-   this.dataSubscription.unsubscribe();
-  }
+  constructor(private router: Router, private taskdata: ChecklistDataService) { }
+
   searching: boolean = false;
   ngOnInit(): void {
-    this.CurrentUserLoginId =localStorage.getItem("UserId");
-    this.dataSubscription = this.taskdata.getTaskData(this.CurrentUserLoginId).subscribe((data)=>{
-      this.todaysTask = data.filter((data) => data.userId === this.CurrentUserLoginId);
-    })
+    this.CurrentUserLoginId = localStorage.getItem("UserId");
     this.getUserDataNavbar();
-    this.taskdata.themeArray.subscribe((res)=>{
-      this.themeArray= res;
+    this.themefunction();
+    this.taskdata.dataSubject.subscribe((res) => {
+      this.todaysTask = res;
+    })
+  }
+
+  themefunction() {
+    this.taskdata.themeArray.subscribe((res) => {
+      this.themeArray = res;
     })
 
     const themeColor = localStorage.getItem('themeColor');
-    if(themeColor){
-     this.themeArray[0]=themeColor;
+    if (themeColor) {
+      this.themeArray[0] = themeColor;
     }
   }
 
 
-  userData:any;
+  userData: any;
   searchkey: any;
 
-  getUserDataNavbar(){
-    this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res)=>{
+  getUserDataNavbar() {
+    this.taskdata.getSpecificUserData(this.CurrentUserLoginId).subscribe((res) => {
       this.userData = res;
     });
   }
@@ -51,49 +55,33 @@ export class NavbarComponent implements OnInit, OnDestroy{
 
   get searchresult() {
     this.searching = true;
-    return this.todaysTask.filter(product => product.heading.toLowerCase().includes(this.searchkey?.toLowerCase()));
+    return this.todaysTask.filter(task => task.heading.toLowerCase().includes(this.searchkey?.toLowerCase()));
   }
-
-  //declaring array to store retrived output
-  todaysTask: any[] = [];
 
   //to show and hide the logout option
   showlog = false;
   showlogout() {
-   this.showlog = !this.showlog;
+    this.showlog = !this.showlog;
     setTimeout(() => {
-      this.showlog=false;
-    }, 3000);
+      this.showlog=!this.showlog;
+    }, 2000);
   }
 
-  logoutSession(){
+  logoutSession() {
     localStorage.removeItem('loginStatus');
     localStorage.removeItem('UserId');
     this.router.navigate(['/login']);
   }
 
-  blurHideSearch(){
-    
+  showDateTodo(date: any) {
+    this.taskdata.UpdateComponents.emit(date);
+    this.searching = false;
   }
 
-showDateTodo(date:any){
-  this.taskdata.UpdateComponents.next(date);
-  this.searching=false;
-  }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['currentId'] && !changes['currentId'].firstChange) {
-  //     const retrievedObject = localStorage.getItem('taskdata');
-  //     this.todaysTask = JSON.parse(retrievedObject);
-  //   }
-    
-  // }
-
-  hideSearching(){
+  hideSearching() {
     setTimeout(() => {
-      this.searching=false;
+      this.searching = false;
     }, 2000);
   }
 
-  
 }

@@ -38,7 +38,8 @@
   *ngIf="searching && searchresult.length>0; else noSearchResult">
   <div class="text-xl text-gray-800 p-1 text-overflow-ellipsis border-round-xl w-full  border-gray-400 cursor-pointer hover:bg-gray-200"
     *ngFor="let result of searchresult | slice:0:5" (click)="showDateTodo(result.date)">
-        {{ result.heading | slice:0:44}}
+        <!-- {{ result.heading | slice:0:44}} -->
+        <div [innerHTML]="result.heading" class="m-0 p-0"></div>
   </div>
 </div>
 
@@ -53,7 +54,7 @@
 </ng-template>
 
 <div class="flex flex-column  p-3 absolute border-round-xl border-1 border-gray-300 right-0 mr-4 bg-white z-2"
-  *ngIf="showlog">
+  *ngIf="showlog" >
   <div class="flex align-items-center">
     <div class=" flex w-3rem h-3rem mr-3 bg-blue-800 text-white border-circle justify-content-center align-items-center">
       <ng-template #profileText><p class="text-2xl">{{userData.name.charAt(0).toUpperCase()}}</p></ng-template>
@@ -67,7 +68,6 @@
   <div class="list-none mt-3  mr-2 flex flex-column align-items-start ">
     <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl mb-1 cursor-pointer" routerLink="profile"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-user mr-3"></i> Profile</a></li>
     <hr class="border-bottom-1 border-gray-300 w-full mb-2">
-    <!-- <li class="hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-user mr-2"></i>Theme</a></li> -->
     <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer mb-2" routerLink="settings"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-unlock mr-3"></i>Settings</a></li>
     <li class=" flex align-items-center hover:bg-gray-300 w-full px-2 border-round-xl cursor-pointer mb-2" (click)="logoutSession()"><a class="no-underline text-2xl text-gray-800"><i class="pi pi-sign-out  mr-3"></i> Logout</a></li>
   </div>

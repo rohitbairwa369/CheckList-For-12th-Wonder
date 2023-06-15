@@ -16,7 +16,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ChecklistComponent,
     HistoryComponent,
     SettingsComponent,
-    ProfileComponent,
+    ProfileComponent
 
   ],
   imports: [
