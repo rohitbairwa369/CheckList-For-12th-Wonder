@@ -4,7 +4,7 @@ import { ChecklistComponent } from "./checklist/checklist.component";
 import { HistoryComponent } from "./history/history.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { TaskAssignComponent } from "./task-assign/task-assign.component";
+// import { TaskAssignComponent } from "./task-assign/task-assign.component";
 
 
 const routes: Routes = [
@@ -12,7 +12,6 @@ const routes: Routes = [
     { path: 'history', component: HistoryComponent },
     { path:'settings',component: SettingsComponent},
     { path:'profile', component: ProfileComponent},
-    { path:'assign', component: TaskAssignComponent}
 ]
 
 @NgModule({

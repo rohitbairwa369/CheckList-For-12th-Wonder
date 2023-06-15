@@ -16,7 +16,7 @@ export class ChecklistDataService {
   constructor(private http: HttpClient) { }
 
   getTaskData(id:any) {
-    return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}/taskdata.json`).pipe(Rx.map(responsedata=>{
+    return this.http.get(`https://mytodo-4405f-default-rtdb.firebaseio.com/users/${id}/taskdata.json`).pipe(Rx.map(responsedata=>{
       const taskArray =[];
       for(const key in responsedata){
         if(responsedata.hasOwnProperty(key)){
@@ -33,25 +33,25 @@ export class ChecklistDataService {
   }
 
   postTask(data: any,id:any){
-   return this.http.post(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}/taskdata.json`,data).subscribe((res)=>{
+   return this.http.post(`https://mytodo-4405f-default-rtdb.firebaseio.com/users/${id}/taskdata.json`,data).subscribe((res)=>{
     console.log(res);
    })
   }
   //update data to task
   updateTaskDataHeading(id:any,userid:any,updateddata: any) {
-    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${userid}/taskdata/${id}.json`,updateddata);
+    return this.http.patch(`https://mytodo-4405f-default-rtdb.firebaseio.com/users/${userid}/taskdata/${id}.json`,updateddata);
   }
 
   //function to delete data
   deleteTask(id: any,userid:any) {
-    return this.http.delete(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${userid}/taskdata/${id}.json`);
+    return this.http.delete(`https://mytodo-4405f-default-rtdb.firebaseio.com/users/${userid}/taskdata/${id}.json`);
   }
 
   //User
 
   //function to get users data
   getUserData() {
-    return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json`).pipe(Rx.map(responsedata=>{
+    return this.http.get(`https://mytodo-4405f-default-rtdb.firebaseio.com/users.json`).pipe(Rx.map(responsedata=>{
       const UserArray =[];
       for(const key in responsedata){
         if(responsedata.hasOwnProperty(key)){
@@ -63,16 +63,16 @@ export class ChecklistDataService {
   }
 
   registerUser(userdata:any){
-   return this.http.post(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users.json`,userdata);
+   return this.http.post(`https://mytodo-4405f-default-rtdb.firebaseio.com/users.json`,userdata);
   }
 
   getSpecificUserData(id:any){
-    return this.http.get(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${id}.json`);
+    return this.http.get(`https://mytodo-4405f-default-rtdb.firebaseio.com/users/${id}.json`);
   }
 
   //function to update user data
   updateUserData(Userid:any,data:any){
-    return this.http.patch(`https://checklist-4c9fc-default-rtdb.firebaseio.com/users/${Userid}.json`,data).subscribe((res)=>{
+    return this.http.patch(`https://mytodo-4405f-default-rtdb.firebaseio.com/users/${Userid}.json`,data).subscribe((res)=>{
     console.log(res);
    })
   }

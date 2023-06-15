@@ -9,7 +9,6 @@ import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { TaskAssignComponent } from './task-assign/task-assign.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { TaskAssignComponent } from './task-assign/task-assign.component';
     HistoryComponent,
     SettingsComponent,
     ProfileComponent,
-    TaskAssignComponent
+
   ],
   imports: [
     CommonModule,
