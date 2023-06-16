@@ -18,7 +18,7 @@
         <div *ngFor="let tasks of todaysTask">
             <ng-container *ngIf="tasks.id==modalClickedId">
                 <div class="flex justify-content-between p-3 align-items-center">
-                    <div class="text-4xl font-bold text-gray-700">Task</div>
+                    <div class="text-3xl font-bold text-gray-700">Task</div>
                     <div class="text-2xl font-bold">
                     <app-countdown [value]="CalculatedTimeDiff" [startPositive]="false" [day]="true"></app-countdown></div>
                 </div>
@@ -27,7 +27,7 @@
                         <div [innerHTML]="ModalHeading" contenteditable="true" #Modelhead  class="outline-none" >
 
                         </div>
-                    <div class="text-4xl font-bold text-gray-700">Description</div>
+                    <div class="text-3xl font-bold text-gray-700">Description</div>
                     <div *ngIf="showeditor;else editor" (click)="toggle()"
                         class="cursor-pointer hover:bg-gray-200 border-round-xl p-2 w-full"
                         style="word-wrap: break-word; overflow: auto;">
@@ -43,7 +43,7 @@
                     </div> -->
                     <hr class="border-bottom-1 border-gray-200 w-full">
                     <div class="flex justify-content-between">
-                        <label class="text-4xl font-bold text-gray-700">Due Date</label>
+                        <label class="text-2xl font-bold text-gray-700">Due Date</label>
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="flex justify-content-between">
-                        <label class="text-4xl font-bold text-gray-700">Priority</label>
+                        <label class="text-2xl font-bold text-gray-700">Priority</label>
                         <div>
                             <p-inplace [closable]="true" styleClass="text-2xl">
                                 <ng-template pTemplate="display">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="flex justify-content-between">
-                        <label class="text-4xl font-bold text-gray-700">Status</label>
+                        <label class="text-2xl font-bold text-gray-700">Status</label>
                         <div> <p-inplace [closable]="true" styleClass="text-2xl">
                             <ng-template pTemplate="display">
                                 {{ModelStatus?.name}}

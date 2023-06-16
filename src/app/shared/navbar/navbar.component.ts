@@ -63,7 +63,10 @@ export class NavbarComponent implements OnInit {
 
 
   get searchresult() {
-    this.searching = true;
+    if(this.searchkey.length>0)
+    {
+      this.searching = true;
+    }
     return this.todaysTask.filter(task => task.heading.toLowerCase().includes(this.searchkey?.toLowerCase()));
   }
 
