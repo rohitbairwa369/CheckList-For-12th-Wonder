@@ -22,9 +22,13 @@ height: auto;
             
 }
 
-::ng-deep{.topclass{
+
+
+::ng-deep{
+  .topclass{
     top: 60px !important;
   }
+
 }
 
 .backgroundMain{

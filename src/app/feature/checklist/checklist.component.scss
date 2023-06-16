@@ -30,6 +30,7 @@
 
 ::ng-deep {
 
+
   .ck.ck-icon-button.ck-button__color-panel {
     display: inline-block;
   }
@@ -132,6 +133,8 @@
 }
 
 .siztex {
+  display: flex;
+  align-items: center;
   max-width: 70rem;
   width: 100%;
 }
@@ -156,6 +159,7 @@ input::file-selector-button {
     display: block;
     //   width: auto !important;
   }
+
 
   @media screen and (max-width: 960px) {
     #pr_id_3 .p-datatable-tbody > tr > td {

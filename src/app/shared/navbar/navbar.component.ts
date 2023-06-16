@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
 
     this.taskdata.showHideLoginOption.subscribe((res)=>{
       this.showlog=res;
+      this.searching=res;
     })
   }
 
@@ -52,10 +53,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  // handleClick() {
-  //   this.countLog++;
-  //   console.log('clicked outside', this.countLog);
-  // }
 
 
   getUserDataNavbar() {

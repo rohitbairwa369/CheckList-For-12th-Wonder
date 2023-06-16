@@ -12,7 +12,8 @@
     <div class="flex align-content-center flex-column gap-5">
     <input type="email" name="email" pInputText placeholder="Email id" class="h-5rem max-w-30rem w-full text-2xl align-self-center" ngModel required email/>
     <input type="password" id="password" pInputText placeholder="Password" class="h-5rem max-w-30rem w-full  text-2xl align-self-center" ngModel name="password" required minlength="4" />
-    <div class="flex justify-content-center"><button pButton class="w-7rem text-2xl text-center text-white" [disabled]="!authForms.valid">Login</button>
+    <div class="flex justify-content-center">
+        <button pButton class="border-round-xl  py-2 text-2xl text-center text-white" label="Login" [disabled]="!authForms.valid"></button>
     </div>
 </div>
 <div class="flex justify-content-center"><p class="text-2xl">Don't Have an Account ? <a class="cursor-pointer underline text-white" (click)="toggleLoginSignup()">Create One</a></p>
@@ -28,7 +29,7 @@
             <input type="password" id="password" pInputText placeholder="Password" class="h-5rem text-2xl w-30rem align-self-center" ngModel name="password" required minlength="4" />
             <input type="password" id="repassword" pInputText placeholder="Confirm Your Password" class="h-5rem text-2xl w-30rem align-self-center" ngModel name="repassword" required minlength="4" />
        
-        <div class="flex justify-content-center"><button pButton class="w-9rem text-2xl text-center text-white" [disabled]="!accountForms.valid">Sign Up</button>
+        <div class="flex justify-content-center"><button pButton class="w-9rem text-2xl text-center text-white" label="Sign Up" [disabled]="!accountForms.valid"></button>
 </div></div>
 </form>
 <div class="flex justify-content-center"><p class="text-2xl">Already Have an Account ? <a class="cursor-pointer text-white underline" (click)="toggleLoginSignup()">Login</a></p>
