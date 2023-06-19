@@ -39,6 +39,7 @@ export class NavbarComponent implements OnInit {
     this.taskdata.showHideLoginOption.subscribe((res)=>{
       this.showlog=res;
       this.searching=res;
+      this.searchkey='';
     })
   }
 
@@ -87,10 +88,10 @@ export class NavbarComponent implements OnInit {
     this.searching = false;
   }
 
-  hideSearching() {
-    setTimeout(() => {
-      this.searching = false;
-    }, 2000);
-  }
+  // hideSearching() {
+  //   setTimeout(() => {
+  //     this.searching = false;
+  //   }, 2000);
+  // }
 
 }
